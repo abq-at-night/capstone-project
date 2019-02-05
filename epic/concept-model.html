@@ -15,44 +15,45 @@
             <ul>
                 <li>eventId (primary key)</li>
                 <li>eventIdAdminId (foreign key)</li>
-                <li>eventAddress</li>
-                <li>eventAgeRequirements</li>
-                <li>eventArtist</li>
+                <li>eventAgeRequirement</li>
                 <li>eventDate</li>
                 <li>eventDescription</li>
-                <li>eventGenre</li>
-                <li>eventImageId</li>
-                <li>eventName</li>
-                <li>eventTag</li>
-                <li>eventTime</li>
+                <li>eventEndTime</li>
                 <li>eventPrice</li>
-                <li>eventPromoter</li>
                 <li>eventPromoterWebsite</li>
+                <li>eventStartTime</li>
+                <li>eventTitle</li>
                 <li>eventVenue</li>
                 <li>eventVenueWebsite</li></ul>
-        <h2>Admin</h2>
+         <h3>Tag</h3>
+            <ul>
+                <li>tagId (Primary Key)</li>
+                <li>tagType</li>
+                <li>tagValue</li></ul>
+        <h4>Admin</h4>
             <ul>
                 <li>adminId (primary key)</li>
+                <li>adminEmail</li>
                 <li>adminHash</li>
+                <li>adminPassword</li>
                 <li>adminUsername</li></ul>
-        <h2>Relationships</h2>
-        <ul>
-            <li>One - Many: one admin creates many events.</li>
-        </ul>
-
-         <h2>ERD</h2>
+        <h5>Event Tag</h5>
+            <ul>
+                <li>eventTagEvent (foreign Key)</li>
+                <li>eventTagTag (foreign Key)</li></ul>
+         <h6>ERD</h6>
             <div>
                 <img src="ABQ at Night ERD.jpg" alt="ABQ at Night ERD">
             </div>
 
-    <h2>Wire Frames</h2>
-    <div>
-        <img src="card-open.jpg" alt="ABQ at Night Phone site">
-    </div>
+    <h1>Wire Frames</h1>
+        <div>
+            <img src="card-open.jpg" alt="ABQ at Night Phone site">
+        </div>
 
-    <div>
-        <img src="ABQ at Night Webpage.jpg" alt="ABQ at Night Desktop">
-    </div>
+        <div>
+            <img src="ABQ at Night Webpage.jpg" alt="ABQ at Night Desktop">
+        </div>
 
         <div>
             <h3><a href="./index.html">Home Page</a></h3>
