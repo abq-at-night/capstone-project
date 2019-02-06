@@ -14,12 +14,12 @@
         <h2>Event</h2>
             <ul>
                 <li>eventId (primary key)</li>
-                <li>eventIdAdminId (foreign key)</li>
-                <li>eventAdminId</li>
+                <li>eventAdminId (foreign key)</li>
                 <li>eventAgeRequirement</li>
                 <li>eventDate</li>
                 <li>eventDescription</li>
                 <li>eventEndTime</li>
+                <li>eventImage</li>
                 <li>eventPrice</li>
                 <li>eventPromoterWebsite</li>
                 <li>eventStartTime</li>
@@ -41,8 +41,8 @@
                 <li>adminUsername</li></ul>
         <h2>Event Tag</h2>
             <ul>
-                <li>eventTagEvent (foreign Key)</li>
-                <li>eventTagTag (foreign Key)</li></ul>
+                <li>eventTagEventId (foreign Key)</li>
+                <li>eventTagTagId (foreign Key)</li></ul>
         <h2>Relationships</h2>
             <ul>
                 <li>One Admin creates many Events. (1 to n)</li>
