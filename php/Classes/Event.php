@@ -42,7 +42,7 @@ class event implements \JsonSerializable {
 
 	/**
 	 * time the event ends
-	 * @var datetime $eventEndTime
+	 * @var /Datetime $eventEndTime
 	 **/
 	private $eventEndTime;
 
@@ -219,7 +219,7 @@ class event implements \JsonSerializable {
 	}
 
 	/**
-	 *accessor method for event event description
+	 *accessor method for event description
 	 *
 	 * @return string value of event description
 	 */
@@ -264,14 +264,9 @@ class event implements \JsonSerializable {
 	 * @param \DateTime|string $newEventEndTime event end date as a DateTime object or string
 	 * @throws \InvalidArgumentException if $newEventEndTime is not a valid object or string
 	 * @throws \RangeException if $newEventEndTime is a date that does not exist
+	 * @throws \TypeError if $eventDescription is not a /Datetime
 	 **/
-	public function setEventEndTime($newEventEndTime = null) : void {
-
-		if($newEventEndTime === null) {
-			$this->eventEndTime = new \DateTime();
-			return;
-		}
-
+	public function setEventEndTime($newEventEndTime) : void {
 		// store the end date using the ValidateDate trait
 		try {
 			$newEventEndTime = self::validateDateTime($newEventEndTime);
@@ -307,6 +302,37 @@ class event implements \JsonSerializable {
 
 		// convert and store the event id
 		$this->eventImage = $uuid;
+	}
+
+	/**
+	 *accessor method for event price
+	 *
+	 * @return string value of event price
+	 */
+	public function getEventPrice() : string {
+		return($this->eventPrice);
+	}
+	/**
+	 * mutator method for event description
+	 *
+	 * @param string $newEventPrice new value of event description
+	 * @throws \InvalidArgumentException if $eventPrice is not a string or insecure
+	 * @throws \RangeException if $eventPrice is > 500 characters
+	 * @throws \TypeError if $eventPrice is not a string
+	 */
+	public function setEventPrice(string $newEventPrice) : void {
+		// verify event price is secure
+		$newEventPrice = trim($newEventPrice);
+		$newEventPrice = filter_var($newEventPrice, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newEventPrice) === true) {
+			throw(new \InvalidArgumentException("event price content is not secure"));
+		}
+		//verify the content will fit into the database
+		if(strlen($newEventPrice) > 32) {
+			throw(new \RangeException("event price content too large"));
+		}
+		// convert and store the event age requirement
+		$this->eventPrice = $newEventPrice;
 	}
 
 }
