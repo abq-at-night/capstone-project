@@ -13,7 +13,7 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 /**
  * Full PHPUnit test for the Admin class
  *
- * This is a complete PHPUnit test of the Tweet class. It is complete because all mySQL/PDO enabled methods
+ * This is a complete PHPUnit test of the Admin class. It is complete because all mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
  * @see Admin
