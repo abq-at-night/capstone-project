@@ -118,4 +118,42 @@ public function setAdminEmail(string $newAdminEmail) : void {
 	$this->adminEmail = $newAdminEmail;
 	}
 
+/**
+ * Accessor method for the admin hash
+ *
+ * @return string value of the admin hash
+ */
+
+public function getAdminHash() : string {
+	return($this->adminHash);
+}
+
+/**
+ * Mutator method for the admin hash
+ *
+ * @param string $newAdminHash new string value of the admin hash
+ * @throws \InvalidArgumentException if the hash is not secure
+ * @throws \RangeException if the hash is longer than 97 characters
+ * @throws \TypeError if the hash is not a BadQueryStringException
+ **/
+
+public function setAdminHash(string $newAdminHash) : void {
+	//Enforce that the hash is properly formatted.
+	$newAdminHash = trim($newAdminHash);
+	if(empty($newAdminHash) === $newAdminHash) {
+		throw (new \InvalidArgumentException("The password hash is empty or insecure"));
+	}
+	//Ensure the hash is an Argon hash.
+	$adminHashInfo = password_get_info($newAdminHash);
+	if($adminHashInfo["algoName"] !== "argon2i") {
+		throw(new \InvalidArgumentException("The hash is not an Argon hash"));
+	}
+	//Ensure the hash is exactly 97 characters long.
+	if(strlen($newAdminHash) !== 97) {
+		throw(new \RangeException("The hash must be exactly 97 characters long."));
+	}
+	//Store the hash.
+	$this->adminHash = $newAdminHash;
+}
+
 }
