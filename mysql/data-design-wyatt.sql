@@ -11,7 +11,6 @@ CREATE TABLE event (
 	eventAdminId BINARY(16) NOT NULL,
 	-- these are attributes
 	eventAgeRequirement VARCHAR(128),
-	eventDate DATETIME(6) NOT NULL,
 	eventDescription VARCHAR(500),
 	eventEndTime DATETIME(6) NOT NULL,
 	eventImage BINARY(16) NOT NULL,

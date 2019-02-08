@@ -227,37 +227,6 @@ class event implements \JsonSerializable {
 		$this->eventAgeRequirement = $newEventAgeRequirement;
 	}
 
-	/**
-	 * accessor method for event date
-	 *
-	 * @return \DateTime value of event date
-	 **/
-	public function getEventDate() : \DateTime {
-		return($this->eventDate);
-	}
 
-	/**
-	 * mutator method for event date
-	 *
-	 * @param \DateTime|string $newEventDate tweet date as a DateTime object or string
-	 * @throws \InvalidArgumentException if $newEventDate is not a valid object or string
-	 * @throws \RangeException if $newEventDate is a date that does not exist
-	 **/
-	public function setEventDate($newEventDate = null) : void {
-		// base case: if the date is null, use the current date and time
-		if($newEventDate === null) {
-			$this->eventDate = new \DateTime();
-			return;
-		}
-
-		// store the like date using the ValidateDate trait
-		try {
-			$newEventDate = self::validateDateTime($newEventDate);
-		} catch(\InvalidArgumentException | \RangeException $exception) {
-			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage(), 0, $exception));
-		}
-		$this->eventDate = $newEventDate;
-	}
 
 }
