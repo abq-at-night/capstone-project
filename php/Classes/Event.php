@@ -35,12 +35,6 @@ class event implements \JsonSerializable {
 	private $eventAgeRequirement;
 
 	/**
-	 * date of this event in a php datetime object
-	 * @var datetime $eventDate
-	 **/
-	private $eventDate;
-
-	/**
 	 * description of the event
 	 * @var string $eventDescription
 	 **/
@@ -117,12 +111,11 @@ class event implements \JsonSerializable {
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
 
-	public function __construct($newEventId, $newEventAdminId, string $newEventAgeRequirement, $newEventDate, string $newEventDescription, string $newEventEndTime, $newEventImage, string $newEventPrice, string $newEventPromoterWebsite, $newEventStartTime, string $newEventTitle, string $newEventVenue, string $newEventVenueWebsite) {
+	public function __construct($newEventId, $newEventAdminId, string $newEventAgeRequirement, string $newEventDescription, string $newEventEndTime, $newEventImage, string $newEventPrice, string $newEventPromoterWebsite, $newEventStartTime, string $newEventTitle, string $newEventVenue, string $newEventVenueWebsite) {
 		try {
 			$this->setEventId($newEventId);
 			$this->setEventAdminId($newEventAdminId);
 			$this->setEventAgeRequirement($newEventAgeRequirement);
-			$this->setEventDate($newEventDate);
 			$this->setEventDescription($newEventDescription);
 			$this->setEventEndTime($newEventEndTime);
 			$this->setEventImage($newEventImage);
