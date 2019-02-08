@@ -55,5 +55,35 @@ class Admin implements \JsonSerializable {
 
 	private $adminUsername;
 
+/**
+ * Accessor method for the admin ID
+ *
+ * @return Uuid value of the admin ID
+ **/
+
+public function getAdminId() : Uuid {
+	return($this->adminId);
+}
+
+/**
+ * Mutator method for the admin ID
+ *
+ * @param Uuid | string $newAdminId new value of the admin ID
+ * @throws \RangeException if $newAdminId is not positive
+ * @throws \TypeError if $newAdminId is not a Uuid or a string
+ **/
+
+public function setAdminId($newAdminId) : void {
+	try {
+		$uuid = self::validateUuid($newAdminId);
+	} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+		$exceptionType = get_class($exception);
+		throw(new $exceptionType($exception->getMessage(), 0, $exception));
+	}
+	//Convert and store the admin ID
+	$this->adminId = uuid;
+}
+
+
 
 }
