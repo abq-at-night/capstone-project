@@ -213,13 +213,43 @@ class event implements \JsonSerializable {
 			throw(new \InvalidArgumentException("event age requirement content is not secure"));
 		}
 		//verify the content will fit into the database
-		if(strlen($newEventAgeRequirement) > 255) {
-			throw(new \RangeException("url content too large"));
+		if(strlen($newEventAgeRequirement) > 128) {
+			throw(new \RangeException("event age requirement content too large"));
 		}
 		// convert and store the event age requirement
 		$this->eventAgeRequirement = $newEventAgeRequirement;
 	}
 
+	/**
+	 *accessor method for event event description
+	 *
+	 * @return string value of event description
+	 */
+	public function getEventDescription() : string {
+		return($this->eventDescription);
+	}
+	/**
+	 * mutator method for event description
+	 *
+	 * @param string $newEventDescription new value of event description
+	 * @throws \InvalidArgumentException if $eventDescription is not a string or insecure
+	 * @throws \RangeException if $eventDescription is > 500 characters
+	 * @throws \TypeError if $eventDescription is not a string
+	 */
+	public function setEventDescription(string $newEventDescription) : void {
+		// verify event description is secure
+		$newEventDescription = trim($newEventDescription);
+		$newEventDescription = filter_var($newEventDescription, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newEventDescription) === true) {
+			throw(new \InvalidArgumentException("event description content is not secure"));
+		}
+		//verify the content will fit into the database
+		if(strlen($newEventDescription) > 500) {
+			throw(new \RangeException("event description content too large"));
+		}
+		// convert and store the event age requirement
+		$this->eventDescription = $newEventDescription;
+	}
 
 
 }
