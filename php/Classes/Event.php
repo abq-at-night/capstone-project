@@ -141,7 +141,6 @@ class event implements \JsonSerializable {
 	public function getTweetId() : Uuid {
 		return($this->eventId);
 	}
-
 	/**
 	 * mutator method for event id
 	 *
@@ -169,7 +168,6 @@ class event implements \JsonSerializable {
 	public function getEventAdminId() : Uuid {
 		return($this->eventAdminId);
 	}
-
 	/**
 	 * mutator method for eventAdminId
 	 *
