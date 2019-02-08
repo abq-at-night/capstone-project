@@ -1,24 +1,18 @@
 <?php
-namespace Edu\Cnm\DataDesign\Test;
-use Edu\Cnm\DataDesign\{Event};
+namespace Deepdivedylan\DataDesign;
 
-//Grab the Admin class.
-require_once(dirname(__DIR__) . "/autoload.php");
+require_once("autoload.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
-//Grab the UUID generator.
-require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
+use Ramsey\Uuid\Uuid;
 
 /**
- * Full PHPUnit test for the Event class
+ * Class that posts an event
  *
- * This is a complete PHPUnit test of the Event class. It is complete because all mySQL/PDO enabled methods
- * are tested for both invalid and valid inputs.
- *
- * @see Event
  * @author Wyatt Salmons <wyattsalmons@gmail.com>
- *
  **/
-class Event implements \JsonSerializable {
+
+class event implements \JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
 
@@ -105,7 +99,7 @@ class Event implements \JsonSerializable {
 	 *
 	 * @param string|Uuid $newEventId id of this event or null if a new event
 	 * @param string|Uuid $newEventAdminId id of the Admin that sent this Event
-	 * @param string $newEventAgeRequirement string contains age event requirements.
+	 * @param string $newEventAgeRequirement string contains age event requirement.
 	 * @param \DateTime|string $newEventDate date of the event
 	 * @param string $newEventDescription description of the event
 	 * @param \DateTime|string $newEventEndTime time event ends
@@ -127,7 +121,7 @@ class Event implements \JsonSerializable {
 		try {
 			$this->setEventId($newEventId);
 			$this->setEventAdminId($newEventAdminId);
-			$this->setEventAgeRequirements($newEventAgeRequirement);
+			$this->setEventAgeRequirement($newEventAgeRequirement);
 			$this->setEventDate($newEventDate);
 			$this->setEventDescription($newEventDescription);
 			$this->setEventEndTime($newEventEndTime);
@@ -170,8 +164,67 @@ class Event implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 
-		// convert and store the tweet id
+		// convert and store the event id
 		$this->eventId = $uuid;
+	}
+
+	/**
+	 * accessor method for eventAdminId
+	 *
+	 * @return Uuid value of eventAdminId
+	 **/
+	public function getEventAdminId() : Uuid {
+		return($this->eventAdminId);
+	}
+
+	/**
+	 * mutator method for eventAdminId
+	 *
+	 * @param Uuid|string $newEventAdminId new value of adminEventid
+	 * @throws \RangeException if $newAdminEvent is not positive
+	 * @throws \TypeError if $newTweetId is not a uuid or string
+	 **/
+	public function setEventAdminId( $newEventAdminId) : void {
+		try {
+			$uuid = self::validateUuid($newEventAdminId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+
+		// convert and store the eventAdminId
+		$this->eventAdminId = $uuid;
+	}
+
+	/**
+	 *accessor method for event age requirement
+	 *
+	 * @return string value of age requirement
+	 */
+	public function getEventAgeRequirement() : string {
+		return($this->eventAgeRequirement);
+	}
+	/**
+	 * mutator method for event age requirement
+	 *
+	 * @param string $newEventAgeRequirement new value of event age requirement
+	 * @throws \InvalidArgumentException if $eventAgeRequirement is not a string or insecure
+	 * @throws \RangeException if $eventAgeRequirement is > 128 characters
+	 * @throws \TypeError if $eventAgeRequirement is not a string
+	 */
+	public function setEventAgeRequirement(string $newEventAgeRequirement) : void {
+		// verify event age requirement is secure
+		$newEventAgeRequirement = trim($newEventAgeRequirement);
+		$newEventAgeRequirement = filter_var($newEventAgeRequirement, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newEventAgeRequirement) === true) {
+			throw(new \InvalidArgumentException("event age requirement content is not secure"));
+		}
+		//verify the content will fit into the database
+		if(strlen($newEventAgeRequirement) > 255) {
+			throw(new \RangeException("url content too large"));
+		}
+		// convert and store the event age requirement
+		$this->eventAgeRequirement = $newEventAgeRequirement;
 	}
 
 }

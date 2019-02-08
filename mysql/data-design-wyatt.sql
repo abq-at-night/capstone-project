@@ -10,7 +10,7 @@ CREATE TABLE event (
 	-- this is for a foreign key
 	eventAdminId BINARY(16) NOT NULL,
 	-- these are attributes
-	eventAgeRequirements VARCHAR(128),
+	eventAgeRequirement VARCHAR(128),
 	eventDate DATETIME(6) NOT NULL,
 	eventDescription VARCHAR(500),
 	eventEndTime DATETIME(6) NOT NULL,
