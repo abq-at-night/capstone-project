@@ -7,6 +7,7 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
 use Deepdivedylan\DataDesign\ValidateDate;
 use Deepdivedylan\DataDesign\ValidateUuid;
+use http\Exception\BadQueryStringException;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -84,6 +85,37 @@ public function setAdminId($newAdminId) : void {
 	$this->adminId = uuid;
 }
 
+/**
+ * Accessor method for the admin e-mail
+ *
+ * @return string value of the admin e-mail
+ **/
 
+public function getAdminEmail(): string  {
+	return($this->adminEmail);
+}
+
+/**
+ * Mutator method for the admin e-mail
+ *
+ * @param string $newAdminEmail new value of the admin e-mail
+ * @throws \InvalidArgumentException if $newAdminEmail is not a string
+ * @throws \RangeException if $newAdminEmail is too long
+ **/
+
+public function setAdminEmail(string $newAdminEmail) : void {
+	//Verify the e-mail address is accurate.
+	$newAdminEmail = trim($newAdminEmail);
+	$newAdminEmail = filter_var($newAdminEmail, FILTER_VALIDATE_EMAIL);
+	if(empty($newAdminEmail) === true) {
+		throw (new \InvalidArgumentException("The admin e-mail is not valid."));
+	}
+	//Verify the e-mail address will fit in the database.
+	if(strlen($newAdminEmail) > 128) {
+		throw (new \RangeException("The admin e-mail must be no longer than 128 characters."));
+	}
+	//Store the e-mail address.
+	$this->adminEmail = $newAdminEmail;
+	}
 
 }
