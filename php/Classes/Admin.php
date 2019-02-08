@@ -134,19 +134,18 @@ public function getAdminHash() : string {
  * @param string $newAdminHash new string value of the admin hash
  * @throws \InvalidArgumentException if the hash is not secure
  * @throws \RangeException if the hash is longer than 97 characters
- * @throws \TypeError if the hash is not a BadQueryStringException
  **/
 
 public function setAdminHash(string $newAdminHash) : void {
 	//Enforce that the hash is properly formatted.
 	$newAdminHash = trim($newAdminHash);
 	if(empty($newAdminHash) === $newAdminHash) {
-		throw (new \InvalidArgumentException("The password hash is empty or insecure"));
+		throw (new \InvalidArgumentException("The password hash is empty or not a string."));
 	}
 	//Ensure the hash is an Argon hash.
 	$adminHashInfo = password_get_info($newAdminHash);
 	if($adminHashInfo["algoName"] !== "argon2i") {
-		throw(new \InvalidArgumentException("The hash is not an Argon hash"));
+		throw(new \InvalidArgumentException("The hash is not an Argon hash."));
 	}
 	//Ensure the hash is exactly 97 characters long.
 	if(strlen($newAdminHash) !== 97) {
@@ -155,5 +154,38 @@ public function setAdminHash(string $newAdminHash) : void {
 	//Store the hash.
 	$this->adminHash = $newAdminHash;
 }
+
+/**
+ * Accessor method for the admin password
+ *
+ * @return string value of the admin password
+ **/
+
+public function getAdminPassword() : string {
+	return($this->adminPassword);
+}
+
+/**
+ * Mutator method for the admin password
+ *
+ * @param string $newAdminPassword new string value for the admin password
+ * @throws \InvalidArgumentException if the password is not empty
+ * @throws \RangeException if the password is longer than 97 characters
+ **/
+
+public function setAdminPassword($newAdminPassword) : void {
+	//Ensure the password is correctly formatted.
+	$newAdminPassword = trim($newAdminPassword);
+	if(empty($newAdminPassword) === true) {
+		throw(new \InvalidArgumentException("The password is not valid."));
+	}
+	if(strlen($newAdminPassword) > 97) {
+		throw(new \RangeException("The password must be no longer than 97 characters"));
+	}
+	//Store the password.
+	$this->adminPassword = $newAdminPassword;
+}
+
+
 
 }
