@@ -334,5 +334,4 @@ class event implements \JsonSerializable {
 		// convert and store the event age requirement
 		$this->eventPrice = $newEventPrice;
 	}
-
 }
