@@ -76,12 +76,12 @@ class Tag implements \JsonSerializable {
      * @return Uuid value of tag id
      **/
     public function getTagId() : Uuid {
-        return($this->eventTagId);
+        return($this->tagId);
     }
     /**
-     * mutator method for event tag event id
+     * mutator method for tag id
      *
-     * @param Uuid|string $newTagId new value of event tag event id
+     * @param Uuid|string $newTagId new value of tag id
      * @throws \RangeException if $newTagId is not positive
      * @throws \TypeError if $newTagId is not a uuid or string
      **/
@@ -113,9 +113,9 @@ class Tag implements \JsonSerializable {
      * @throws \RangeException if $newTagAdminId is not positive
      * @throws \TypeError if $newTagAdminId is not a uuid or string
      **/
-    public function setTagAdminId( $newEventTagTagId) : void {
+    public function setTagAdminId($newTagAdminId) : void {
         try {
-            $uuid = self::validateUuid($newEventTagTagId);
+            $uuid = self::validateUuid($newTagAdminId);
         } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
             $exceptionType = get_class($exception);
             throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -127,57 +127,57 @@ class Tag implements \JsonSerializable {
 
 
     /**
-     * accessor method for event tag tag id
+     * accessor method for tag type
      *
-     * @return Uuid value of event tag tag id
+     * @return Uuid value of tag type
      **/
     public function getTagType() : Uuid {
-        return($this->eventTagTagId);
+        return($this->tagType);
     }
     /**
-     * mutator method for event tag tag id
+     * mutator method for tag type
      *
-     * @param Uuid|string $newEventTagTagId new value of event tag event id
-     * @throws \RangeException if $newEventTagTagId is not positive
-     * @throws \TypeError if $newEventTagTagId is not a uuid or string
+     * @param Uuid|string $newTagType new value of tag type
+     * @throws \RangeException if $newTagType is not positive
+     * @throws \TypeError if $newTagType is not a uuid or string
      **/
-    public function setTagType( $newEventTagTagId) : void {
+    public function setTagType($newTagType) : void {
         try {
-            $uuid = self::validateUuid($newEventTagTagId);
+            $uuid = self::validateUuid($newTagType);
         } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
             $exceptionType = get_class($exception);
             throw(new $exceptionType($exception->getMessage(), 0, $exception));
         }
 
-        // convert and store the event tag tag id
-        $this->eventTagTagId = $uuid;
+        // convert and store the tag type
+        $this->tagType = $uuid;
     }
 
 
     /**
-     * accessor method for event tag tag id
+     * accessor method for tag value
      *
-     * @return Uuid value of event tag tag id
+     * @return Uuid value of tag value
      **/
     public function getTagValue() : Uuid {
-        return($this->eventTagTagId);
+        return($this->tagValue);
     }
     /**
-     * mutator method for event tag tag id
+     * mutator method for tag value
      *
-     * @param Uuid|string $newEventTagTagId new value of event tag event id
-     * @throws \RangeException if $newEventTagTagId is not positive
-     * @throws \TypeError if $newEventTagTagId is not a uuid or string
+     * @param Uuid|string $newTagValue new value of tag value
+     * @throws \RangeException if $newTagValue is not positive
+     * @throws \TypeError if $newTagValue is not a uuid or string
      **/
-    public function setTagValue( $newEventTagTagId) : void {
+    public function setTagValue( $newTagValue) : void {
         try {
-            $uuid = self::validateUuid($newEventTagTagId);
+            $uuid = self::validateUuid($newTagValue);
         } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
             $exceptionType = get_class($exception);
             throw(new $exceptionType($exception->getMessage(), 0, $exception));
         }
 
-        // convert and store the event tag tag id
-        $this->eventTagTagId = $uuid;
+        // convert and store the tag value
+        $this->tagValue = $uuid;
     }
 }
