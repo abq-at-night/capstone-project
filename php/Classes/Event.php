@@ -138,7 +138,7 @@ class event implements \JsonSerializable {
 	 *
 	 * @return Uuid value of event id
 	 **/
-	public function getTweetId() : Uuid {
+	public function getEventId() : Uuid {
 		return($this->eventId);
 	}
 	/**
@@ -280,6 +280,33 @@ class event implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		$this->eventEndTime = $newEventEndTime;
+	}
+
+	/**
+	 * accessor method for event image
+	 *
+	 * @return Uuid value of event image
+	 **/
+	public function getEventImage() : Uuid {
+		return($this->eventImage);
+	}
+	/**
+	 * mutator method for event image
+	 *
+	 * @param Uuid|string $newEventImage new value of event id
+	 * @throws \RangeException if $newEventImage is not positive
+	 * @throws \TypeError if $newEventImage is not a uuid or string
+	 **/
+	public function setEventImage( $newEventImage) : void {
+		try {
+			$uuid = self::validateUuid($newEventImage);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+
+		// convert and store the event id
+		$this->eventImage = $uuid;
 	}
 
 }
