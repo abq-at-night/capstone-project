@@ -249,5 +249,37 @@ class event implements \JsonSerializable {
 		$this->eventDescription = $newEventDescription;
 	}
 
+	/**
+	 * accessor method for event end datetime
+	 *
+	 * @return \DateTime value of event end datetime
+	 **/
+	public function getEventEndTime() : \DateTime {
+		return($this->eventEndTime);
+	}
+
+	/**
+	 * mutator method for event end datetime
+	 *
+	 * @param \DateTime|string $newEventEndTime event end date as a DateTime object or string
+	 * @throws \InvalidArgumentException if $newEventEndTime is not a valid object or string
+	 * @throws \RangeException if $newEventEndTime is a date that does not exist
+	 **/
+	public function setEventEndTime($newEventEndTime = null) : void {
+
+		if($newEventEndTime === null) {
+			$this->eventEndTime = new \DateTime();
+			return;
+		}
+
+		// store the end date using the ValidateDate trait
+		try {
+			$newEventEndTime = self::validateDateTime($newEventEndTime);
+		} catch(\InvalidArgumentException | \RangeException $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		$this->eventEndTime = $newEventEndTime;
+	}
 
 }
