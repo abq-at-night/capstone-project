@@ -496,16 +496,9 @@ class Event implements \JsonSerializable {
 
 		$fields["eventId"] = $this->eventId->toString();
 		$fields["eventAdminId"] = $this->eventAdminId->toString();
-		$fields["eventAgeRequirement"] = $this->eventAgeRequirement->toString();
-		$fields["eventDescription"] = $this->eventDescription->toString();
-		$fields["eventEndTime"] = $this->eventEndTime->toString();
 		$fields["eventImage"] = $this->eventImage->toString();
-		$fields["eventPrice"] = $this->eventPrice->toString();
-		$fields["eventPromoterWebsite"] = $this->eventPromoterWebsite->toString();
-		$fields["eventStartTime"] = $this->eventStartTime->toString();
-		$fields["eventTitle"] = $this->eventTitle->toString();
-		$fields["eventVenue"] = $this->eventVenue->toString();
-		$fields["eventVenueWebsite"] = $this->eventVenueWebsite->toString();
+
+
 
 		//format the date so that the front end can consume it
 		$fields["eventEndTime"] = round(floatval($this->eventEndTime->format("U.u")) * 1000);
