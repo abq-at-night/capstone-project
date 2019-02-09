@@ -497,9 +497,6 @@ class Event implements \JsonSerializable {
 		$fields["eventId"] = $this->eventId->toString();
 		$fields["eventAdminId"] = $this->eventAdminId->toString();
 		$fields["eventImage"] = $this->eventImage->toString();
-
-
-
 		//format the date so that the front end can consume it
 		$fields["eventEndTime"] = round(floatval($this->eventEndTime->format("U.u")) * 1000);
 		$fields["eventStartTime"] = round(floatval($this->eventStartTime->format("U.u")) * 1000);
