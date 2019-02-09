@@ -1,6 +1,10 @@
 <?php
 namespace DeepDive\AbqAtNight;
 use Edu\Cnm\DataDesign\{eventTag};
+=======
+namespace Edu\Cnm\DataDesign\Test;
+use Edu\Cnm\DataDesign\{EventTag};
+>>>>>>> Stashed changes
 
 //Grab the Admin class.
 require_once(dirname(__DIR__) . "/autoload.php");
