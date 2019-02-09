@@ -12,7 +12,7 @@ use Ramsey\Uuid\Uuid;
  * @author Wyatt Salmons <wyattsalmons@gmail.com>
  **/
 
-class Event implements JsonSerializable {
+class Event implements \JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
 
@@ -486,5 +486,30 @@ class Event implements JsonSerializable {
 		}
 	}
 
+	/**
+	 * formats the state variables for JSON serialization
+	 *
+	 * @return array resulting state variables to serialize
+	 **/
+	public function jsonSerialize() : array {
+		$fields = get_object_vars($this);
 
+		$fields["eventId"] = $this->eventId->toString();
+		$fields["eventAdminId"] = $this->eventAdminId->toString();
+		$fields["eventAgeRequirement"] = $this->eventAgeRequirement->toString();
+		$fields["eventDescription"] = $this->eventDescription->toString();
+		$fields["eventEndTime"] = $this->eventEndTime->toString();
+		$fields["eventImage"] = $this->eventImage->toString();
+		$fields["eventPrice"] = $this->eventPrice->toString();
+		$fields["eventPromoterWebsite"] = $this->eventPromoterWebsite->toString();
+		$fields["eventStartTime"] = $this->eventStartTime->toString();
+		$fields["eventTitle"] = $this->eventTitle->toString();
+		$fields["eventVenue"] = $this->eventVenue->toString();
+		$fields["eventVenueWebsite"] = $this->eventVenueWebsite->toString();
+
+		//format the date so that the front end can consume it
+		$fields["eventEndTime"] = round(floatval($this->eventEndTime->format("U.u")) * 1000);
+		$fields["eventStartTime"] = round(floatval($this->eventStartTime->format("U.u")) * 1000);
+		return($fields);
+	}
 }
