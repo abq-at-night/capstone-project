@@ -66,7 +66,7 @@ class event implements \JsonSerializable {
 
 	/**
 	 * time the event starts
-	 * @var string $eventStartTime
+	 * @var /Datetime $eventStartTime
 	 **/
 	private $eventStartTime;
 
