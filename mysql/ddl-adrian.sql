@@ -7,8 +7,8 @@ DROP TABLE IF EXISTS tag;
 
 -- creates the tag class entity
 CREATE TABLE eventTag (
-  eventTagEventId BINNARY(16) NOT NULL,
-  eventTagTagId BINARY(16) NOT NUll,
+  eventTagEventId BINARY(16) NOT NULL,
+  eventTagTagId BINARY(16) NOT NULL,
   INDEX(eventTagEventId),
   INDEX(eventTagTagId),
   FOREIGN KEY(eventTagEventId) REFERENCES  event(enentID),
@@ -18,10 +18,10 @@ CREATE TABLE eventTag (
 
 -- creates the tag entity
 CREATE TABLE tag (
-  tagId CHAR(32),
-  tagAdminId BINARY(16),
-  tagType CHAR(32),
-  tagValue CHAR(32),
+  tagId BINARY(16) NOT NULL,
+  tagAdminId BINARY(16) NOT NULL,
+  tagType CHAR(32) NOT NULL,
+  tagValue CHAR(32) NOT NULL,
   INDEX(tagAdminId),
   FOREIGN KEY(tagAdminId) REFERENCES event(adminId),
   PRIMARY KEY(tagId),
