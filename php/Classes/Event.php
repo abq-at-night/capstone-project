@@ -12,7 +12,7 @@ use Ramsey\Uuid\Uuid;
  * @author Wyatt Salmons <wyattsalmons@gmail.com>
  **/
 
-class Event implements \JsonSerializable {
+class Event implements JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
 
