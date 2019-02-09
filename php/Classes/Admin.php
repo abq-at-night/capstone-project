@@ -5,9 +5,6 @@ namespace DeepDive\AbqAtNight;
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
-use Deepdivedylan\DataDesign\ValidateDate;
-use Deepdivedylan\DataDesign\ValidateUuid;
-use http\Exception\BadQueryStringException;
 use Ramsey\Uuid\Uuid;
 
 /**
@@ -82,7 +79,7 @@ class Admin implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 		//Convert and store the admin ID
-		$this->adminId = uuid;
+		$this->adminId = $uuid;
 	}
 
 	/**
