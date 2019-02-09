@@ -222,7 +222,7 @@ class event implements \JsonSerializable {
 	public function setEventEndTime($newEventEndTime) : void {
 		// store the end date using the ValidateDate trait
 		try {
-			$newEventEndTime = self::validateDateTime($newEventEndTime);
+			$newEventEndTime = self::validateDate($newEventEndTime);
 		} catch(\InvalidArgumentException | \RangeException $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
@@ -340,7 +340,7 @@ class event implements \JsonSerializable {
 	public function setEventStartTime($newEventStartTime) : void {
 		// store the end date using the ValidateDate trait
 		try {
-			$newEventStartTime = self::validateDateTime($newEventStartTime);
+			$newEventStartTime = self::validateDate($newEventStartTime);
 		} catch(\InvalidArgumentException | \RangeException $exception) {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
