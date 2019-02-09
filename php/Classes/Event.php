@@ -353,14 +353,14 @@ class event implements \JsonSerializable {
 	 * @throws \TypeError if $eventPromoterWebsite is not a string
 	 */
 	public function setEventPromoterWebsite(string $newEventPromoterWebsite) : void {
-		// verify event price is secure
+		// verify event promoter url is secure
 		$newEventPromoterWebsite = trim($newEventPromoterWebsite);
 		$newEventPromoterWebsite = filter_var($newEventPromoterWebsite, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newEventPromoterWebsite) === true) {
 			throw(new \InvalidArgumentException("event price content is not secure"));
 		}
 		//verify the content will fit into the database
-		if(strlen($newEventPromoterWebsite) > 32) {
+		if(strlen($newEventPromoterWebsite) > 256) {
 			throw(new \RangeException("event price content too large"));
 		}
 		// convert and store the event age requirement
@@ -394,5 +394,36 @@ class event implements \JsonSerializable {
 		}
 		// convert and store the event end time
 		$this->eventStartTime = $newEventStartTime;
+	}
+
+	/**
+	 *accessor method for event promoter website
+	 *
+	 * @return string value of event event promoter website
+	 */
+	public function getEventTitle() : string {
+		return($this->eventTitle);
+	}
+	/**
+	 * mutator method for event title
+	 *
+	 * @param string $newEventTitle new value of event title
+	 * @throws \InvalidArgumentException if $eventTitle is not a string or insecure
+	 * @throws \RangeException if $eventTitle is > 128 characters
+	 * @throws \TypeError if $eventTitle is not a string
+	 */
+	public function setEventTitle(string $newEventTitle) : void {
+		// verify event title is secure
+		$newEventTitle = trim($newEventTitle);
+		$newEventTitle = filter_var($newEventTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newEventTitle) === true) {
+			throw(new \InvalidArgumentException("event price content is not secure"));
+		}
+		//verify the content will fit into the database
+		if(strlen($newEventTitle) > 128) {
+			throw(new \RangeException("event price content too large"));
+		}
+		// convert and store the event age requirement
+		$this->eventTitle = $newEventTitle;
 	}
 }
