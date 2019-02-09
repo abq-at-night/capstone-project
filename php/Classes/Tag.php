@@ -1,12 +1,10 @@
 <?php
 namespace DeepDive\AbqAtNight;
-use Edu\Cnm\DataDesign\{Tag};
 
-//Grab the Admin class.
-require_once(dirname(__DIR__) . "/autoload.php");
+require_once("autoload.php");
+require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 
-//Grab the UUID generator.
-require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
+use Ramsey\Uuid\Uuid;
 
 /**
  * Full PHPUnit test for the Tag class
@@ -51,9 +49,8 @@ class Tag implements \JsonSerializable {
      *
      * @parm string|Uuid $newEventTagEVentId
      * @parm string|Uuid $newEvent TagId
-     * @parm
      * @throws \InvalidArgumentException if data types are not valid
-     * @throws @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
+     * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
      * @throws \TypeError if data types violate type hints
      * @throws \Exception if some other exception occurs
      * @Documentation https://php.net/manual/en/language.oop5.decon.php
