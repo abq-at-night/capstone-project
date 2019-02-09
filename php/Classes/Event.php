@@ -264,7 +264,7 @@ class event implements \JsonSerializable {
 	 * @param \DateTime|string $newEventEndTime event end date as a DateTime object or string
 	 * @throws \InvalidArgumentException if $newEventEndTime is not a valid object or string
 	 * @throws \RangeException if $newEventEndTime is a date that does not exist
-	 * @throws \TypeError if $eventDescription is not a /Datetime
+	 * @throws \TypeError if $eventEndTime is not a /Datetime
 	 **/
 	public function setEventEndTime($newEventEndTime) : void {
 		// store the end date using the ValidateDate trait
@@ -274,6 +274,7 @@ class event implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
+		// convert and store the event end time
 		$this->eventEndTime = $newEventEndTime;
 	}
 
@@ -333,5 +334,65 @@ class event implements \JsonSerializable {
 		}
 		// convert and store the event age requirement
 		$this->eventPrice = $newEventPrice;
+	}
+
+	/**
+	 *accessor method for event promoter website
+	 *
+	 * @return string value of event event promoter website
+	 */
+	public function getEventPromoterWebsite() : string {
+		return($this->eventPromoterWebsite);
+	}
+	/**
+	 * mutator method for event description
+	 *
+	 * @param string $newEventPromoterWebsite new value of event description
+	 * @throws \InvalidArgumentException if $eventPromoterWebsite is not a string or insecure
+	 * @throws \RangeException if $eventPromoterWebsite is > 256 characters
+	 * @throws \TypeError if $eventPromoterWebsite is not a string
+	 */
+	public function setEventPromoterWebsite(string $newEventPromoterWebsite) : void {
+		// verify event price is secure
+		$newEventPromoterWebsite = trim($newEventPromoterWebsite);
+		$newEventPromoterWebsite = filter_var($newEventPromoterWebsite, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newEventPromoterWebsite) === true) {
+			throw(new \InvalidArgumentException("event price content is not secure"));
+		}
+		//verify the content will fit into the database
+		if(strlen($newEventPromoterWebsite) > 32) {
+			throw(new \RangeException("event price content too large"));
+		}
+		// convert and store the event age requirement
+		$this->eventPromoterWebsite = $newEventPromoterWebsite;
+	}
+
+	/**
+	 * accessor method for event start datetime
+	 *
+	 * @return \DateTime value of event start datetime
+	 **/
+	public function getEventStartTime() : \DateTime {
+		return($this->eventStartTime);
+	}
+
+	/**
+	 * mutator method for event start datetime
+	 *
+	 * @param \DateTime|string $newEventStartTime event start date as a DateTime object or string
+	 * @throws \InvalidArgumentException if $newEventStartTime is not a valid object or string
+	 * @throws \RangeException if $newEventStartTime is a date that does not exist
+	 * @throws \TypeError if $eventStartTime is not a /Datetime
+	 **/
+	public function setEventStartTime($newEventStartTime) : void {
+		// store the end date using the ValidateDate trait
+		try {
+			$newEventStartTime = self::validateDateTime($newEventStartTime);
+		} catch(\InvalidArgumentException | \RangeException $exception) {
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+		// convert and store the event end time
+		$this->eventStartTime = $newEventStartTime;
 	}
 }
