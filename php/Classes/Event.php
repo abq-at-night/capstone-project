@@ -94,7 +94,6 @@ class event implements \JsonSerializable {
 	 * @param string|Uuid $newEventId id of this event or null if a new event
 	 * @param string|Uuid $newEventAdminId id of the Admin that sent this Event
 	 * @param string $newEventAgeRequirement string contains age event requirement.
-	 * @param \DateTime|string $newEventDate date of the event
 	 * @param string $newEventDescription description of the event
 	 * @param \DateTime|string $newEventEndTime time event ends
 	 * @param string|Uuid $newEventImage Id of this event poster
@@ -301,7 +300,7 @@ class event implements \JsonSerializable {
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
 
-		// convert and store the event id
+		// convert and store the event image id
 		$this->eventImage = $uuid;
 	}
 
@@ -332,7 +331,7 @@ class event implements \JsonSerializable {
 		if(strlen($newEventPrice) > 32) {
 			throw(new \RangeException("event price content too large"));
 		}
-		// convert and store the event age requirement
+		// convert and store the event price
 		$this->eventPrice = $newEventPrice;
 	}
 
@@ -363,7 +362,7 @@ class event implements \JsonSerializable {
 		if(strlen($newEventPromoterWebsite) > 256) {
 			throw(new \RangeException("event price content too large"));
 		}
-		// convert and store the event age requirement
+		// convert and store the event promoter website
 		$this->eventPromoterWebsite = $newEventPromoterWebsite;
 	}
 
@@ -392,14 +391,14 @@ class event implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		// convert and store the event end time
+		// convert and store the event start time
 		$this->eventStartTime = $newEventStartTime;
 	}
 
 	/**
-	 *accessor method for event promoter website
+	 *accessor method for event title
 	 *
-	 * @return string value of event event promoter website
+	 * @return string value of event event title
 	 */
 	public function getEventTitle() : string {
 		return($this->eventTitle);
@@ -423,7 +422,38 @@ class event implements \JsonSerializable {
 		if(strlen($newEventTitle) > 128) {
 			throw(new \RangeException("event price content too large"));
 		}
-		// convert and store the event age requirement
+		// convert and store the event title
 		$this->eventTitle = $newEventTitle;
+	}
+
+	/**
+	 *accessor method for event venue
+	 *
+	 * @return string value of event venue
+	 */
+	public function getEventVenue() : string {
+		return($this->eventVenue);
+	}
+	/**
+	 * mutator method for event venue
+	 *
+	 * @param string $newEventVenue new value of event title
+	 * @throws \InvalidArgumentException if $eventVenue is not a string or insecure
+	 * @throws \RangeException if $eventVenue is > 128 characters
+	 * @throws \TypeError if $eventVenue is not a string
+	 */
+	public function setEventVenue(string $newEventVenue) : void {
+		// verify event venue name is secure
+		$newEventVenue = trim($newEventVenue);
+		$newEventVenue = filter_var($newEventVenue, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newEventVenue) === true) {
+			throw(new \InvalidArgumentException("event price content is not secure"));
+		}
+		//verify the content will fit into the database
+		if(strlen($newEventVenue) > 128) {
+			throw(new \RangeException("event price content too large"));
+		}
+		// convert and store the event venue
+		$this->eventVenue = $newEventVenue;
 	}
 }
