@@ -344,9 +344,9 @@ class event implements \JsonSerializable {
 		return($this->eventPromoterWebsite);
 	}
 	/**
-	 * mutator method for event description
+	 * mutator method for event promoter website
 	 *
-	 * @param string $newEventPromoterWebsite new value of event description
+	 * @param string $newEventPromoterWebsite new value of event promoter website
 	 * @throws \InvalidArgumentException if $eventPromoterWebsite is not a string or insecure
 	 * @throws \RangeException if $eventPromoterWebsite is > 256 characters
 	 * @throws \TypeError if $eventPromoterWebsite is not a string
@@ -437,7 +437,7 @@ class event implements \JsonSerializable {
 	/**
 	 * mutator method for event venue
 	 *
-	 * @param string $newEventVenue new value of event title
+	 * @param string $newEventVenue new value of event venue name
 	 * @throws \InvalidArgumentException if $eventVenue is not a string or insecure
 	 * @throws \RangeException if $eventVenue is > 128 characters
 	 * @throws \TypeError if $eventVenue is not a string
@@ -453,7 +453,38 @@ class event implements \JsonSerializable {
 		if(strlen($newEventVenue) > 128) {
 			throw(new \RangeException("event price content too large"));
 		}
-		// convert and store the event venue
+		// convert and store the event venue name
 		$this->eventVenue = $newEventVenue;
+	}
+
+	/**
+	 *accessor method for event venue website
+	 *
+	 * @return string value of event event venue website
+	 */
+	public function getEventVenueWebsite() : string {
+		return($this->eventVenueWebsite);
+	}
+	/**
+	 * mutator method for event venue website
+	 *
+	 * @param string $newEventVenueWebsite new value of event Venue website
+	 * @throws \InvalidArgumentException if $eventVenueWebsite is not a string or insecure
+	 * @throws \RangeException if $eventVenueWebsite is > 256 characters
+	 * @throws \TypeError if $eventVenueWebsite is not a string
+	 */
+	public function setEventVenueWebsite(string $newEventVenueWebsite) : void {
+		// verify event venue url is secure
+		$newEventVenueWebsite = trim($newEventVenueWebsite);
+		$newEventVenueWebsite = filter_var($newEventVenueWebsite, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newEventVenueWebsite) === true) {
+			throw(new \InvalidArgumentException("event price content is not secure"));
+		}
+		//verify the content will fit into the database
+		if(strlen($newEventVenueWebsite) > 256) {
+			throw(new \RangeException("event price content too large"));
+		}
+		// convert and store the event venue website
+		$this->eventVenueWebsite = $newEventVenueWebsite;
 	}
 }
