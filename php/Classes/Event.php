@@ -154,7 +154,6 @@ class event implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-
 		// convert and store the event id
 		$this->eventId = $uuid;
 	}
@@ -181,7 +180,6 @@ class event implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-
 		// convert and store the eventAdminId
 		$this->eventAdminId = $uuid;
 	}
@@ -487,4 +485,6 @@ class event implements \JsonSerializable {
 		// convert and store the event venue website
 		$this->eventVenueWebsite = $newEventVenueWebsite;
 	}
+
+
 }
