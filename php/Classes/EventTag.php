@@ -1,10 +1,6 @@
 <?php
 namespace DeepDive\AbqAtNight;
 use Edu\Cnm\DataDesign\{eventTag};
-=======
-namespace Edu\Cnm\DataDesign\Test;
-use Edu\Cnm\DataDesign\{EventTag};
->>>>>>> Stashed changes
 
 //Grab the Admin class.
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -72,7 +68,7 @@ class EventTag implements \JsonSerializable {
      * @throws \RangeException if $newEventTagEventId is not positive
      * @throws \TypeError if $newEventTagEventId is not a uuid or string
      **/
-    public function setTweetId( $newEventTagEventId) : void {
+    public function setEventTagEventId( $newEventTagEventId) : void {
         try {
             $uuid = self::validateUuid($newEventTagEventId);
         } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -98,7 +94,7 @@ class EventTag implements \JsonSerializable {
      * @throws \RangeException if $newEventTagTagId is not positive
      * @throws \TypeError if $newEventTagTagId is not a uuid or string
      **/
-    public function setTweetId( $newEventTagTagId) : void {
+    public function setEventTagTagId( $newEventTagTagId) : void {
         try {
             $uuid = self::validateUuid($newEventTagTagId);
         } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
