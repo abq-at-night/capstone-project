@@ -1,4 +1,5 @@
 <?php
+namespace DeepDive\AbqAtNight;
 /**
  * PSR-4 Compliant Autoloader
  *

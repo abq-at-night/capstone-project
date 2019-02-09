@@ -1,5 +1,5 @@
 <?php
-namespace Edu\Cnm\DataDesign\Test;
+namespace DeepDive\AbqAtNight;
 use Edu\Cnm\DataDesign\{eventTag};
 
 //Grab the Admin class.

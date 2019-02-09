@@ -1,5 +1,5 @@
 <?php
-namespace Deepdivedylan\DataDesign;
+namespace DeepDive\AbqAtNight;
 /**
  * Trait to Validate a mySQL Date
  *
