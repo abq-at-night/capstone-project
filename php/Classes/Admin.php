@@ -260,7 +260,24 @@ class Admin implements JsonSerializable {
 		$statement->execute($parameters);
 	}
 
+	/**
+	 * deletes this Admin from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL-related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
 
+	public function delete(\PDO $pdo) : void {
+
+		// Create query template.
+		$query = "DELETE FROM admin WHERE adminId = : adminId";
+		$statement = $pdo->prepare($query);
+
+		// Bind the member variables to the place holder in the template
+		$parameters = ["adminId" => $this->adminId->getBytes()];
+		$statement->execute($parameters);
+	}
 
 	/**
 	 * Formats the state variables for JSON serialization
