@@ -1,5 +1,5 @@
 <?php
-namespace DeepDive\AbqAtNight;
+namespace DeepDive\AbqAtNight\Test;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;
@@ -86,8 +86,8 @@ abstract class AbqAtNightTest extends TestCase {
 	public final function getConnection() : Connection {
 		// if the connection hasn't been established, create it
 		if($this->connection === null) {
-			// connect to mySQL and provide the interface to PHPUnit
 
+			// connect to mySQL and provide the interface to PHPUnit
 
 			$secrets =  new Secrets("/etc/apache2/capstone-mysql/ddctwitter.ini");
 			$pdo = $secrets->getPdoObject();
