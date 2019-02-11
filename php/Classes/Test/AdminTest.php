@@ -8,7 +8,7 @@ use DeepDive\AbqAtNight\{Admin};
 require_once(dirname(__DIR__) . "/autoload.php");
 
 //Grab the UUID generator.
-require_once(dirname(__DIR__, 1) . "/Classes/ValidateUuid.php");
+require_once(dirname(__DIR__, 1) . "/ValidateUuid.php");
 
 /**
  * Full PHPUnit test for the Admin class
@@ -21,7 +21,7 @@ require_once(dirname(__DIR__, 1) . "/Classes/ValidateUuid.php");
  *
  **/
 
-class AdminTest extends DataDesignTest {
+class AdminTest extends AbqAtNightTest {
 
 	/**
 	 * Valid e-mail address for the admin
