@@ -14,13 +14,13 @@ use Ramsey\Uuid\Uuid;
  * @author Hunter Callaway <jcallaway3@cnm.edu>
  **/
 
-class Admin implements \JsonSerializable {
+class Admin implements JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
 
 	/**
 	 * ID for this Admin. This is the primary key.
-	 * @var Uuid  $adminId
+	 * @var Uuid $adminId
 	 **/
 
 	private $adminId;
@@ -59,7 +59,7 @@ class Admin implements \JsonSerializable {
 	 * @return Uuid value of the admin ID
 	 **/
 
-	public function getAdminId() : Uuid {
+	public function getAdminId() {
 		return($this->adminId);
 	}
 

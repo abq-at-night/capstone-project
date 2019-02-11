@@ -29,3 +29,4 @@ CREATE TABLE event (
 	-- and finally create the primary key
 	PRIMARY KEY(eventId)
 );
+
