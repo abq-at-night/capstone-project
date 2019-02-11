@@ -8,6 +8,20 @@ DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS eventTag;
 DROP TABLE IF EXISTS admin;
 
+-- Creates the admin entity
+CREATE TABLE admin (
+	adminId BINARY(16) NOT NULL,
+	adminEmail VARCHAR(128) NOT NULL,
+	adminHash CHAR(97) NOT NULL,
+	adminPassword VARCHAR(97) NOT NULL,
+	adminUsername VARCHAR(32) NOT NULL,
+	-- Creates a unique index to prevent duplicated data
+	UNIQUE(adminEmail),
+	UNIQUE(adminUsername),
+	-- Sets the primary key
+	PRIMARY KEY(adminId)
+);
+
 -- Creates the event entity
 CREATE TABLE event (
 	-- this is for the primary key
@@ -55,18 +69,4 @@ CREATE TABLE eventTag (
 	FOREIGN KEY(eventTagEventId) REFERENCES  event(eventId),
 	FOREIGN KEY(eventTagTagId) REFERENCES  tag(tagId),
 	PRIMARY KEY(eventTagEventId, eventTagTagId)
-);
-
--- Creates the admin entity
-CREATE TABLE admin (
-	adminId BINARY(16) NOT NULL,
-	adminEmail VARCHAR(128) NOT NULL,
-	adminHash CHAR(97) NOT NULL,
-	adminPassword VARCHAR(97) NOT NULL,
-	adminUsername VARCHAR(32) NOT NULL,
-	-- Creates a unique index to prevent duplicated data
-	UNIQUE(adminEmail),
-	UNIQUE(adminUsername),
-	-- Sets the primary key
-	PRIMARY KEY(adminId)
 );
