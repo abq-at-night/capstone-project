@@ -177,4 +177,16 @@ class Tag implements \JsonSerializable {
         // convert and store the tag value
         $this->tagValue = $uuid;
     }
+    /**
+     * Formats the state variables for JSON serialization
+     *
+     * @return array resulting state variables to serialize
+     **/
+    public function jsonSerialize() : array {
+        $fields = get_object_vars($this);
+
+        $fields["tagId"] = $this->tagId->toString();
+
+        return($fields);
+    }
 }

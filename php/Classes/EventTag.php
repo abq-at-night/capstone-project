@@ -103,4 +103,16 @@ class EventTag implements \JsonSerializable {
         // convert and store the event tag tag id
         $this->eventTagTagId = $uuid;
     }
+    /**
+     * Formats the state variables for JSON serialization
+     *
+     * @return array resulting state variables to serialize
+     **/
+    public function jsonSerialize() : array {
+        $fields = get_object_vars($this);
+
+        $fields["EventTagEventId"] = $this->eventTagEventId->toString();
+
+        return($fields);
+    }
 }
