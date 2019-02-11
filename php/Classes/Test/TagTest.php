@@ -53,7 +53,7 @@ class TagTest extends AbqAtNightTest {
         // run the default setUp() method first
         parent::setUp();
         $password = "abc123";
-        $this->VALID_PROFILE_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
+        $this->VALID_TAG_ID = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
 
         // create and insert a Profile to own the test Tweet

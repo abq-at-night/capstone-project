@@ -177,6 +177,25 @@ class Tag implements \JsonSerializable {
         // convert and store the tag value
         $this->tagValue = $uuid;
     }
+
+    /**
+     * inserts this Tweet into mySQL
+     *
+     * @param \PDO $pdo PDO connection object
+     * @throws \PDOException when mySQL related errors occur
+     * @throws \TypeError if $pdo is not a PDO connection object
+     **/
+    public function insert(\PDO $pdo) : void {
+
+        // create query template
+        $query = "INSERT INTO tag(tagId, tagAdminId, tagType, tagValue) VALUES(:tagId, :tagAdminId, :tagType, :tagValue)";
+        $statement = $pdo->prepare($query);
+
+        // bind the member variables to the place holders in the template
+        $formattedDate = $this->tweetDate->format("Y-m-d H:i:s.u");
+        $parameters = ["tagId" => $this->tagId->getBytes(), "tagAdminId" => $this->tagAdminId->getBytes(), "tagType" => $this->tagType, "tagValue" => $this->tagValue];
+        $statement->execute($parameters);
+    }
     /**
      * Formats the state variables for JSON serialization
      *

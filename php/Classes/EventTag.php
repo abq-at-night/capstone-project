@@ -103,6 +103,25 @@ class EventTag implements \JsonSerializable {
         // convert and store the event tag tag id
         $this->eventTagTagId = $uuid;
     }
+
+    /**
+     * inserts this Tag into mySQL
+     *
+     * @param \PDO $pdo PDO connection object
+     * @throws \PDOException when mySQL related errors occur
+     * @throws \TypeError if $pdo is not a PDO connection object
+     **/
+    public function insert(\PDO $pdo) : void {
+
+        // create query template
+        $query = "INSERT INTO EventTag(eventTagEventId, eventTagTagId) VALUES(:eventTagEventId, :eventTagTagId)";
+        $statement = $pdo->prepare($query);
+
+        // bind the member variables to the place holders in the template
+        $parameters = ["eventTagEventId" => $this->eventTagEventId->getBytes(), "eventTagTagId" => $this->eventTagTagId->getBytes()];
+        $statement->execute($parameters);
+    }
+
     /**
      * Formats the state variables for JSON serialization
      *
