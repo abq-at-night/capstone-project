@@ -42,8 +42,8 @@ CREATE TABLE tag (
 	tagType CHAR(32) NOT NULL,
 	tagValue CHAR(32) NOT NULL,
 	INDEX(tagAdminId),
-	FOREIGN KEY(tagAdminId) REFERENCES event(adminId),
-	PRIMARY KEY(tagId),
+	FOREIGN KEY(tagAdminId) REFERENCES admin(adminId),
+	PRIMARY KEY(tagId)
 );
 
 -- Creates the weak eventTag entity
@@ -52,9 +52,9 @@ CREATE TABLE eventTag (
 	eventTagTagId BINARY(16) NOT NULL,
 	INDEX(eventTagEventId),
 	INDEX(eventTagTagId),
-	FOREIGN KEY(eventTagEventId) REFERENCES  event(enentID),
-	FOREIGN KEY(eventTagTagId) REFERENCES  event(tagID),
-	PRIMARY KEY(eventTagEventId,eventTagTagId)
+	FOREIGN KEY(eventTagEventId) REFERENCES  event(eventId),
+	FOREIGN KEY(eventTagTagId) REFERENCES  tag(tagId),
+	PRIMARY KEY(eventTagEventId, eventTagTagId)
 );
 
 -- Creates the admin entity
