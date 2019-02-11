@@ -1,62 +1,78 @@
 <?php
 namespace DeepDive\AbqAtNight\Test;
-use DeepDive\AbqAtNight\Event;
+use DeepDive\AbqAtNight\{Event};
 // grab the class under scrutiny
-require_once(dirname(__DIR__) . "/autoload.php");
 
+require_once(dirname(__DIR__) . "/autoload.php");
 // grab the uuid generator
 require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 /**
- * Full PHPUnit test for the Tweet class
+ * Full PHPUnit test for the Event class
  *
- * This is a complete PHPUnit test of the Tweet class. It is complete because *ALL* mySQL/PDO enabled methods
+ * This is a complete PHPUnit test of the Event class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
- * @see Tweet
- * @author Dylan McDonald <dmcdonald21@cnm.edu>
+ * @see Event
+ * @author Wyatt Salmons <wyattsalmons@gmail.com>
  **/
-class TweetTest extends DataDesignTest {
+class EventTest extends AbqAtNightTest {
 	/**
-	 * Profile that created the Tweet; this is for foreign key relations
-	 * @var Profile profile
-	 **/
-	protected $profile = null;
-
-
-	/**
-	 * valid profile hash to create the profile object to own the test
-	 * @var $VALID_HASH
+	 * valid event age requirement
+	 * @var string $VALID_AGEREQUIREMENT
 	 */
-	protected $VALID_PROFILE_HASH;
+	protected $VALID_AGEREQUIREMENT = "21 and over";
 
 	/**
-	 * content of the Tweet
-	 * @var string $VALID_TWEETCONTENT
+	 * valid description
+	 * @var string $VALID_EVENTDESCRIPTION
 	 **/
-	protected $VALID_TWEETCONTENT = "PHPUnit test passing";
+	protected $VALID_EVENTDESCRIPTION = "Some dudes playing fire.";
 
 	/**
-	 * content of the updated Tweet
-	 * @var string $VALID_TWEETCONTENT2
+	 * valid end time
+	 * @var \DateTime $VALID_EVENTENDTIME
 	 **/
-	protected $VALID_TWEETCONTENT2 = "PHPUnit test still passing";
+	protected $VALID_EVENTENDTIME = "2019-02-12 22:00:00";
 
 	/**
-	 * timestamp of the Tweet; this starts as null and is assigned later
-	 * @var \DateTime $VALID_TWEETDATE
+	 * valid event ticket price
+	 * @var string $VALID_EVENTPRICE
 	 **/
-	protected $VALID_TWEETDATE = null;
+	protected $VALID_EVENTPRICE = "$7 at the door";
 
 	/**
-	 * Valid timestamp to use as sunriseTweetDate
-	 */
-	protected $VALID_SUNRISEDATE = null;
+	 * valid promoter website url
+	 * @var string $VALID_PROMOTERWEBSITE
+	 **/
+	protected $VALID_PROMOTERWEBSITE = "https://somepromoterswebsite.com";
 
 	/**
-	 * Valid timestamp to use as sunsetTweetDate
-	 */
-	protected $VALID_SUNSETDATE = null;
+	 * valid start time
+	 * @var \DateTime $VALID_EVENTSTARTTIME
+	 **/
+	protected $VALID_EVENTSTARTTIME = "2019-02-12 19:00:00";
+
+	/**
+	 * valid event title
+	 * @var string $VALID_EVENTTITLE
+	 **/
+	protected $VALID_EVENTTITLE = "Dude and his Deck";
+
+	/**
+	 * valid event venue
+	 * @var string $VALID_EVENTVENUE
+	 **/
+	protected $VALID_EVENTVENUE = "The Launchpad";
+
+	/**
+	 * valid venue website url
+	 * @var string $VALID_VENUEWEBSITE
+	 **/
+	protected $VALID_VENUEWEBSITE = "https://somepromoterswebsite.com";
+
+
+
 
 	/**
 	 * create dependent objects before running each test
