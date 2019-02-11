@@ -1,0 +1,15 @@
+<phpunit>
+	<testsuites>
+		<testsuite name="ABQ at Night Data Design">
+			<file>AdminTest.php</file>
+			<file>EventTest.php</file>
+			<file>TagTest.php</file>
+			<file>EventTagTest.php</file>
+		</testsuite>
+	</testsuites>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">..</directory>
+		</whitelist>
+	</filter>
+</phpunit>
