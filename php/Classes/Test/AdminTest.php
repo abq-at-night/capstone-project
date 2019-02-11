@@ -50,4 +50,11 @@ class AdminTest extends AbqAtNightTest {
 	 **/
 
 	private $VALID_ADMIN_USERNAME;
+
+	//Create dependent objects before running each test.
+	public final function setUp() : void {
+		//Run the default setup() method first.
+		parent::setUp();
+
+	}
 }

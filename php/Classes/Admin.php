@@ -54,6 +54,35 @@ class Admin implements JsonSerializable {
 	private $adminUsername;
 
 	/**
+	 * Constructor for this Admin
+	 *
+	 * @param string \ Uuid $newAdminId ID of this Admin or null if a new Admin
+	 * @param string $newAdminEmail e-mail address for this Admin
+	 * @param string $newAdminHash hash for this Admin
+	 * @param string $newAdminPassword password for this Admin
+	 * @param string $newAdminUsername username for this Admin
+	 * @throws \InvalidArgumentException if the data types are not valid
+	 * @throws \RangeException if the values are out of bounds (i.e. not the exact length or too long)
+	 * @throws \TypeError if the data types violate type hints
+	 * @throws \Exception if any other exception occurs
+	 **/
+
+	public function __construct($newAdminId, $newAdminEmail, $newAdminHash, $newAdminPassword, $newAdminUsername) {
+		try {
+			$this->setAdminId($newAdminId);
+			$this->setAdminEmail($newAdminEmail);
+			$this->setAdminHash($newAdminHash);
+			$this->setAdminPassword($newAdminPassword);
+			$this->setAdminUsername($newAdminUsername);
+		}
+			//Determine which exception type was thrown.
+		catch(\InvalidArgumentException | \RangeException | \TypeError | \Exception $exception){
+			$exceptionType = get_class($exception);
+			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+		}
+	}
+
+	/**
 	 * Accessor method for the admin ID
 	 *
 	 * @return Uuid value of the admin ID
@@ -213,34 +242,6 @@ class Admin implements JsonSerializable {
 		$this->adminUsername = $newAdminUsername;
 	}
 
-	/**
-	 * Constructor for this Admin
-	 *
-	 * @param string \ Uuid $newAdminId ID of this Admin or null if a new Admin
-	 * @param string $newAdminEmail e-mail address for this Admin
-	 * @param string $newAdminHash hash for this Admin
-	 * @param string $newAdminPassword password for this Admin
-	 * @param string $newAdminUsername username for this Admin
-	 * @throws \InvalidArgumentException if the data types are not valid
-	 * @throws \RangeException if the values are out of bounds (i.e. not the exact length or too long)
-	 * @throws \TypeError if the data types violate type hints
-	 * @throws \Exception if any other exception occurs
-	 **/
-
-	public function __construct($newAdminId, $newAdminEmail, $newAdminHash, $newAdminPassword, $newAdminUsername) {
-		try {
-			$this->setAdminId($newAdminId);
-			$this->setAdminEmail($newAdminEmail);
-			$this->setAdminHash($newAdminHash);
-			$this->setAdminPassword($newAdminPassword);
-			$this->setAdminUsername($newAdminUsername);
-		}
-		//Determine which exception type was thrown.
-		catch(\InvalidArgumentException | \RangeException | \TypeError | \Exception $exception){
-			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage(), 0, $exception));
-		}
-	}
 
 	/**
 	 * Formats the state variables for JSON serialization
