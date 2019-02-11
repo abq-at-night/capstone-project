@@ -242,6 +242,25 @@ class Admin implements JsonSerializable {
 		$this->adminUsername = $newAdminUsername;
 	}
 
+	/**
+	 * Inserts this Admin into MySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL-related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+
+	public function insert(\PDO $pdo) : void {
+		// Create the query template.
+		$query = "INSERT INTO admin(adminId, adminEmail, adminHash, adminPassword, adminUsername) VALUES(:adminId, :adminEmail, :adminHash, :adminPassword, :adminUsername)";
+		$statement = $pdo->prepare($query);
+
+		// Bind the member variables to the place holders in the template.
+		$parameters = ["adminId" => $this->adminId->getBytes(), "adminEmail" => $this->adminEmail, "adminHash" => $this->adminHash, "adminPassword" => $this->adminPassword, "adminUsername" => $this->adminUsername];
+		$statement->execute($parameters);
+	}
+
+
 
 	/**
 	 * Formats the state variables for JSON serialization
