@@ -8,7 +8,7 @@ require_once(dirname(__DIR__) . "/autoload.php");
 require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 /**
- * Full PHPUnit test for the Event class
+ * Full PHPUnit test for the Event class *******************SEE COMMENT AT TOP OF CLASS**********************
  *
  * This is a complete PHPUnit test of the Event class. It is complete because *ALL* mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
@@ -17,6 +17,8 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  * @author Wyatt Salmons <wyattsalmons@gmail.com>
  **/
 class EventTest extends AbqAtNightTest {
+	//******************************HELP WITH EVENTID, EVENTADMINID, AND EVENTIMAGE. DO WE NEED? HOW TO FORMAT?***************************************************
+
 	/**
 	 * valid event age requirement
 	 * @var string $VALID_AGEREQUIREMENT
@@ -72,10 +74,8 @@ class EventTest extends AbqAtNightTest {
 	protected $VALID_VENUEWEBSITE = "https://somepromoterswebsite.com";
 
 
-
-
 	/**
-	 * create dependent objects before running each test
+	 * create dependent objects before running each test ***************THIS FUNCTION NEEDS HELP BADLY SEE COMMENTS******************************
 	 **/
 	public final function setUp()  : void {
 		// run the default setUp() method first
@@ -83,14 +83,17 @@ class EventTest extends AbqAtNightTest {
 		$password = "abc123";
 		$this->VALID_PROFILE_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
-
-		// create and insert a Profile to own the test Tweet
+// **************************************************HELP WITH PROFILE PARAMETERS, CONFUSED WITH REQ' PARAMS. ***************************************************
+		// create and insert a Profile to own the test Event
 		$this->profile = new Profile(generateUuidV4(), null,"@handle", "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif", "test@phpunit.de",$this->VALID_PROFILE_HASH, "+12125551212");
 		$this->profile->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)
-		$this->VALID_TWEETDATE = new \DateTime();
+		$this->VALID_EVENTENDTIME = new \DateTime();
+		$this->VALID_EVENTSTARTTIME= new \DateTime();
 
+
+		//***********************************************************DO WE NEED THIS "SUNRISE DATE"??*************************************************************
 		//format the sunrise date to use for testing
 		$this->VALID_SUNRISEDATE = new \DateTime();
 		$this->VALID_SUNRISEDATE->sub(new \DateInterval("P10D"));
@@ -98,8 +101,6 @@ class EventTest extends AbqAtNightTest {
 		//format the sunset date to use for testing
 		$this->VALID_SUNSETDATE = new\DateTime();
 		$this->VALID_SUNSETDATE->add(new \DateInterval("P10D"));
-
-
 
 	}
 
