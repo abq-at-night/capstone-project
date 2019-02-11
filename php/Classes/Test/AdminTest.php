@@ -1,14 +1,14 @@
 <?php
 
-namespace Edu\Cnm\DataDesign\Test;
+namespace DeepDive\AbqAtNight\Test;
 
-use Edu\Cnm\DataDesign\{Admin};
+use DeepDive\AbqAtNight\{Admin};
 
 //Grab the Admin class.
 require_once(dirname(__DIR__) . "/autoload.php");
 
 //Grab the UUID generator.
-require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
+require_once(dirname(__DIR__, 1) . "/Classes/ValidateUuid.php");
 
 /**
  * Full PHPUnit test for the Admin class
