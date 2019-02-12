@@ -127,7 +127,7 @@ class EventTest extends AbqAtNightTest {
 	}
 
 	/**
-	 * test inserting a Tweet, editing it, and then updating it
+	 * test inserting an event, editing it, and then updating it
 	 **/
 	public function testUpdateValidTweet() : void {
 		// count the number of rows and save it for later

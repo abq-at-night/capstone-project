@@ -487,6 +487,58 @@ class Event implements \JsonSerializable {
 	}
 
 	/**
+	 * inserts this Event into mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function insert(\PDO $pdo) : void {
+
+		// create query template. *********************************************************WARNING DUE TO NO TABLES YET AS OF 2/11/19
+		$query = "INSERT INTO Event(eventId,eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite) VALUES(:eventId, :eventAdminId, :eventAgeRequirement, :eventDescription, :eventEndTime, :eventImage, :eventPrice, :eventPromoterWebsite, :eventStartTime, :eventTitle, :eventVenue, :eventVenueWebsite)";
+		$statement = $pdo->prepare($query);
+
+		// bind the member variables to the place holders in the template
+		$formattedEndDate = $this->eventEndTime->format("Y-m-d H:i:s.u");
+		$formattedStartDate = $this->eventStartTime->format("Y-m-d H:i:s.u");
+		$parameters = [
+			"eventId" => $this->eventId->getBytes(),
+			"eventAdminId" => $this->eventAdminId->getBytes(),
+			"eventAgeRequirement" => $this->eventAgeRequirement,
+			"eventDescription" =>  $this->eventDescription,
+			"eventEndTime" => $formattedEndDate,
+			"eventImage" => $this->eventImage->getBytes(),
+			"eventPrice" =>  $this->eventPrice,
+			"eventPromoterWebsite" =>  $this->eventPromoterWebsite,
+			"eventStartTime" => $formattedStartDate,
+			"eventTitle" =>  $this->eventTitle,
+			"eventVenue" =>  $this->eventVenue,
+			"eventVenueWebsite" =>  $this->eventVenueWebsite,
+			];
+		$statement->execute($parameters);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	/**
 	 * formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
