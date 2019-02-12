@@ -210,7 +210,6 @@ class Event implements \JsonSerializable {
 	public function getEventEndTime() : \DateTime {
 		return($this->eventEndTime);
 	}
-
 	/**
 	 * mutator method for event end datetime
 	 *
@@ -253,7 +252,6 @@ class Event implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-
 		// convert and store the event image id
 		$this->eventImage = $uuid;
 	}
@@ -328,7 +326,6 @@ class Event implements \JsonSerializable {
 	public function getEventStartTime() : \DateTime {
 		return($this->eventStartTime);
 	}
-
 	/**
 	 * mutator method for event start datetime
 	 *
@@ -494,11 +491,9 @@ class Event implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function insert(\PDO $pdo) : void {
-
-		// create query template. *********************************************************WARNING DUE TO NO TABLES YET AS OF 2/11/19
+		// create query template. *********************************************************WARNINGS DUE TO NO TABLES YET AS OF 2/11/19
 		$query = "INSERT INTO Event(eventId,eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite) VALUES(:eventId, :eventAdminId, :eventAgeRequirement, :eventDescription, :eventEndTime, :eventImage, :eventPrice, :eventPromoterWebsite, :eventStartTime, :eventTitle, :eventVenue, :eventVenueWebsite)";
 		$statement = $pdo->prepare($query);
-
 		// bind the member variables to the place holders in the template
 		$formattedEndDate = $this->eventEndTime->format("Y-m-d H:i:s.u");
 		$formattedStartDate = $this->eventStartTime->format("Y-m-d H:i:s.u");
@@ -519,6 +514,21 @@ class Event implements \JsonSerializable {
 		$statement->execute($parameters);
 	}
 
+	/**
+	 * deletes this Event from mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function delete(\PDO $pdo) : void {
+		// create query template
+		$query = "DELETE FROM Event WHERE eventId = :eventId";
+		$statement = $pdo->prepare($query);
+		// bind the member variables to the place holder in the template
+		$parameters = ["eventId" => $this->eventId->getBytes()];
+		$statement->execute($parameters);
+	}
 
 
 
