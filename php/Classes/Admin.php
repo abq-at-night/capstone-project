@@ -337,6 +337,19 @@ class Admin implements JsonSerializable {
 	}
 
 	/**
+	 * Gets all Admins
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of Admins found or null if not found
+	 * @throws \PDOException when MySQL-related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+
+	public static function getAllAdmins(\PDO $pdo) : \SplFixedArray {
+		//Create the
+		}
+
+	/**
 	 * Formats the state variables for JSON serialization
 	 *
 	 * @return array resulting state variables to serialize
