@@ -530,6 +530,38 @@ class Event implements \JsonSerializable {
 		$statement->execute($parameters);
 	}
 
+	/**
+	 * updates this Event in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+	public function update(\PDO $pdo) : void {
+
+		// create query template
+		$query = "UPDATE Event SET eventAdminId = :eventAdminId, eventAgeRequirement = :eventAgeRequirement, eventDescription = :eventDescription, eventEndTime = :eventEndTime, eventImage = :eventImage, eventPrice = :eventPrice, eventPromoterWebsite = :eventPromoterWebsite, eventStartTime = :eventStartTime, eventTitle = :eventTitle, eventVenue = :eventVenue, eventVenueWebsite = :eventVenueWebsite WHERE eventId = :eventId";
+		$statement = $pdo->prepare($query);
+
+		$formattedEndDate = $this->eventEndTime->format("Y-m-d H:i:s.u");
+		$formattedStartDate = $this->eventStartTime->format("Y-m-d H:i:s.u");
+		$parameters = [
+			"eventId" => $this->eventId->getBytes(),
+			"eventAdminId" => $this->eventAdminId->getBytes(),
+			"eventAgeRequirement" => $this->eventAgeRequirement,
+			"eventDescription" =>  $this->eventDescription,
+			"eventEndTime" => $formattedEndDate,
+			"eventImage" => $this->eventImage->getBytes(),
+			"eventPrice" =>  $this->eventPrice,
+			"eventPromoterWebsite" =>  $this->eventPromoterWebsite,
+			"eventStartTime" => $formattedStartDate,
+			"eventTitle" =>  $this->eventTitle,
+			"eventVenue" =>  $this->eventVenue,
+			"eventVenueWebsite" =>  $this->eventVenueWebsite,
+		];
+		$statement->execute($parameters);
+	}
+
 
 
 
