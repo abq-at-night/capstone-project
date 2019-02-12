@@ -261,7 +261,7 @@ class Admin implements JsonSerializable {
 	}
 
 	/**
-	 * deletes this Admin from mySQL
+	 * Deletes this Admin from mySQL
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @throws \PDOException when mySQL-related errors occur
@@ -278,6 +278,25 @@ class Admin implements JsonSerializable {
 		$parameters = ["adminId" => $this->adminId->getBytes()];
 		$statement->execute($parameters);
 	}
+
+	/**
+	 * Updates this Admin in mySQL
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError if $pdo is not a PDO connection object
+	 **/
+
+	public function update(\PDO $pdo) : void {
+
+		// Create query template
+		$query = "UPDATE admin SET adminId = :adminId, adminEmail = :adminEmail, adminHash = :adminHash, adminPassword = :adminPassword, adminUsername = :adminUsername WHERE adminId = :adminId";
+		$statement = $pdo->prepare($query);
+
+		$parameters = ["adminId" => $this->adminId->getBytes(), "adminEmail" => $this->adminEmail, "adminHash" => $this->adminHash, "adminPassword" => $this->adminPassword, "adminUsername" => $this->adminUsername];
+		$statement->execute($parameters);
+	}
+
 
 	/**
 	 * Formats the state variables for JSON serialization
