@@ -28,33 +28,23 @@ class AdminTest extends AbqAtNightTest {
 	 * @var VALID_ADMIN_EMAIL
 	 **/
 
-	private $VALID_ADMIN_EMAIL;
+	private $VALID_ADMIN_EMAIL = "abqatnightadmin@gmail.com";
 
-	/**
-	 * Valid hash for the admin
-	 * @var VALID_ADMIN_HASH
-	 **/
-
-	private $VALID_ADMIN_HASH;
 
 	/**
 	 * Valid password for the admin
 	 * @var VALID_ADMIN_PASSWORD
 	 **/
 
-	private $VALID_ADMIN_PASSWORD;
+	private $VALID_ADMIN_PASSWORD = "myPassword123";
 
 	/**
 	 * Valid username for the admin
 	 * @var VALID_ADMIN_USERNAME
 	 **/
 
-	private $VALID_ADMIN_USERNAME;
+	private $VALID_ADMIN_USERNAME = "abqatnightadmin";
 
-	//Create dependent objects before running each test.
-	public final function setUp() : void {
-		//Run the default setup() method first.
-		parent::setUp();
 
-	}
+
 }
