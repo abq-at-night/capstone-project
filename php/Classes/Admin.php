@@ -296,7 +296,45 @@ class Admin implements JsonSerializable {
 		$parameters = ["adminId" => $this->adminId->getBytes(), "adminEmail" => $this->adminEmail, "adminHash" => $this->adminHash, "adminPassword" => $this->adminPassword, "adminUsername" => $this->adminUsername];
 		$statement->execute($parameters);
 	}
+	/**
+	 * Gets Admin by adminId
+	 *
+	 *  * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $adminId tweet id to search for
+	 * @return Admin|null Admin found or null if not found
+	 * @throws \PDOException when mySQL-related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
 
+	public static function getAdminByAdminId(\PDO $pdo, $adminId) : ?Admin {
+		//Sanitize the adminId before searching
+		try {
+			$adminId = self::validateUuid($adminId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		//Create the query template.
+		$query = "SELECT adminId, adminEmail, adminHash, adminPassword, adminUsername FROM admin WHERE adminId = :adminId";
+		$statement = $pdo->prepare($query);
+
+		//Bind the adminId to the place-holder in the template.
+		$parameters = ["adminId" => $adminId->getBytes()];
+		$statement->execute($parameters);
+
+		//Grab the admin from MySQL
+		try {
+			$admin = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$admin = new Admin($row["adminId"], $row["adminEmail"], $row["adminHash"], $row["adminPassword"], $row["adminUsername"]); }
+			} catch (\Exception $exception) {
+				//If the row couldn't be converted, re-throw it.
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		return($admin);
+	}
 
 	/**
 	 * Formats the state variables for JSON serialization
@@ -310,4 +348,5 @@ class Admin implements JsonSerializable {
 
 		return($fields);
 	}
+
 }
