@@ -346,7 +346,26 @@ class Admin implements JsonSerializable {
 	 **/
 
 	public static function getAllAdmins(\PDO $pdo) : \SplFixedArray {
-		//Create the
+		//Create the query template
+
+		$query = "SELECT adminId, adminEmail, adminHash, adminPassword, adminUsername FROM admin";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		// Build an array of admins
+		$admins = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$admin = new Admin ($row["adminId"], $row["adminEmail"], $row["adminHash"], $row["adminPassword"], $row["adminUsername"]);
+				$admins[$admins->key()] = $admin;
+				$admins->next();
+			} catch(\Exception $exception) {
+				// If the row could not be converted, rethrow it.
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($admins);
 		}
 
 	/**
