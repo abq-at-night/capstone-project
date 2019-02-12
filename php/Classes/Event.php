@@ -561,7 +561,45 @@ class Event implements \JsonSerializable {
 		$statement->execute($parameters);
 	}
 
+	/**
+	 * gets the Event by eventId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $eventId event id to search for
+	 * @return Event|null Event found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable are not the correct data type
+	 **/
+	public static function getEventByEventId(\PDO $pdo, $eventId) : ?Event {
+		// sanitize the eventId before searching
+		try {
+			$eventId = self::validateUuid($eventId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
 
+		// create query template
+		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM Event WHERE eventId = :eventId";
+		$statement = $pdo->prepare($query);
+
+		// bind the event id to the place holder in the template
+		$parameters = ["eventId" => $eventId->getBytes()];
+		$statement->execute($parameters);
+
+		// grab the tweet from mySQL
+		try {
+			$event = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$event = new Event($row["eventId"], $row["eventAdminId"], $row["eventAgeRequirement"], $row["eventDescription"], $row["eventEndTime"], $row["eventImage"], $row["eventPrice"], $row["eventPromoterWebsite"], $row["eventStartTime"], $row["eventTitle"], $row["eventVenue"], $row["eventVenueWebsite"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($event);
+	}
 
 
 
