@@ -8,10 +8,7 @@ require_once(dirname(__DIR__) . "/autoload.php");
 require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 /**
- * Full PHPUnit test for the Event class *******************SEE COMMENT AT TOP OF CLASS**********************
- *
- * This is a complete PHPUnit test of the Event class. It is complete because *ALL* mySQL/PDO enabled methods
- * are tested for both invalid and valid inputs.
+ * this is the the section for the tag in the ABQ at Night Capstone project
  *
  * @see Event
  * @author Wyatt Salmons <wyattsalmons@gmail.com>

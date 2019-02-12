@@ -7,10 +7,7 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
 /**
- * Full PHPUnit test for the Event Tag class
- *
- * This is a complete PHPUnit test of the Event Tag class. It is complete because all mySQL/PDO enabled methods
- * are tested for both invalid and valid inputs.
+ * this is the the section for the event tag class in the ABQ at Night Capstone project
  *
  * @see Event Tag
  * @author Adrian Tsosie <atsosie11@cnm.com>

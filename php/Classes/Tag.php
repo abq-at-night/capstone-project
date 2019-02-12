@@ -7,10 +7,7 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
 /**
- * Full PHPUnit test for the Tag class
- *
- * This is a complete PHPUnit test of the Tag class. It is complete because all mySQL/PDO enabled methods
- * are tested for both invalid and valid inputs.
+ *  this is the the section for the event tag class in the ABQ at Night Capstone project
  *
  * @see Tag
  * @author Adrian Tsosie <atsosie11@cnm.com>
@@ -47,8 +44,10 @@ class Tag implements \JsonSerializable {
     /**
      * constructor for this Event Tag
      *
-     * @parm string|Uuid $newEventTagEVentId
-     * @parm string|Uuid $newEvent TagId
+     * @parm string|Uuid $newTagId
+     * @parm string|Uuid $newTagAdminId
+     * @parm string|Uuid $newTagType
+     * @parm string|Uuid $newTagValue
      * @throws \InvalidArgumentException if data types are not valid
      * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
      * @throws \TypeError if data types violate type hints
@@ -126,60 +125,64 @@ class Tag implements \JsonSerializable {
     /**
      * accessor method for tag type
      *
-     * @return Uuid value of tag type
+     * @return string value of tag type
      **/
-    public function getTagType() : Uuid {
+    public function getTagType() : string {
         return($this->tagType);
     }
     /**
      * mutator method for tag type
      *
-     * @param Uuid|string $newTagType new value of tag type
+     * @param string $newTagType new value of tag type
      * @throws \RangeException if $newTagType is not positive
      * @throws \TypeError if $newTagType is not a uuid or string
      **/
-    public function setTagType($newTagType) : void {
-        try {
-            $uuid = self::validateUuid($newTagType);
-        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-            $exceptionType = get_class($exception);
-            throw(new $exceptionType($exception->getMessage(), 0, $exception));
+    public function setTagType(string $newTagType) : void {
+        $newTagType = trim($newTagType);
+        $newTagType = filter_var($newTagType, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        if(empty($newTagType) === true) {
+            throw(new \InvalidArgumentException("tweet content is empty or insecure"));
         }
 
-        // convert and store the tag type
-        $this->tagType = $uuid;
+        if(strlen($newTagType) > 140) {
+            throw(new \RangeException("tag type is to long"));
+        }
+
+        $this->tagTypet = $newTagType;
     }
 
 
     /**
      * accessor method for tag value
      *
-     * @return Uuid value of tag value
+     * @return string value of tag value
      **/
-    public function getTagValue() : Uuid {
+    public function getTagValue() : string {
         return($this->tagValue);
     }
     /**
      * mutator method for tag value
      *
-     * @param Uuid|string $newTagValue new value of tag value
+     * @param string $newTagValue new value of tag value
      * @throws \RangeException if $newTagValue is not positive
      * @throws \TypeError if $newTagValue is not a uuid or string
      **/
-    public function setTagValue( $newTagValue) : void {
-        try {
-            $uuid = self::validateUuid($newTagValue);
-        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-            $exceptionType = get_class($exception);
-            throw(new $exceptionType($exception->getMessage(), 0, $exception));
+    public function setTagValue(string $newTagValue) : void {
+        $newTagValue = trim($newTTagValue);
+        $newTagValue = filter_var($newTagValuee, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        if(empty($newTagValue) === true) {
+            throw(new \InvalidArgumentException("tweet content is empty or insecure"));
         }
 
-        // convert and store the tag value
-        $this->tagValue = $uuid;
+        if(strlen($newTTagValue) > 140) {
+            throw(new \RangeException("tag value is to long"));
+        }
+
+        $this->tagValuet = $newTagValue;
     }
 
     /**
-     * inserts this Tweet into mySQL
+     * inserts this Tag into mySQL
      *
      * @param \PDO $pdo PDO connection object
      * @throws \PDOException when mySQL related errors occur
@@ -191,8 +194,6 @@ class Tag implements \JsonSerializable {
         $query = "INSERT INTO tag(tagId, tagAdminId, tagType, tagValue) VALUES(:tagId, :tagAdminId, :tagType, :tagValue)";
         $statement = $pdo->prepare($query);
 
-        // bind the member variables to the place holders in the template
-        $formattedDate = $this->tweetDate->format("Y-m-d H:i:s.u");
         $parameters = ["tagId" => $this->tagId->getBytes(), "tagAdminId" => $this->tagAdminId->getBytes(), "tagType" => $this->tagType, "tagValue" => $this->tagValue];
         $statement->execute($parameters);
     }
