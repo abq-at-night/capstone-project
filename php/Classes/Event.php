@@ -1,5 +1,5 @@
 <?php
-namespace DeepDive\AbqAtNight; /* change namespace to AbqAtNight/CapstoneProject */
+namespace AbqAtNight\CapstoneProject;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
