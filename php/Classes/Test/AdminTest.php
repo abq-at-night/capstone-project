@@ -2,7 +2,7 @@
 
 namespace AbqAtNight\CapstoneProject;
 
-use AbqAtNight\CapstoneProject\Admin;
+use AbqAtNight\CapstoneProject\{Admin};
 
 //Grab the Admin class.
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -180,7 +180,7 @@ class AdminTest extends AbqAtNightTest {
 		$pdoAdmin = $results[0];
 		$this->assertEquals($pdoAdmin -> getAdminId(), $adminId);
 		$this->assertEquals($pdoAdmin -> getAdminEmail(), $this -> VALID_ADMIN_EMAIL);
-		$this->assertEquals($pdoAdmin -> getAdminPassword(), $this -> VALID_ADMIN_HASH);
+		$this->assertEquals($pdoAdmin -> getAdminHash(), $this -> VALID_ADMIN_HASH);
 		$this->assertEquals($pdoAdmin -> getAdminUsername(), $this -> VALID_ADMIN_USERNAME);
 	}
 
