@@ -50,7 +50,7 @@ class EventTest extends AbqAtNightTest {
 	 * valid promoter website url
 	 * @var string $VALID_PROMOTERWEBSITE
 	 **/
-	protected $VALID_PROMOTERWEBSITE = "https://somepromoterswebsite.com";
+	protected $VALID_EVENTPROMOTERWEBSITE = "https://somepromoterswebsite.com";
 
 	/**
 	 * valid start time
@@ -74,7 +74,7 @@ class EventTest extends AbqAtNightTest {
 	 * valid venue website url
 	 * @var string $VALID_VENUEWEBSITE
 	 **/
-	protected $VALID_VENUEWEBSITE = "https://somepromoterswebsite.com";
+	protected $VALID_EVENTVENUEWEBSITE = "https://somepromoterswebsite.com";
 
 
 	/**
@@ -116,7 +116,7 @@ class EventTest extends AbqAtNightTest {
 
 		// create a new Event and insert to into mySQL
 		$eventId = generateUuidV4();
-		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_AGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $this->VALID_EVENTENDTIME, $this->VALID_EVENTIMAGE, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $this->VALID_EVENTSTARTTIME, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
 		$event->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
