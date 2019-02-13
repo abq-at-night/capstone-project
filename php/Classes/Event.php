@@ -601,6 +601,46 @@ class Event implements \JsonSerializable {
 		return($event);
 	}
 
+	/**
+	 * gets the Event by admin id
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $eventAdminId admin id to search by
+	 * @return \SplFixedArray SplFixedArray of Tweets found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getEventByEventAdminId(\PDO $pdo, $eventAdminId) : \SplFixedArray {
+
+		try {
+			$eventAdminId = self::validateUuid($eventAdminId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		// create query template
+		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM Event WHERE eventAdminId = :eventAdminId";
+		$statement = $pdo->prepare($query);
+		// bind the event admin id to the place holder in the template
+		$parameters = ["eventAdminId" => $eventAdminId->getBytes()];
+		$statement->execute($parameters);
+		// build an array of event
+		$events = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$event = new Event($row["eventId"], $row["eventAdminId"], $row["eventAgeRequirement"], $row["eventDescription"], $row["eventEndTime"], $row["eventImage"], $row["eventPrice"], $row["eventPromoterWebsite"], $row["eventStartTime"], $row["eventTitle"], $row["eventVenue"], $row["eventVenueWebsite"]);
+				$events[$events->key()] = $event;
+				$events->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($events);
+	}
+
+
 
 
 	/**
