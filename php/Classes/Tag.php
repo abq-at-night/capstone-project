@@ -31,13 +31,13 @@ class Tag implements \JsonSerializable {
 
     /**
      * tag that is identified by its type
-     * @var Uuid $tagType
+     * @var string $tagType
      **/
     private $tagType;
 
     /**
      * tag that is identified by its value
-     * @var Uuid $tagValue
+     * @var string $tagValue
      **/
     private $tagValue;
 
@@ -46,15 +46,15 @@ class Tag implements \JsonSerializable {
      *
      * @parm string|Uuid $newTagId
      * @parm string|Uuid $newTagAdminId
-     * @parm string|Uuid $newTagType
-     * @parm string|Uuid $newTagValue
+     * @parm string $newTagType
+     * @parm string $newTagValue
      * @throws \InvalidArgumentException if data types are not valid
      * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
      * @throws \TypeError if data types violate type hints
      * @throws \Exception if some other exception occurs
      * @Documentation https://php.net/manual/en/language.oop5.decon.php
      */
-    public function _construct($newTagId, $newTagAdminId, $newTagType, $newTagValue) {
+    public function __construct($newTagId, $newTagAdminId, $newTagType, $newTagValue) {
         try {
             $this->setTagId($newTagId);
             $this->setTagAdminId($newTagAdminId);
@@ -71,7 +71,7 @@ class Tag implements \JsonSerializable {
      *
      * @return Uuid value of tag id
      **/
-    public function getTagId() : Uuid {
+    public function getTagId() {
         return($this->tagId);
     }
     /**
@@ -141,14 +141,14 @@ class Tag implements \JsonSerializable {
         $newTagType = trim($newTagType);
         $newTagType = filter_var($newTagType, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
         if(empty($newTagType) === true) {
-            throw(new \InvalidArgumentException("tweet content is empty or insecure"));
+            throw(new \InvalidArgumentException("tag content is empty or insecure"));
         }
 
         if(strlen($newTagType) > 140) {
             throw(new \RangeException("tag type is to long"));
         }
 
-        $this->tagTypet = $newTagType;
+        $this->tagType = $newTagType;
     }
 
 
@@ -168,17 +168,17 @@ class Tag implements \JsonSerializable {
      * @throws \TypeError if $newTagValue is not a uuid or string
      **/
     public function setTagValue(string $newTagValue) : void {
-        $newTagValue = trim($newTTagValue);
-        $newTagValue = filter_var($newTagValuee, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+        $newTagValue = trim($newTagValue);
+        $newTagValue = filter_var($newTagValue, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
         if(empty($newTagValue) === true) {
-            throw(new \InvalidArgumentException("tweet content is empty or insecure"));
+            throw(new \InvalidArgumentException("tag content is empty or insecure"));
         }
 
-        if(strlen($newTTagValue) > 140) {
+        if(strlen($newTagValue) > 140) {
             throw(new \RangeException("tag value is to long"));
         }
 
-        $this->tagValuet = $newTagValue;
+        $this->tagValue = $newTagValue;
     }
 
     /**
