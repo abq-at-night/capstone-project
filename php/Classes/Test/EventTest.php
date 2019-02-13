@@ -104,13 +104,13 @@ class EventTest extends AbqAtNightTest {
 	/**
 	 * test inserting a valid Tweet and verify that the actual mySQL data matches
 	 **/
-	public function testInsertValidTweet() : void {
+	public function testInsertValidEvent() : void {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("event");
 
 		// create a new Tweet and insert to into mySQL
 		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$tweet = new Event($eventId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
 		$tweet->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations

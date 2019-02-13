@@ -13,7 +13,7 @@ CREATE TABLE event (
 	eventAgeRequirement VARCHAR(128),
 	eventDescription VARCHAR(500),
 	eventEndTime DATETIME(6) NOT NULL,
-	eventImage BINARY(16) NOT NULL,
+	eventImage VARCHAR(256) NOT NULL,
 	eventPrice VARCHAR(32),
 	eventPromoterWebsite VARCHAR (256),
 	eventStartTime DATETIME(6) NOT NULL,

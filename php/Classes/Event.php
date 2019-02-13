@@ -47,8 +47,8 @@ class Event implements \JsonSerializable {
 	private $eventEndTime;
 
 	/**
-	 * event poster image Id
-	 * @var Uuid $eventImage
+	 * event poster image url
+	 * @var string $eventImage
 	 **/
 	private $eventImage;
 
@@ -278,25 +278,30 @@ class Event implements \JsonSerializable {
 	 *
 	 * @return Uuid value of event image
 	 **/
-	public function getEventImage() : Uuid {
+	public function getEventImage() : string {
 		return($this->eventImage);
 	}
 	/**
 	 * mutator method for event image
 	 *
-	 * @param Uuid|string $newEventImage new value of event id
-	 * @throws \RangeException if $newEventImage is not positive
-	 * @throws \TypeError if $newEventImage is not a uuid or string
-	 **/
-	public function setEventImage( $newEventImage) : void {
-		try {
-			$uuid = self::validateUuid($newEventImage);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			$exceptionType = get_class($exception);
-			throw(new $exceptionType($exception->getMessage(), 0, $exception));
+	 * @param string $newEventImage new value of event image host url
+	 * @throws \InvalidArgumentException if $newEventImage is not a string or insecure
+	 * @throws \RangeException if $newEventImage is > 256 characters
+	 * @throws \TypeError if $eventPromoterWebsite is not a string
+	 */
+	public function setEventImage(string $newEventImage) : void {
+		// verify event promoter url is secure
+		$newEventImage = trim($newEventImage);
+		$newEventImage = filter_var($newEventImage, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($newEventPromoterWebsite) === true) {
+			throw(new \InvalidArgumentException("event price content is not secure"));
 		}
-		// convert and store the event image id
-		$this->eventImage = $uuid;
+		//verify the content will fit into the database
+		if(strlen($newEventImage) > 256) {
+			throw(new \RangeException("event price content too large"));
+		}
+		// convert and store the event promoter website
+		$this->eventImage = $newEventImage;
 	}
 
 	/**
