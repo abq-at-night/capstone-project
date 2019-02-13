@@ -640,8 +640,80 @@ class Event implements \JsonSerializable {
 		return($events);
 	}
 
+	/**
+	 * gets the event by tag
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $eventTag event content to search for
+	 * @return \SplFixedArray SplFixedArray of events found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getEventByEventTag(\PDO $pdo, string $eventTag) : \SplFixedArray {
+		// sanitize the description before searching
+		$tweetContent = trim($tweetContent);
+		$tweetContent = filter_var($tweetContent, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($tweetContent) === true) {
+			throw(new \PDOException("tweet content is invalid"));
+		}
 
+		// escape any mySQL wild cards
+		$tweetContent = str_replace("_", "\\_", str_replace("%", "\\%", $tweetContent));
 
+		// create query template
+		$query = "SELECT tweetId, tweetProfileId, tweetContent, tweetDate FROM tweet WHERE tweetContent LIKE :tweetContent";
+		$statement = $pdo->prepare($query);
+
+		// bind the tweet content to the place holder in the template
+		$tweetContent = "%$tweetContent%";
+		$parameters = ["tweetContent" => $tweetContent];
+		$statement->execute($parameters);
+
+		// build an array of tweets
+		$tweets = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$tweet = new Tweet($row["tweetId"], $row["tweetProfileId"], $row["tweetContent"], $row["tweetDate"]);
+				$tweets[$tweets->key()] = $tweet;
+				$tweets->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($tweets);
+	}
+
+	/**
+	 * gets all Events
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @return \SplFixedArray SplFixedArray of Events found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getAllEvents(\PDO $pdo) : \SPLFixedArray {
+		// create query template
+		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM Event WHERE eventId = :eventId";
+		$statement = $pdo->prepare($query);
+		$statement->execute();
+
+		// build an array of tweets
+		$events = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$event = new Event($row["eventId"], $row["eventAdminId"], $row["eventAgeRequirement"], $row["eventDescription"], $row["eventEndTime"], $row["eventImage"], $row["eventPrice"], $row["eventPromoterWebsite"], $row["eventStartTime"], $row["eventTitle"], $row["eventVenue"], $row["eventVenueWebsite"]);
+				$events[$events->key()] = $event;
+				$events->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return ($events);
+	}
 
 	/**
 	 * formats the state variables for JSON serialization
