@@ -106,7 +106,7 @@ class EventTest extends AbqAtNightTest {
 
 // **************************************************HELP WITH PROFILE PARAMETERS, CONFUSED WITH REQ' PARAMS. ***************************************************
 		// create and insert a Profile to own the test Event
-		$this->admin = new Admin(generateUuidV4(), "email@email.com",$hash, "###password", "testuser");
+		$this->admin = new Admin(generateUuidV4(), "email@email.com",$hash, "testuser");
 		$this->admin->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)
