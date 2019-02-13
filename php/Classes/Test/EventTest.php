@@ -35,6 +35,12 @@ class EventTest extends AbqAtNightTest {
 	protected $VALID_EVENTENDTIME = "2019-02-12 22:00:00";
 
 	/**
+	 * valid event image url
+	 * @var string $VALID_EVENTIMAGE
+	 */
+	protected $VALID_EVENTIMAGE = "https://imagelocation.com";
+
+	/**
 	 * valid event ticket price
 	 * @var string $VALID_EVENTPRICE
 	 **/
@@ -102,25 +108,26 @@ class EventTest extends AbqAtNightTest {
 	}
 
 	/**
-	 * test inserting a valid Tweet and verify that the actual mySQL data matches
+	 * test inserting a valid Event and verify that the actual mySQL data matches
 	 **/
 	public function testInsertValidEvent() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("event");
 
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Event($eventId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Event and insert to into mySQL
+		$eventId = generateUuidV4();
+		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$event->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
+		$pdoEvent = Event::getEventByEventId($this->getPDO(), $event->getEventId());
+		$event->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
+		$this->assertEquals($pdoEvent->getEventId(), $eventId);
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventTitle(), $this->$VALID_EVENTTITLE);
 		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventEndTime()->getTimestamp(), $this->$VALID_EVENTENDTIME->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventStartTime()->getTimestamp(), $this->$VALID_EVENTSTARTTIME->getTimestamp());
 	}
 
 	/**
@@ -172,17 +179,19 @@ class EventTest extends AbqAtNightTest {
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("tweet"));
 	}
 
+
+//**********************************************************************************WYATT START HERE************************************************************************************************************
 	/**
-	 * test inserting a Tweet and regrabbing it from mySQL
+	 * test inserting a Event and regrabbing it from mySQL
 	 **/
-	public function testGetValidTweetByTweetProfileId() {
+	public function testGetValidEventByEventAdminId() {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("event");
 
 		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		$eventId = generateUuidV4();
+		$event = new Event($eventId, $this->Admin->getAdminId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$event->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$results = Tweet::getTweetByTweetProfileId($this->getPDO(), $tweet->getTweetProfileId());
