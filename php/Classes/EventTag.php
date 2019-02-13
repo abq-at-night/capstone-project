@@ -159,37 +159,36 @@ class EventTag implements \JsonSerializable {
         return($eventTag);
     }
 
-    /**
-     * Gets all Tags
-     *
-     * @param \PDO $pdo PDO connection object
-     * @return \SplFixedArray SplFixedArray of Tags found or null if not found
-     * @throws \PDOException when MySQL-related errors occur
-     * @throws \TypeError when variables are not the correct data type
-     **/
-
-    public static function getAllTags(\PDO $pdo) : \SplFixedArray {
-        //Create the query template
-
-        $query = "SELECT tagId, tagAdminId, tagType, tagValue FROM tag";
-        $statement = $pdo->prepare($query);
-        $statement->execute();
-
-        // Build an array of admins
-        $tags = new \SplFixedArray($statement->rowCount());
-        $statement->setFetchMode(\PDO::FETCH_ASSOC);
-        while(($row = $statement->fetch()) !== false) {
-            try {
-                $tag = new Tag ($row["tagId"], $row["tagAdminId"], $row["tagType"], $row["tagValue"],);
-                $tags [$tags->key()] = $tag;
-                $tags->next();
-            } catch(\Exception $exception) {
-                // If the row could not be converted, rethrow it.
-                throw(new \PDOException($exception->getMessage(), 0, $exception));
-            }
+    public static function getEventTagByTagId(\PDO $pdo, $eventTagEventId) : ?eventTag {
+        //Sanitize the adminId before searching
+        try {
+            $eventTagEventId = self::validateUuid($eventTagEventId);
+        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
         }
-        return ($tags);
+
+        //Create the query template.
+        $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE  eventTagEventId = :eventTagEventId";
+        $statement = $pdo->prepare($query);
+
+        //Bind the tagId to the place-holder in the template.
+        $parameters = ["eventTagEventId" => $eventTagEventId->getBytes()];
+        $statement->execute($parameters);
+
+        //Grab the eventTag from MySQL
+        try {
+            $eventTag = null;
+            $statement->setFetchMode(\PDO::FETCH_ASSOC);
+            $row = $statement->fetch();
+            if($row !== false) {
+                $eventTag = new Tag($row["eventTagEventId"], $row["EventTagTagId"]); }
+        } catch (\Exception $exception) {
+            //If the row couldn't be converted, re-throw it.
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
+        return($eventTag);
     }
+
 
     /**
      * Formats the state variables for JSON serialization
