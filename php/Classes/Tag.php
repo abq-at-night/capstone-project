@@ -198,6 +198,114 @@ class Tag implements \JsonSerializable {
         $parameters = ["tagId" => $this->tagId->getBytes(), "tagAdminId" => $this->tagAdminId->getBytes(), "tagType" => $this->tagType, "tagValue" => $this->tagValue];
         $statement->execute($parameters);
     }
+
+    /**
+    * Deletes this Admin from mySQL
+    *
+    * @param \PDO $pdo PDO connection object
+    * @throws \PDOException when mySQL-related errors occur
+    * @throws \TypeError if $pdo is not a PDO connection object
+    **/
+
+    public function delete(\PDO $pdo) : void {
+
+        // Create query template.
+        $query = "DELETE FROM tag WHERE tagId = : tagId";
+        $statement = $pdo->prepare($query);
+
+        // Bind the member variables to the place holder in the template
+        $parameters = ["tagId" => $this->tagId->getBytes()];
+        $statement->execute($parameters);
+    }
+
+    /**
+     * Updates this Tag in mySQL
+     *
+     * @param \PDO $pdo PDO connection object
+     * @throws \PDOException when mySQL related errors occur
+     * @throws \TypeError if $pdo is not a PDO connection object
+     **/
+
+    public function update(\PDO $pdo) : void {
+
+        // Create query template
+        $query = "UPDATE tag SET tagId = :tagId, tagAdminId = :tagAdminId, tagType = :tagType, tagValue = :tagValue, WHERE tagId = :tagId";
+        $statement = $pdo->prepare($query);
+
+        $parameters = ["tagId" => $this->tagId->getBytes(), "tagAdminId" => $this->tagAdminId->getBytes(), "tagType" => $this->tagType, "tagValue" => $this->tagValue];
+        $statement->execute($parameters);
+    }
+    /**
+     * Gets Tad by tagId
+     *
+     * @param \PDO $pdo PDO connection object
+     * @param Uuid|string $tagId tag id to search for
+     * @return Admin|null Admin found or null if not found
+     * @throws \PDOException when mySQL-related errors occur
+     * @throws \TypeError when a variable are not the correct data type
+     **/
+
+    public static function getTagByTagId(\PDO $pdo, $tagId) : ?Tag {
+        //Sanitize the adminId before searching
+        try {
+            $tagId = self::validateUuid($tagId);
+        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
+
+        //Create the query template.
+        $query = "SELECT tagId, adminEmail, tagAdminId, tagType, tagValue FROM tag WHERE tagId = :tagId";
+        $statement = $pdo->prepare($query);
+
+        //Bind the tagId to the place-holder in the template.
+        $parameters = ["tagId" => $tagId->getBytes()];
+        $statement->execute($parameters);
+
+        //Grab the admin from MySQL
+        try {
+            $tag = null;
+            $statement->setFetchMode(\PDO::FETCH_ASSOC);
+            $row = $statement->fetch();
+            if($row !== false) {
+                $admin = new Tag($row["tagId"], $row["tagAdminId"], $row["tagType"], $row["tagValue"]); }
+        } catch (\Exception $exception) {
+            //If the row couldn't be converted, re-throw it.
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
+        return($id);
+    }
+
+    /**
+     * Gets all Tags
+     *
+     * @param \PDO $pdo PDO connection object
+     * @return \SplFixedArray SplFixedArray of Tags found or null if not found
+     * @throws \PDOException when MySQL-related errors occur
+     * @throws \TypeError when variables are not the correct data type
+     **/
+
+    public static function getAllTags(\PDO $pdo) : \SplFixedArray {
+        //Create the query template
+
+        $query = "SELECT tagId, tagAdminId, tagType, tagValue, FROM tag";
+        $statement = $pdo->prepare($query);
+        $statement->execute();
+
+        // Build an array of admins
+        $tag = new \SplFixedArray($statement->rowCount());
+        $statement->setFetchMode(\PDO::FETCH_ASSOC);
+        while(($row = $statement->fetch()) !== false) {
+            try {
+                $tag = new Tag ($row["tagId"], $row["tagAdminId"], $row["tagType"], $row["tagValue"],);
+                $tags [$admins->key()] = $tag;
+                $tagss->next();
+            } catch(\Exception $exception) {
+                // If the row could not be converted, rethrow it.
+                throw(new \PDOException($exception->getMessage(), 0, $exception));
+            }
+        }
+        return ($tags);
+    }
     /**
      * Formats the state variables for JSON serialization
      *

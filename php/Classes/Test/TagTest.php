@@ -149,7 +149,7 @@ class TagTest extends AbqAtNightTest
     /**
      * test grabbing a Tag by tagId
      **/
-    public function testGetValidTagByTagId(): void
+    public function testGetTagByTagId(): void
     {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tag");
