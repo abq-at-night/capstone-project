@@ -25,7 +25,7 @@ class AdminTest extends AbqAtNightTest {
 
 	/**
 	 * Valid e-mail address for the admin
-	 * @var VALID_ADMIN_EMAIL
+	 * @var $VALID_ADMIN_EMAIL
 	 **/
 
 	private $VALID_ADMIN_EMAIL = "abqatnightadmin@gmail.com";
@@ -33,21 +33,21 @@ class AdminTest extends AbqAtNightTest {
 
 	/**
 	 * Valid password for the admin
-	 * @var VALID_ADMIN_PASSWORD
+	 * @var $VALID_ADMIN_PASSWORD
 	 **/
 
 	private $VALID_ADMIN_PASSWORD = "myPassword123";
 
 	/**
 	 * Valid username for the admin
-	 * @var VALID_ADMIN_USERNAME
+	 * @var $VALID_ADMIN_USERNAME
 	 **/
 
 	private $VALID_ADMIN_USERNAME = "abqatnightadmin";
 
 	/**
 	 * Updated valid username for the admin
-	 * @var VALID_ADMIN_USERNAME2
+	 * @var $VALID_ADMIN_USERNAME2
 	 **/
 
 	private $VALID_ADMIN_USERNAME2 = "newabqatnightadmin";
