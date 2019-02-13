@@ -20,12 +20,6 @@ require_once(dirname(__DIR__, 1) . "/Classes/ValidateUuid.php");
 class TagTest extends AbqAtNightTest {
     /**
      * valid id for Tag Id; this is the primary key
-     * @var Tag tag
-     **/
-    protected $tag;
-
-    /**
-     * valid id for Tag Id; this is the primary key
      * @var $Valid_tag
      **/
     protected $VALID_TAG_ID;
@@ -52,102 +46,80 @@ class TagTest extends AbqAtNightTest {
     public final function setUp()  : void {
         // run the default setUp() method first
         parent::setUp();
-        $password = "abc123";
-        $this->VALID_TAG_ID = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
-
-
-        // create and insert a Profile to own the test Tweet
-        $this->profile = new Profile(generateUuidV4(), null,"@handle", "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif", "test@phpunit.de",$this->VALID_PROFILE_HASH, "+12125551212");
-        $this->profile->insert($this->getPDO());
-
-        // calculate the date (just use the time the unit test was setup...)
-        $this->VALID_TWEETDATE = new \DateTime();
-
-        //format the sunrise date to use for testing
-        $this->VALID_SUNRISEDATE = new \DateTime();
-        $this->VALID_SUNRISEDATE->sub(new \DateInterval("P10D"));
-
-        //format the sunset date to use for testing
-        $this->VALID_SUNSETDATE = new\DateTime();
-        $this->VALID_SUNSETDATE->add(new \DateInterval("P10D"));
-
-
 
     }
-
     /**
-     * test inserting a valid Tweet and verify that the actual mySQL data matches
+     * test inserting a valid Id and verify that the actual mySQL data matches
      **/
-    public function testInsertValidTweet() : void {
+    public function testInsertValidTag() : void {
         // count the number of rows and save it for later
-        $numRows = $this->getConnection()->getRowCount("tweet");
+        $numRows = $this->getConnection()->getRowCount("tag");
 
-        // create a new Tweet and insert to into mySQL
-        $tweetId = generateUuidV4();
-        $tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+        // create a new Tag and insert to into mySQL
+        $tagId = generateUuidV4();
+        $tag = new Tag($tagId, $this->VALID_TAG_ID, $this->VALID_TAG_ADMIN_ID, $this->VALID_TAG_TYPE, $this->VALID__TAG_VALUE);
         $tweet->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-        $this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-        $this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-        $this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-        //format the date too seconds since the beginning of time to avoid round off error
-        $this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
+        $pdoTag = Tag::getTagByTagId($this->getPDO(), $tag->getTagId());
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
+        $this->assertEquals($pdoTag -> getTagId(), $this->VALID_TAG_ID);
+        $this->assertEquals($pdoTag -> getTagAdminId(), $this->VALID_TAG_ADMIN_ID);
+        $this->assertEquals($pdoTag -> getTagType(), $this->VALID_TAG_TYPE);
+        $this->assertEquals($pdoTag -> getTagValue(), $this->VALID__TAG_VALUE);
     }
 
     /**
-     * test inserting a Tweet, editing it, and then updating it
+     * test inserting a Id, editing it, and then updating it
      **/
-    public function testUpdateValidTweet() : void {
+    public function testUpdateValidTag() : void {
         // count the number of rows and save it for later
-        $numRows = $this->getConnection()->getRowCount("tweet");
+        $numRows = $this->getConnection()->getRowCount("tag");
 
-        // create a new Tweet and insert to into mySQL
-        $tweetId = generateUuidV4();
-        $tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-        $tweet->insert($this->getPDO());
+        // create a new Tag and insert to into mySQL
+        $tagId = generateUuidV4();
+        $tag = new Tag($tagId, $this->VALID_TAG_ID, $this->VALID_TAG_ADMIN_ID, $this->VALID_TAG_TYPE, $this->VALID__TAG_VALUE);
+        $tag->insert($this->getPDO());
 
-        // edit the Tweet and update it in mySQL
-        $tweet->setTweetContent($this->VALID_TWEETCONTENT2);
-        $tweet->update($this->getPDO());
+        // edit the Tag and update it in mySQL
+        $tag->setValue($this->VALID__TAG_VALUE);
+        $tag->update($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-        $this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-        $this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-        $this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT2);
+        $pdoTag = Tag::getTagByTagId($this->getPDO(), $tag->getTagId());
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
+        $this->assertEquals($pdoTag->getTagId(), $tagId);
+        $this->assertEquals($pdoTag->getTagAdminId(), $this->VALID_TAG_ADMIN_ID);
+        $this->assertEquals($pdoTag->getTagType(), $this->VALID_TAG_TYPE);
         //format the date too seconds since the beginning of time to avoid round off error
-        $this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
+        $this->assertEquals($pdoTag->getTagValue(), $this->VALID__TAG_VALUE);
     }
 
 
     /**
-     * test creating a Tweet and then deleting it
+     * test creating a Tag and then deleting it
      **/
     public function testDeleteValidTweet() : void {
         // count the number of rows and save it for later
-        $numRows = $this->getConnection()->getRowCount("tweet");
+        $numRows = $this->getConnection()->getRowCount("tag");
 
-        // create a new Tweet and insert to into mySQL
-        $tweetId = generateUuidV4();
-        $tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-        $tweet->insert($this->getPDO());
+        // create a new Tag and insert to into mySQL
+        $tagId = generateUuidV4();
+        $tag = new Tag($tagId, $this->VALID_TAG_ID, $this->VALID_TAG_ADMIN_ID, $this->VALID_TAG_TYPE, $this->VALID__TAG_VALUE);
+        $tag->insert($this->getPDO());
 
-        // delete the Tweet from mySQL
-        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-        $tweet->delete($this->getPDO());
+        // delete the Tag from mySQL
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
+        $tag->delete($this->getPDO());
 
-        // grab the data from mySQL and enforce the Tweet does not exist
-        $pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-        $this->assertNull($pdoTweet);
-        $this->assertEquals($numRows, $this->getConnection()->getRowCount("tweet"));
+        // grab the data from mySQL and enforce the Tag does not exist
+        $pdoTag = Tag::getTagByTagId($this->getPDO(), $tag->getTagId());
+        $this->assertNull($pdoTag);
+        $this->assertEquals($numRows, $this->getConnection()->getRowCount("tag"));
     }
 
     /**
-     * test inserting a Tweet and regrabbing it from mySQL
+     * test inserting a Tag and regrabbing it from mySQL
      **/
     public function testGetValidTweetByTweetProfileId() {
         // count the number of rows and save it for later
