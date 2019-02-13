@@ -14,7 +14,7 @@ use Ramsey\Uuid\Uuid;
  * @author Hunter Callaway <jcallaway3@cnm.edu>
  **/
 
-class Admin implements JsonSerializable {
+class Admin implements \JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
 
@@ -40,16 +40,10 @@ class Admin implements JsonSerializable {
 	private $adminHash;
 
 	/**
-	 * The password for this Admin
-	 * @var string $adminPassword
-	 **/
-
-	private $adminPassword;
-
-	/**
 	 * The username for this Admin
 	 * @var string $adminUsername
 	 **/
+
 
 	private $adminUsername;
 
@@ -59,7 +53,6 @@ class Admin implements JsonSerializable {
 	 * @param string \ Uuid $newAdminId ID of this Admin or null if a new Admin
 	 * @param string $newAdminEmail e-mail address for this Admin
 	 * @param string $newAdminHash hash for this Admin
-	 * @param string $newAdminPassword password for this Admin
 	 * @param string $newAdminUsername username for this Admin
 	 * @throws \InvalidArgumentException if the data types are not valid
 	 * @throws \RangeException if the values are out of bounds (i.e. not the exact length or too long)
@@ -67,12 +60,11 @@ class Admin implements JsonSerializable {
 	 * @throws \Exception if any other exception occurs
 	 **/
 
-	public function __construct($newAdminId, $newAdminEmail, $newAdminHash, $newAdminPassword, $newAdminUsername) {
+	public function __construct($newAdminId, $newAdminEmail, $newAdminHash, $newAdminUsername) {
 		try {
 			$this->setAdminId($newAdminId);
 			$this->setAdminEmail($newAdminEmail);
 			$this->setAdminHash($newAdminHash);
-			$this->setAdminPassword($newAdminPassword);
 			$this->setAdminUsername($newAdminUsername);
 		}
 			//Determine which exception type was thrown.
@@ -166,7 +158,7 @@ class Admin implements JsonSerializable {
 		//Enforce that the hash is properly formatted.
 		$newAdminHash = trim($newAdminHash);
 		if(empty($newAdminHash) === $newAdminHash) {
-			throw (new \InvalidArgumentException("The password hash is empty or not a string."));
+			throw (new \InvalidArgumentException("The hash is empty or not a string."));
 		}
 		//Ensure the hash is an Argon hash.
 		$adminHashInfo = password_get_info($newAdminHash);
@@ -179,37 +171,6 @@ class Admin implements JsonSerializable {
 		}
 		//Store the hash.
 		$this->adminHash = $newAdminHash;
-	}
-
-	/**
-	 * Accessor method for the admin password
-	 *
-	 * @return string value of the admin password
-	 **/
-
-	public function getAdminPassword() : string {
-		return($this->adminPassword);
-	}
-
-	/**
-	 * Mutator method for the admin password
-	 *
-	 * @param string $newAdminPassword new string value for the admin password
-	 * @throws \InvalidArgumentException if the password is empty
-	 * @throws \RangeException if the password is longer than 97 characters
-	 **/
-
-	public function setAdminPassword($newAdminPassword) : void {
-		//Ensure the password is correctly formatted.
-		$newAdminPassword = trim($newAdminPassword);
-		if(empty($newAdminPassword) === true) {
-			throw(new \InvalidArgumentException("The password is not valid."));
-		}
-		if(strlen($newAdminPassword) > 97) {
-			throw(new \RangeException("The password must be no longer than 97 characters"));
-		}
-		//Store the password.
-		$this->adminPassword = $newAdminPassword;
 	}
 
 	/**
@@ -252,11 +213,11 @@ class Admin implements JsonSerializable {
 
 	public function insert(\PDO $pdo) : void {
 		// Create the query template.
-		$query = "INSERT INTO admin(adminId, adminEmail, adminHash, adminPassword, adminUsername) VALUES(:adminId, :adminEmail, :adminHash, :adminPassword, :adminUsername)";
+		$query = "INSERT INTO admin(adminId, adminEmail, adminHash, adminUsername) VALUES(:adminId, :adminEmail, :adminHash, :adminUsername)";
 		$statement = $pdo->prepare($query);
 
 		// Bind the member variables to the place holders in the template.
-		$parameters = ["adminId" => $this->adminId->getBytes(), "adminEmail" => $this->adminEmail, "adminHash" => $this->adminHash, "adminPassword" => $this->adminPassword, "adminUsername" => $this->adminUsername];
+		$parameters = ["adminId" => $this->adminId->getBytes(), "adminEmail" => $this->adminEmail, "adminHash" => $this->adminHash, "adminUsername" => $this->adminUsername];
 		$statement->execute($parameters);
 	}
 
@@ -290,10 +251,10 @@ class Admin implements JsonSerializable {
 	public function update(\PDO $pdo) : void {
 
 		// Create query template
-		$query = "UPDATE admin SET adminId = :adminId, adminEmail = :adminEmail, adminHash = :adminHash, adminPassword = :adminPassword, adminUsername = :adminUsername WHERE adminId = :adminId";
+		$query = "UPDATE admin SET adminId = :adminId, adminEmail = :adminEmail, adminHash = :adminHash, adminUsername = :adminUsername WHERE adminId = :adminId";
 		$statement = $pdo->prepare($query);
 
-		$parameters = ["adminId" => $this->adminId->getBytes(), "adminEmail" => $this->adminEmail, "adminHash" => $this->adminHash, "adminPassword" => $this->adminPassword, "adminUsername" => $this->adminUsername];
+		$parameters = ["adminId" => $this->adminId->getBytes(), "adminEmail" => $this->adminEmail, "adminHash" => $this->adminHash, "adminUsername" => $this->adminUsername];
 		$statement->execute($parameters);
 	}
 	/**
@@ -315,7 +276,7 @@ class Admin implements JsonSerializable {
 		}
 
 		//Create the query template.
-		$query = "SELECT adminId, adminEmail, adminHash, adminPassword, adminUsername FROM admin WHERE adminId = :adminId";
+		$query = "SELECT adminId, adminEmail, adminHash, adminUsername FROM admin WHERE adminId = :adminId";
 		$statement = $pdo->prepare($query);
 
 		//Bind the adminId to the place-holder in the template.
