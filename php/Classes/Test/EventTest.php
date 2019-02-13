@@ -234,18 +234,19 @@ class EventTest extends AbqAtNightTest {
 		$pdoEvent = $results[0];
 
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
-		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventEndTime(), $this->VALID_EVENTENDTIME->getTimestamp());
 		$this->assertEquals($pdoEvent->getEventImage(), $this->VALID_EVENTIMAGE);
 		$this->assertEquals($pdoEvent->getEventPrice(), $this->VALID_EVENTPRICE);
 		$this->assertEquals($pdoEvent->getEventPromoterWebsite(), $this->VALID_EVENTPROMOTERWEBSITE);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventStartTime(), $this->VALID_EVENTSTARTTIME->getTimestamp());
 		$this->assertEquals($pdoEvent->getEventTitle(), $this->VALID_EVENTTITLE);
 		$this->assertEquals($pdoEvent->getEventVenue(), $this->VALID_EVENTVENUE);
 		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
-		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoEvent->getEventEndTime()->getTimestamp(), $this->VALID_EVENTENDTIME->getTimestamp());
-		$this->assertEquals($pdoEvent->getEventStartDate()->getTimestamp(), $this->VALID_EVENTSTARTTIME->getTimestamp());
 	}
 
 	/**
@@ -272,18 +273,19 @@ class EventTest extends AbqAtNightTest {
 		$pdoEvent = $results[0];
 
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
-		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventEndTime(), $this->VALID_EVENTENDTIME->getTimestamp());
 		$this->assertEquals($pdoEvent->getEventImage(), $this->VALID_EVENTIMAGE);
 		$this->assertEquals($pdoEvent->getEventPrice(), $this->VALID_EVENTPRICE);
 		$this->assertEquals($pdoEvent->getEventPromoterWebsite(), $this->VALID_EVENTPROMOTERWEBSITE);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventStartTime(), $this->VALID_EVENTSTARTTIME->getTimestamp());
 		$this->assertEquals($pdoEvent->getEventTitle(), $this->VALID_EVENTTITLE);
 		$this->assertEquals($pdoEvent->getEventVenue(), $this->VALID_EVENTVENUE);
 		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
-		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoEvent->getEventEndTime()->getTimestamp(), $this->VALID_EVENTENDTIME->getTimestamp());
-		$this->assertEquals($pdoEvent->getEventStartDate()->getTimestamp(), $this->VALID_EVENTSTARTTIME->getTimestamp());
 	}
 
 	/**
@@ -308,17 +310,18 @@ class EventTest extends AbqAtNightTest {
 		$pdoEvent = $results[0];
 
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
-		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventEndTime(), $this->VALID_EVENTENDTIME->getTimestamp());
 		$this->assertEquals($pdoEvent->getEventImage(), $this->VALID_EVENTIMAGE);
 		$this->assertEquals($pdoEvent->getEventPrice(), $this->VALID_EVENTPRICE);
 		$this->assertEquals($pdoEvent->getEventPromoterWebsite(), $this->VALID_EVENTPROMOTERWEBSITE);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventStartTime(), $this->VALID_EVENTSTARTTIME->getTimestamp());
 		$this->assertEquals($pdoEvent->getEventTitle(), $this->VALID_EVENTTITLE);
 		$this->assertEquals($pdoEvent->getEventVenue(), $this->VALID_EVENTVENUE);
 		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
-		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoEvent->getEventEndTime()->getTimestamp(), $this->VALID_EVENTENDTIME->getTimestamp());
-		$this->assertEquals($pdoEvent->getEventStartDate()->getTimestamp(), $this->VALID_EVENTSTARTTIME->getTimestamp());
 	}
 }
