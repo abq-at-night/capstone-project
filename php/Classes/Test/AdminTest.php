@@ -128,7 +128,7 @@ class AdminTest extends AbqAtNightTest {
 		$this->assertEquals($rowsTotal, $this->getConnection()->getRowCount("admin"));
 	}
 
-	public function testGetValidAdminByAdminId() {
+	public function testGetValidAdminByAdminId() : void {
 		//Count the number of rows and save it for later.
 		$rowsTotal = $this->getConnection()->getRowCount("admin");
 
@@ -140,12 +140,39 @@ class AdminTest extends AbqAtNightTest {
 		//Grab the data from MySQL and verify the results match our expectations.
 		$results = Admin::getAdminByAdminId($this->getPDO(), $admin->getAdminId());
 		$this->assertEquals($rowsTotal + 1, $this->getConnection()->getRowCount("admin"));
-		$this->assertCount(1,$results);
+		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Admin", $results);
 
 		//Grab the result from the array and validate it.
 		$pdoAdmin = $results[0];
+		$this->assertEquals($pdoAdmin -> getAdminId(), $adminId);
+		$this->assertEquals($pdoAdmin -> getAdminEmail(), $this -> VALID_ADMIN_EMAIL);
+		$this->assertEquals($pdoAdmin -> getAdminHash(), $this -> password_hash($this ->VALID_ADMIN_PASSWORD, PASSWORD_DEFAULT));
+		$this->assertEquals($pdoAdmin -> getAdminPassword(), $this -> VALID_ADMIN_PASSWORD);
+		$this->assertEquals($pdoAdmin -> getAdminUsername(), $this -> VALID_ADMIN_USERNAME);
+	}
 
+	/**
+	 * Test grabbing all Admins
+	 **/
+
+	public function testGetAllValidAdmins() : void {
+		//Count the number of rows and save it for later.
+		$rowsTotal = $this->getConnection()->getRowCount("admin");
+
+		//Create a new Admin and insert it into MySQL.
+		$adminId = generateUuidV4();
+		$admin = new Admin($adminId, $this -> VALID_ADMIN_EMAIL, $this -> password_hash($this->VALID_ADMIN_PASSWORD, PASSWORD_DEFAULT), $this -> VALID_ADMIN_PASSWORD, $this -> VALID_ADMIN_USERNAME);
+		$admin->insert($this->getPDO());
+
+		//Grab the data from MySQL and verify the fields match our expectations.
+		$results = Admin::getAllAdmins($this->getPDO());
+		$this->assertEquals($rowsTotal + 1, $this->getConnection()->getRowCount("admin"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Admin", $results);
+
+		//Grab the result from the array and validate it.
+		$pdoAdmin = $results[0];
 		$this->assertEquals($pdoAdmin -> getAdminId(), $adminId);
 		$this->assertEquals($pdoAdmin -> getAdminEmail(), $this -> VALID_ADMIN_EMAIL);
 		$this->assertEquals($pdoAdmin -> getAdminHash(), $this -> password_hash($this ->VALID_ADMIN_PASSWORD, PASSWORD_DEFAULT));
