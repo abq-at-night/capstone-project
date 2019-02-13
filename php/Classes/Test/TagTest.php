@@ -43,6 +43,8 @@ class TagTest extends AbqAtNightTest
         // run the default setUp() method first
         parent::setUp();
 
+
+
     }
 
     /**
@@ -119,34 +121,6 @@ class TagTest extends AbqAtNightTest
     }
 
     /**
-     * test inserting a Tag and re-grabbing it from mySQL
-     **/
-    public function testGetValidTagByTagId()
-    {
-        // count the number of rows and save it for later
-        $numRows = $this->getConnection()->getRowCount("tag");
-
-        // create a new Tag and insert to into mySQL
-        $tagId = generateUuidV4();
-        $tagId->insert($this->getPDO());
-
-        // grab the data from mySQL and enforce the fields match our expectations
-        $results = Tag::getTagByTagId($this->getPDO(), $tagId->getTagId());
-        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
-        $this->assertCount(1, $results);
-        $this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Tag", $results);
-
-        // grab the result from the array and validate it
-        $pdoTag = $results[0];
-
-        $this->assertEquals($pdoTag->getTagId(), $tagId);
-        $this->assertEquals($pdoTag->getTagAdminId(), $this->VALID_TAG_ADMIN_ID);
-        $this->assertEquals($pdoTag->getTagType(), $this->VALID_TAG_TYPE);
-        //format the date too seconds since the beginning of time to avoid round off error
-        $this->assertEquals($pdoTag->getTagValue(), $this->VALID_TAG_VALUE);
-    }
-
-    /**
      * test grabbing a Tag by tagId
      **/
     public function testGetTagByTagId(): void
@@ -159,13 +133,13 @@ class TagTest extends AbqAtNightTest
         $tag = new Tag($tagId, $this->VALID_TAG_ADMIN_ID, $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
         $tag->insert($this->getPDO());
 
-        // grab the data from mySQL and enforce the fields match our expectations
+        // grab the data from mySQL and verify the fields match our expectations
         $results = Tag::getTagByTagId($this->getPDO(), $tag->getTagId());
-        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
         $this->assertCount(1, $results);
 
         // enforce no other objects are bleeding into the test
-        $this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Tag");
+        $this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Tag", $results);
 
         // grab the result from the array and validate it
         $pdoTag = $results[0];
