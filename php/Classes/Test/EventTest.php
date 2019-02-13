@@ -1,6 +1,6 @@
 <?php
 namespace DeepDive\AbqAtNight\Test;
-use DeepDive\AbqAtNight\{Event};
+use DeepDive\AbqAtNight\{Event, Admin};
 // grab the class under scrutiny
 
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -104,11 +104,11 @@ class EventTest extends AbqAtNightTest {
 		// run the default setUp() method first
 		parent::setUp();
 		$password = "abc123";
-		$this->VALID_PROFILE_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
+		$hash = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
 // **************************************************HELP WITH PROFILE PARAMETERS, CONFUSED WITH REQ' PARAMS. ***************************************************
 		// create and insert a Profile to own the test Event
-		$this->admin = new Admin(generateUuidV4(), "email@email.com","###hash", "###password", "testuser");
+		$this->admin = new Admin(generateUuidV4(), "email@email.com",$hash, "###password", "testuser");
 		$this->admin->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)
@@ -223,7 +223,7 @@ class EventTest extends AbqAtNightTest {
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\Event", $results);
 
-		//Grab the result from the array and validate it.
+		//Grab the result from the array and validate it. Why not found in inspection info?***************************************************************************************************************************
 		$pdoEvent = $results[0];
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
 		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());

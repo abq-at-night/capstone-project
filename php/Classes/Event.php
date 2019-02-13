@@ -1,5 +1,5 @@
 <?php
-namespace DeepDive\AbqAtNight;
+namespace DeepDive\AbqAtNight; /* change namespace to AbqAtNight/CapstoneProject */
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
@@ -116,7 +116,7 @@ class Event implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct($newEventId, $newEventAdminId, string $newEventAgeRequirement, string $newEventDescription, string $newEventEndTime, $newEventImage, string $newEventLocation, string $newEventPrice, string $newEventPromoterWebsite, $newEventStartTime, string $newEventTitle, string $newEventVenue, string $newEventVenueWebsite) {
+	public function __construct($newEventId, $newEventAdminId, string $newEventAgeRequirement, string $newEventDescription, $newEventEndTime, $newEventImage, string $newEventLocation, string $newEventPrice, string $newEventPromoterWebsite, $newEventStartTime, string $newEventTitle, string $newEventVenue, string $newEventVenueWebsite) {
 		try {
 			$this->setEventId($newEventId);
 			$this->setEventAdminId($newEventAdminId);
@@ -300,7 +300,7 @@ class Event implements \JsonSerializable {
 	public function setEventImage(string $newEventImage) : void {
 		// verify event promoter url is secure
 		$newEventImage = trim($newEventImage);
-		$newEventImage = filter_var($newEventImage, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$newEventImage = filter_var($newEventImage, FILTER_SANITIZE_URL, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newEventPromoterWebsite) === true) {
 			throw(new \InvalidArgumentException("event price content is not secure"));
 		}
@@ -393,7 +393,7 @@ class Event implements \JsonSerializable {
 	public function setEventPromoterWebsite(string $newEventPromoterWebsite) : void {
 		// verify event promoter url is secure
 		$newEventPromoterWebsite = trim($newEventPromoterWebsite);
-		$newEventPromoterWebsite = filter_var($newEventPromoterWebsite, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$newEventPromoterWebsite = filter_var($newEventPromoterWebsite, FILTER_SANITIZE_URL, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newEventPromoterWebsite) === true) {
 			throw(new \InvalidArgumentException("event price content is not secure"));
 		}
@@ -514,7 +514,7 @@ class Event implements \JsonSerializable {
 	public function setEventVenueWebsite(string $newEventVenueWebsite) : void {
 		// verify event venue url is secure
 		$newEventVenueWebsite = trim($newEventVenueWebsite);
-		$newEventVenueWebsite = filter_var($newEventVenueWebsite, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		$newEventVenueWebsite = filter_var($newEventVenueWebsite, FILTER_SANITIZE_URL, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($newEventVenueWebsite) === true) {
 			throw(new \InvalidArgumentException("event price content is not secure"));
 		}
@@ -768,9 +768,6 @@ class Event implements \JsonSerializable {
 	 **/
 	public function jsonSerialize() : array {
 		$fields = get_object_vars($this);
-
-		$fields["eventId"] = $this->eventId->toString();
-		$fields["eventAdminId"] = $this->eventAdminId->toString();
 		//format the date so that the front end can consume it
 		$fields["eventEndTime"] = round(floatval($this->eventEndTime->format("U.u")) * 1000);
 		$fields["eventStartTime"] = round(floatval($this->eventStartTime->format("U.u")) * 1000);

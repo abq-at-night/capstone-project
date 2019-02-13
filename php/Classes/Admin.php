@@ -14,7 +14,9 @@ use Ramsey\Uuid\Uuid;
  * @author Hunter Callaway <jcallaway3@cnm.edu>
  **/
 
-class Admin implements JsonSerializable {
+// TODO GET RID OF ADMIN PASSWORD STATEVARIABLE, MUTATOR, ACCESOR AND ATTRIBUTE
+
+class Admin implements \JsonSerializable {
 	use ValidateDate;
 	use ValidateUuid;
 
@@ -72,7 +74,7 @@ class Admin implements JsonSerializable {
 			$this->setAdminId($newAdminId);
 			$this->setAdminEmail($newAdminEmail);
 			$this->setAdminHash($newAdminHash);
-			$this->setAdminPassword($newAdminPassword);
+			$this->setAdminPassword($newAdminPassword); // delete************************************************
 			$this->setAdminUsername($newAdminUsername);
 		}
 			//Determine which exception type was thrown.
@@ -336,37 +338,8 @@ class Admin implements JsonSerializable {
 		return($admin);
 	}
 
-	/**
-	 * Gets all Admins
-	 *
-	 * @param \PDO $pdo PDO connection object
-	 * @return \SplFixedArray SplFixedArray of Admins found or null if not found
-	 * @throws \PDOException when MySQL-related errors occur
-	 * @throws \TypeError when variables are not the correct data type
-	 **/
 
-	public static function getAllAdmins(\PDO $pdo) : \SplFixedArray {
-		//Create the query template
-
-		$query = "SELECT adminId, adminEmail, adminHash, adminPassword, adminUsername FROM admin";
-		$statement = $pdo->prepare($query);
-		$statement->execute();
-
-		// Build an array of admins
-		$admins = new \SplFixedArray($statement->rowCount());
-		$statement->setFetchMode(\PDO::FETCH_ASSOC);
-		while(($row = $statement->fetch()) !== false) {
-			try {
-				$admin = new Admin ($row["adminId"], $row["adminEmail"], $row["adminHash"], $row["adminPassword"], $row["adminUsername"]);
-				$admins[$admins->key()] = $admin;
-				$admins->next();
-			} catch(\Exception $exception) {
-				// If the row could not be converted, rethrow it.
-				throw(new \PDOException($exception->getMessage(), 0, $exception));
-			}
-		}
-		return ($admins);
-		}
+// GET ADMIN BT EMAIL
 
 	/**
 	 * Formats the state variables for JSON serialization
@@ -375,6 +348,8 @@ class Admin implements JsonSerializable {
 	 **/
 	public function jsonSerialize() : array {
 		$fields = get_object_vars($this);
+		unset($fields["adminHash"]);
+		unset($fields["adminEmail"]);
 		return($fields);
 	}
 

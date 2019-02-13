@@ -229,7 +229,7 @@ class Tag implements \JsonSerializable {
     public function update(\PDO $pdo) : void {
 
         // Create query template
-        $query = "UPDATE tag SET tagId = :tagId, tagAdminId = :tagAdminId, tagType = :tagType, tagValue = :tagValue, WHERE tagId = :tagId";
+        $query = "UPDATE tag SET tagId = :tagId, tagAdminId = :tagAdminId, tagType = :tagType, tagValue = :tagValue WHERE tagId = :tagId";
         $statement = $pdo->prepare($query);
 
         $parameters = ["tagId" => $this->tagId->getBytes(), "tagAdminId" => $this->tagAdminId->getBytes(), "tagType" => $this->tagType, "tagValue" => $this->tagValue];
@@ -254,7 +254,7 @@ class Tag implements \JsonSerializable {
         }
 
         //Create the query template.
-        $query = "SELECT tagId, adminEmail, tagAdminId, tagType, tagValue FROM tag WHERE tagId = :tagId";
+        $query = "SELECT tagId, tagAdminId, tagType, tagValue FROM tag WHERE tagId = :tagId";
         $statement = $pdo->prepare($query);
 
         //Bind the tagId to the place-holder in the template.
@@ -267,7 +267,7 @@ class Tag implements \JsonSerializable {
             $statement->setFetchMode(\PDO::FETCH_ASSOC);
             $row = $statement->fetch();
             if($row !== false) {
-                $admin = new Tag($row["tagId"], $row["tagAdminId"], $row["tagType"], $row["tagValue"]); }
+                $tag = new Tag($row["tagId"], $row["tagAdminId"], $row["tagType"], $row["tagValue"]); }
         } catch (\Exception $exception) {
             //If the row couldn't be converted, re-throw it.
             throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -287,12 +287,12 @@ class Tag implements \JsonSerializable {
     public static function getAllTags(\PDO $pdo) : \SplFixedArray {
         //Create the query template
 
-        $query = "SELECT tagId, tagAdminId, tagType, tagValue, FROM tag";
+        $query = "SELECT tagId, tagAdminId, tagType, tagValue FROM tag";
         $statement = $pdo->prepare($query);
         $statement->execute();
 
         // Build an array of admins
-        $tag = new \SplFixedArray($statement->rowCount());
+        $tags = new \SplFixedArray($statement->rowCount());
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
         while(($row = $statement->fetch()) !== false) {
             try {
@@ -313,9 +313,7 @@ class Tag implements \JsonSerializable {
      **/
     public function jsonSerialize() : array {
         $fields = get_object_vars($this);
-
         $fields["tagId"] = $this->tagId->toString();
-
         return($fields);
     }
 }

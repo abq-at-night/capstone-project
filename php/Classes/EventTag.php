@@ -30,8 +30,8 @@ class EventTag implements \JsonSerializable {
     /**
      * constructor for this Event Tag
      *
-     * @parm string \ Uuid $newEventTagEventId foreign key not null
-     * @parm string \ Uuid $newEventTagTagId
+     * @param string \ Uuid $newEventTagEventId foreign key not null
+     * @param string \ Uuid $newEventTagTagId
      * @throws \InvalidArgumentException if data types are not valid
      * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
      * @throws \TypeError if data types violate type hints

@@ -14,7 +14,6 @@ CREATE TABLE admin (
 	adminId BINARY(16) NOT NULL,
 	adminEmail VARCHAR(128) NOT NULL,
 	adminHash CHAR(97) NOT NULL,
-	adminPassword VARCHAR(97) NOT NULL,
 	adminUsername VARCHAR(32) NOT NULL,
 	-- Creates a unique index to prevent duplicated data
 	UNIQUE(adminEmail),
@@ -34,7 +33,7 @@ CREATE TABLE event (
 	eventDescription VARCHAR(500),
 	eventEndTime DATETIME(6) NOT NULL,
 	eventImage VARCHAR(256) NOT NULL,
-	eventLocation BINARY (16),
+	eventLocation VARCHAR (256),
 	eventPrice VARCHAR(32),
 	eventPromoterWebsite VARCHAR (256),
 	eventStartTime DATETIME(6) NOT NULL,
