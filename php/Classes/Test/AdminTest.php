@@ -63,7 +63,7 @@ class AdminTest extends AbqAtNightTest {
 		//Count the number of rows and save it for later.
 		$rowsTotal = $this->getConnection()->getRowCount("admin");
 
-		//Create a new Admin and insert it into SQL.
+		//Create a new Admin and insert it into MySQL.
 		$adminId = generateUuidV4();
 		$admin = new Admin($adminId, $this -> VALID_ADMIN_EMAIL, $this -> password_hash($this->VALID_ADMIN_PASSWORD, PASSWORD_DEFAULT), $this -> VALID_ADMIN_PASSWORD, $this -> VALID_ADMIN_USERNAME);
 		$admin->insert($this->getPDO());
@@ -104,5 +104,30 @@ class AdminTest extends AbqAtNightTest {
 		$this->assertEquals($pdoAdmin -> getAdminPassword(), $this -> VALID_ADMIN_PASSWORD);
 		$this->assertEquals($pdoAdmin -> getAdminUsername(), $this -> VALID_ADMIN_USERNAME2);
 	}
+
+	/**
+	 * Test creating an Admin and then deleting it.
+	 **/
+
+	public function testDeleteValidAdmin() : void {
+		//Count the number of rows and save it for later.
+		$rowsTotal = $this->getConnection()->getRowCount("admin");
+
+		//Create a new Admin and insert it into MySQL.
+		$adminId = generateUuidV4();
+		$admin = new Admin($adminId, $this -> VALID_ADMIN_EMAIL, $this -> password_hash($this->VALID_ADMIN_PASSWORD, PASSWORD_DEFAULT), $this -> VALID_ADMIN_PASSWORD, $this -> VALID_ADMIN_USERNAME);
+		$admin->insert($this->getPDO());
+
+		//Delete the Admin from MySQL.
+		$this->assertEquals($rowsTotal + 1, $this->getConnection()->getRowCount("admin"));
+		$admin->delete($this->getPDO());
+
+		//Grab the data from MySQL and verify the Admin does not exist.
+		$pdoAdmin = Admin::getAdminByAdminId($this->getPDO(), $admin->getAdminId());
+		$this->assertNull($pdoAdmin);
+		$this->assertEquals($rowsTotal, $this->getConnection()->getRowCount("admin"));
+	}
+
+
 
 }
