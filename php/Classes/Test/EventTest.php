@@ -72,6 +72,13 @@ class EventTest extends AbqAtNightTest {
 	protected $VALID_EVENTTITLE = "Dude and his Deck";
 
 	/**
+	 * alternate valid event title
+	 * @var string $VALID_EVENTTITLE2
+	 **/
+
+	protected $VALID_EVENTTITLE2 = "Selena Gomez Christmas Spectacular";
+
+	/**
 	 * valid event venue
 	 * @var string $VALID_EVENTVENUE
 	 **/
@@ -143,33 +150,41 @@ class EventTest extends AbqAtNightTest {
 		$this->assertEquals($pdoEvent->getEventTitle(), $this->VALID_EVENTTITLE);
 		$this->assertEquals($pdoEvent->getEventVenue(), $this->VALID_EVENTVENUE);
 		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
-
 	}
 
 	/**
 	 * test inserting an event, editing it, and then updating it
 	 **/
-	public function testUpdateValidTweet() : void {
+	public function testUpdateValidEvent() : void {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("event");
 
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Event and insert to into mySQL
+		$eventId = generateUuidV4();
+		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_EVENTAGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $this->VALID_EVENTENDTIME, $this->VALID_EVENTIMAGE, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $this->VALID_EVENTSTARTTIME, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
+		$event->insert($this->getPDO());
 
 		// edit the Tweet and update it in mySQL
-		$tweet->setTweetContent($this->VALID_TWEETCONTENT2);
-		$tweet->update($this->getPDO());
+		$event->setEventTitle($this->VALID_EVENTTITLE2);
+		$event->update($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT2);
-		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
+		$pdoEvent = Event::getEventByEventId($this->getPDO(), $event->getEventId());
+		$event->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
+		$this->assertEquals($pdoEvent->getEventId(), $eventId);
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
+		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventEndTime(), $this->VALID_EVENTENDTIME->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventImage(), $this->VALID_EVENTIMAGE);
+		$this->assertEquals($pdoEvent->getEventPrice(), $this->VALID_EVENTPRICE);
+		$this->assertEquals($pdoEvent->getEventPromoterWebsite(), $this->VALID_EVENTPROMOTERWEBSITE);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventStartTime(), $this->VALID_EVENTSTARTTIME->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventTitle(), $this->VALID_EVENTTITLE2);
+		$this->assertEquals($pdoEvent->getEventVenue(), $this->VALID_EVENTVENUE);
+		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
 	}
 
 
