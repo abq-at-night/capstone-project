@@ -210,6 +210,38 @@ class EventTest extends AbqAtNightTest {
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("event"));
 	}
 
+	public function testGetEventByEventId() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("event");
+
+		// create a new Event and insert to into mySQL
+		$eventId = generateUuidV4();
+		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_EVENTAGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $this->VALID_EVENTENDTIME, $this->VALID_EVENTIMAGE, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $this->VALID_EVENTSTARTTIME, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
+		$event->insert($this->getPDO());
+
+		//Grab the data from MySQL and verify the results match our expectations.
+		$results = Event::getEventByEventId($this->getPDO(), $event->getEventId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
+		$this->assertCount(1, $results);
+		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Event", $results);
+
+		//Grab the result from the array and validate it.
+		$pdoEvent = $results[0];
+		$this->assertEquals($pdoEvent->getEventId(), $eventId);
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
+		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventEndTime(), $this->VALID_EVENTENDTIME->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventImage(), $this->VALID_EVENTIMAGE);
+		$this->assertEquals($pdoEvent->getEventPrice(), $this->VALID_EVENTPRICE);
+		$this->assertEquals($pdoEvent->getEventPromoterWebsite(), $this->VALID_EVENTPROMOTERWEBSITE);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventStartTime(), $this->VALID_EVENTSTARTTIME->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventTitle(), $this->VALID_EVENTTITLE);
+		$this->assertEquals($pdoEvent->getEventVenue(), $this->VALID_EVENTVENUE);
+		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
+	}
 
 //**********************************************************************************WYATT START HERE************************************************************************************************************
 	/**
