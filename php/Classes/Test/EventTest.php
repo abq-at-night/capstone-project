@@ -153,7 +153,7 @@ class EventTest extends AbqAtNightTest {
 	}
 
 	/**
-	 * test inserting an event, editing it, and then updating it
+	 * test inserting an Event, editing it, and then updating it
 	 **/
 	public function testUpdateValidEvent() : void {
 		// count the number of rows and save it for later
@@ -189,25 +189,25 @@ class EventTest extends AbqAtNightTest {
 
 
 	/**
-	 * test creating a Tweet and then deleting it
+	 * test creating a Event and then deleting it
 	 **/
-	public function testDeleteValidTweet() : void {
+	public function testDeleteValidEvent() : void {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("event");
 
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Event and insert to into mySQL
+		$eventId = generateUuidV4();
+		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_EVENTAGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $this->VALID_EVENTENDTIME, $this->VALID_EVENTIMAGE, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $this->VALID_EVENTSTARTTIME, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
+		$event->insert($this->getPDO());
 
-		// delete the Tweet from mySQL
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
-		$tweet->delete($this->getPDO());
+		// delete the Event from mySQL
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
+		$event->delete($this->getPDO());
 
-		// grab the data from mySQL and enforce the Tweet does not exist
-		$pdoTweet = Tweet::getTweetByTweetId($this->getPDO(), $tweet->getTweetId());
-		$this->assertNull($pdoTweet);
-		$this->assertEquals($numRows, $this->getConnection()->getRowCount("tweet"));
+		// grab the data from mySQL and enforce the Event does not exist
+		$pdoEvent = Event::getEventByEventId($this->getPDO(), $event->getEventId());
+		$this->assertNull($pdoEvent);
+		$this->assertEquals($numRows, $this->getConnection()->getRowCount("event"));
 	}
 
 
