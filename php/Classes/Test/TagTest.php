@@ -17,7 +17,8 @@ require_once(dirname(__DIR__, 1) . "/ValidateUuid.php");
 * @author Adrian Tsosie <atsosie11@cnm.edu>
 *
 **/
-class TagTest extends AbqAtNightTest {
+class TagTest extends AbqAtNightTest
+{
     /**
      * valid admin id for the tag
      * @var int $VALID_TAG_ADMIN_ID
@@ -37,15 +38,18 @@ class TagTest extends AbqAtNightTest {
     protected $VALID_TAG_VALUE;
 
 
-    public final function setUp()  : void {
+    public final function setUp(): void
+    {
         // run the default setUp() method first
         parent::setUp();
 
     }
+
     /**
      * test inserting a valid Id and verify that the actual mySQL data matches
      **/
-    public function testInsertValidTag() : void {
+    public function testInsertValidTag(): void
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tag");
 
@@ -57,16 +61,17 @@ class TagTest extends AbqAtNightTest {
         // grab the data from mySQL and enforce the fields match our expectations
         $pdoTag = Tag::getTagByTagId($this->getPDO(), $tag->getTagId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
-        $this->assertEquals($pdoTag -> getTagId(), $tagId);
-        $this->assertEquals($pdoTag -> getTagAdminId(), $this->VALID_TAG_ADMIN_ID);
-        $this->assertEquals($pdoTag -> getTagType(), $this->VALID_TAG_TYPE);
-        $this->assertEquals($pdoTag -> getTagValue(), $this->VALID_TAG_VALUE);
+        $this->assertEquals($pdoTag->getTagId(), $tagId);
+        $this->assertEquals($pdoTag->getTagAdminId(), $this->VALID_TAG_ADMIN_ID);
+        $this->assertEquals($pdoTag->getTagType(), $this->VALID_TAG_TYPE);
+        $this->assertEquals($pdoTag->getTagValue(), $this->VALID_TAG_VALUE);
     }
 
     /**
      * test inserting a Id, editing it, and then updating it
      **/
-    public function testUpdateValidTag() : void {
+    public function testUpdateValidTag(): void
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tag");
 
@@ -93,7 +98,8 @@ class TagTest extends AbqAtNightTest {
     /**
      * test creating a Tag and then deleting it
      **/
-    public function testDeleteValidTweet() : void {
+    public function testDeleteValidTweet(): void
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tag");
 
@@ -115,7 +121,8 @@ class TagTest extends AbqAtNightTest {
     /**
      * test inserting a Tag and re-grabbing it from mySQL
      **/
-    public function testGetValidTagByTagId() {
+    public function testGetValidTagByTagId()
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tag");
 
@@ -142,7 +149,8 @@ class TagTest extends AbqAtNightTest {
     /**
      * test grabbing a Tag by tagId
      **/
-    public function testGetValidTagByTagId() : void {
+    public function testGetValidTagByTagId(): void
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tag");
 
@@ -171,7 +179,8 @@ class TagTest extends AbqAtNightTest {
     /**
      * test grabbing all Tags
      **/
-    public function testGetAllValidTag() : void {
+    public function testGetAllValidTag(): void
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tag");
 
@@ -181,7 +190,7 @@ class TagTest extends AbqAtNightTest {
         $tag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $results = Tag::getTagByTagId($this->getPDO() #tag->getTagId);
+        $results = Tag::getTagByTagId($this->getPDO());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
         $this->assertCount(1, $results);
         $this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Tag", $results);
@@ -194,3 +203,4 @@ class TagTest extends AbqAtNightTest {
         //format the date too seconds since the beginning of time to avoid round off error
         $this->assertEquals($pdoTag->getTagValue(), $this->VALID_TAG_VALUE);
     }
+}

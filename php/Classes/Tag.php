@@ -44,10 +44,10 @@ class Tag implements \JsonSerializable {
     /**
      * constructor for this Tag
      *
-     * @parm string \ Uuid $newTagId Id for the tag created. not null
-     * @parm string \ Uuid $newTagAdminId Id for admin creating the tag
-     * @parm string $newTagType The type of Tag with a string value
-     * @parm string $newTagValue A tag with Value
+     * @param string | Uuid $newTagId Id for the tag created. not null
+     * @param string | Uuid $newTagAdminId Id for admin creating the tag
+     * @param string $newTagType The type of Tag with a string value
+     * @param string $newTagValue A tag with Value
      * @throws \InvalidArgumentException if data types are not valid
      * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
      * @throws \TypeError if data types violate type hints
