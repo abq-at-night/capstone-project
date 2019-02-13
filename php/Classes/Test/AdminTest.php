@@ -49,4 +49,26 @@ class AdminTest extends AbqAtNightTest {
 		parent::setUp();
 	}
 
+	/**
+	 * Test inserting a valid Admin and verify the MySQL data matches
+	 **/
+	public function testInsertValidAdmin() : void {
+		//Count the number of rows and save it for later.
+		$rowsTotal = $this->getConnection()->getRowCount("admin");
+
+		//Create a new Admin and insert it into SQL.
+		$adminId = generateUuidV4();
+		$admin = new Admin($adminId, $this -> VALID_ADMIN_EMAIL, $this -> password_hash($this->VALID_ADMIN_PASSWORD, PASSWORD_DEFAULT), $this -> VALID_ADMIN_PASSWORD, $this -> VALID_ADMIN_USERNAME);
+		$admin->insert($this->getPDO());
+
+		//Grab the data from MySQL and verify the fields meet our expectations.
+		$pdoAdmin = Admin::getAdminByAdminId($this->getPDO(), $admin->getAdminId());
+		$this->assertEquals($rowsTotal + 1, $this -> getConnection() -> getRowCount("admin"));
+		$this->assertEquals($pdoAdmin -> getAdminId(), $adminId);
+		$this->assertEquals($pdoAdmin -> getAdminEmail(), $this -> VALID_ADMIN_EMAIL);
+		$this->assertEquals($pdoAdmin -> getAdminHash(), $this -> password_hash($this ->VALID_ADMIN_PASSWORD, PASSWORD_DEFAULT));
+		$this->assertEquals($pdoAdmin -> getAdminPassword(), $this -> VALID_ADMIN_PASSWORD);
+		$this->assertEquals($pdoAdmin -> getAdminUsername(), $this -> VALID_ADMIN_USERNAME);
+	}
+
 }
