@@ -300,7 +300,7 @@ class Admin implements JsonSerializable {
 	 * Gets Admin by adminId
 	 *
 	 *  * @param \PDO $pdo PDO connection object
-	 * @param Uuid|string $adminId tweet id to search for
+	 * @param Uuid|string $adminId admin id to search for
 	 * @return Admin|null Admin found or null if not found
 	 * @throws \PDOException when mySQL-related errors occur
 	 * @throws \TypeError when a variable are not the correct data type
