@@ -375,9 +375,6 @@ class Admin implements JsonSerializable {
 	 **/
 	public function jsonSerialize() : array {
 		$fields = get_object_vars($this);
-
-		$fields["adminId"] = $this->adminId->toString();
-
 		return($fields);
 	}
 
