@@ -297,7 +297,7 @@ class EventTest extends AbqAtNightTest {
 		$this->assertCount(1, $results);
 
 		// enforce no other objects are bleeding into the test
-		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\Event", $results);
+		$this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\Event", $results);
 
 		// grab the result from the array and validate it
 		$pdoEvent = $results[0];
@@ -335,7 +335,7 @@ class EventTest extends AbqAtNightTest {
 		$results = Event::getAllEvents($this->getPDO());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\Event", $results);
+		$this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\Event", $results);
 
 		// grab the result from the array and validate it
 		$pdoEvent = $results[0];
