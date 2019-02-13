@@ -18,7 +18,7 @@ class EventTest extends AbqAtNightTest {
 	//******************************EVENTID-DO WE NEED? HOW TO FORMAT?***************************************************
 
 	/**
-	 * Profile that created the Tweet; this is for foreign key relations
+	 * Profile that created the Event; this is for foreign key relations
 	 * @var Admin profile
 	 **/
 	protected $admin = null;
@@ -102,22 +102,12 @@ class EventTest extends AbqAtNightTest {
 
 // **************************************************HELP WITH PROFILE PARAMETERS, CONFUSED WITH REQ' PARAMS. ***************************************************
 		// create and insert a Profile to own the test Event
-		$this->profile = new Profile(generateUuidV4(), null,"@handle", "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif", "test@phpunit.de",$this->VALID_PROFILE_HASH, "+12125551212");
-		$this->profile->insert($this->getPDO());
+		$this->admin = new Admin(generateUuidV4(), "email@email.com","###hash", "###password", "testuser");
+		$this->admin->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)
 		$this->VALID_EVENTENDTIME = new \DateTime();
 		$this->VALID_EVENTSTARTTIME= new \DateTime();
-
-
-		//***********************************************************DO WE NEED THIS "SUNRISE DATE"??*************************************************************
-		//format the sunrise date to use for testing
-		$this->VALID_SUNRISEDATE = new \DateTime();
-		$this->VALID_SUNRISEDATE->sub(new \DateInterval("P10D"));
-
-		//format the sunset date to use for testing
-		$this->VALID_SUNSETDATE = new\DateTime();
-		$this->VALID_SUNSETDATE->add(new \DateInterval("P10D"));
 
 	}
 
@@ -223,7 +213,7 @@ class EventTest extends AbqAtNightTest {
 		$results = Event::getEventByEventId($this->getPDO(), $event->getEventId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Event", $results);
+		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\Event", $results);
 
 		//Grab the result from the array and validate it.
 		$pdoEvent = $results[0];
