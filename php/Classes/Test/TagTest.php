@@ -1,6 +1,6 @@
 <?php
-namespace DeepDive\AbqAtNight\Test;
-use DeepDive\AbqAtNight\Tag;
+namespace AbqAtNight\CapstoneProject;
+use AbqAtNight\CapstoneProject\{Tag};
 //Grab the Admin class.
 require_once(dirname(__DIR__) . "/autoload.php");
 
@@ -8,9 +8,9 @@ require_once(dirname(__DIR__) . "/autoload.php");
 require_once(dirname(__DIR__, 1) . "/ValidateUuid.php");
 
 /**
-* Full PHPUnit test for the Admin class
+* Full PHPUnit test for the Tag class
 *
-* This is a complete PHPUnit test of the Tweet class. It is complete because all mySQL/PDO enabled methods
+* This is a complete PHPUnit test of the Tag class. It is complete because all mySQL/PDO enabled methods
 * are tested for both invalid and valid inputs.
 *
 * @see Tag
@@ -42,8 +42,6 @@ class TagTest extends AbqAtNightTest
     {
         // run the default setUp() method first
         parent::setUp();
-
-
 
     }
 
@@ -83,7 +81,7 @@ class TagTest extends AbqAtNightTest
         $tag->insert($this->getPDO());
 
         // edit the Tag and update it in mySQL
-        $tag->setValue($this->VALID_TAG_VALUE);
+        $tag->setTagValue($this->VALID_TAG_VALUE);
         $tag->update($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
@@ -153,7 +151,7 @@ class TagTest extends AbqAtNightTest
     /**
      * test grabbing all Tags
      **/
-    public function testGetAllValidTag(): void
+    public function testGetAllTags(): void
     {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tag");
@@ -164,7 +162,7 @@ class TagTest extends AbqAtNightTest
         $tag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $results = Tag::getTagByTagId($this->getPDO());
+        $results = Tag::getAllTags($this->getPDO());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
         $this->assertCount(1, $results);
         $this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Tag", $results);

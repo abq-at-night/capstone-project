@@ -145,18 +145,18 @@ class EventTag implements \JsonSerializable {
         $parameters = ["eventTagEventId" => $eventTagEventId->getBytes()];
         $statement->execute($parameters);
 
-        //Grab the admin from MySQL
+        //Grab the eventTag from MySQL
         try {
             $eventTag = null;
             $statement->setFetchMode(\PDO::FETCH_ASSOC);
             $row = $statement->fetch();
             if($row !== false) {
-                $eventTag = new Tag($row["tagId"], $row["tagAdminId"], $row["tagType"], $row["tagValue"]); }
+                $eventTag = new Tag($row["eventTagEventId"], $row["EventTagTagId"]); }
         } catch (\Exception $exception) {
             //If the row couldn't be converted, re-throw it.
             throw(new \PDOException($exception->getMessage(), 0, $exception));
         }
-        return($tag);
+        return($eventTag);
     }
 
     /**

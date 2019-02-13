@@ -1,8 +1,8 @@
 <?php
 
-namespace DeepDive\AbqAtNight\Test;
+namespace AbqAtNight\CapstoneProject;
 
-use DeepDive\AbqAtNight\{Admin};
+use AbqAtNight\CapstoneProject\Admin;
 
 //Grab the Admin class.
 require_once(dirname(__DIR__) . "/autoload.php");
