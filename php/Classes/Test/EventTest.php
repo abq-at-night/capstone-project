@@ -14,7 +14,14 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  * @author Wyatt Salmons <wyattsalmons@gmail.com>
  **/
 class EventTest extends AbqAtNightTest {
-	//******************************HELP WITH EVENTID, EVENTADMINID, AND EVENTIMAGE. DO WE NEED? HOW TO FORMAT?***************************************************
+
+	//******************************EVENTID-DO WE NEED? HOW TO FORMAT?***************************************************
+
+	/**
+	 * Profile that created the Tweet; this is for foreign key relations
+	 * @var Admin profile
+	 **/
+	protected $admin = null;
 
 	/**
 	 * valid event age requirement
@@ -197,41 +204,49 @@ class EventTest extends AbqAtNightTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("event");
 
-		// create a new Tweet and insert to into mySQL
+		// create a new Event and insert to into mySQL
 		$eventId = generateUuidV4();
-		$event = new Event($eventId, $this->Admin->getAdminId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_AGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $this->VALID_EVENTENDTIME, $this->VALID_EVENTIMAGE, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $this->VALID_EVENTSTARTTIME, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
 		$event->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Tweet::getTweetByTweetProfileId($this->getPDO(), $tweet->getTweetProfileId());
-		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
+		$results = Event::getEventByEventAdminId($this->getPDO(), $event->getEventAdminId());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Tweet", $results);
+		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\Event", $results);
 
 		// grab the result from the array and validate it
-		$pdoTweet = $results[0];
+		$pdoEvent = $results[0];
 
-		$this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-		$this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-		$this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
+		$this->assertEquals($pdoEvent->getEventId(), $eventId);
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
+		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
+		$this->assertEquals($pdoEvent->getEventImage(), $this->VALID_EVENTIMAGE);
+		$this->assertEquals($pdoEvent->getEventPrice(), $this->VALID_EVENTPRICE);
+		$this->assertEquals($pdoEvent->getEventPromoterWebsite(), $this->VALID_EVENTPROMOTERWEBSITE);
+		$this->assertEquals($pdoEvent->getEventTitle(), $this->VALID_EVENTTITLE);
+		$this->assertEquals($pdoEvent->getEventVenue(), $this->VALID_EVENTVENUE);
+		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
 		//format the date too seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventEndTime()->getTimestamp(), $this->VALID_EVENTENDTIME->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventStartDate()->getTimestamp(), $this->VALID_EVENTSTARTTIME->getTimestamp());
 	}
 
 	/**
-	 * test grabbing a Tweet by tweet content
+	 * test grabbing an Event by event title
 	 **/
-	public function testGetValidTweetByTweetContent() : void {
+	public function testGetValidEventByEventTitle() : void {
 		// count the number of rows and save it for later
-		$numRows = $this->getConnection()->getRowCount("tweet");
+		$numRows = $this->getConnection()->getRowCount("event");
 
-		// create a new Tweet and insert to into mySQL
-		$tweetId = generateUuidV4();
-		$tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-		$tweet->insert($this->getPDO());
+		// create a new Event and insert to into mySQL
+		$eventId = generateUuidV4();
+		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_AGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $this->VALID_EVENTENDTIME, $this->VALID_EVENTIMAGE, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $this->VALID_EVENTSTARTTIME, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
+		$event->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Tweet::getTweetByTweetContent($this->getPDO(), $tweet->getTweetContent());
+		$results = Event::getEventByEventTitle($this->getPDO(), $tweet->getTweetContent());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
 		$this->assertCount(1, $results);
 
