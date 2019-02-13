@@ -28,35 +28,36 @@ class AdminTest extends AbqAtNightTest {
 	 * @var $VALID_ADMIN_EMAIL
 	 **/
 
-	private $VALID_ADMIN_EMAIL = "abqatnightadmin@gmail.com";
-
+	protected $VALID_ADMIN_EMAIL = "abqatnightadmin@gmail.com";
 
 	/**
-	 * Valid password for the admin
-	 * @var $VALID_ADMIN_PASSWORD
+	 * Valid hash for the admin
+	 * @var $VALID_ADMIN_HASH
 	 **/
 
-	private $VALID_ADMIN_PASSWORD = "myPassword123";
+	protected $VALID_ADMIN_HASH;
 
 	/**
 	 * Valid username for the admin
 	 * @var $VALID_ADMIN_USERNAME
 	 **/
 
-	private $VALID_ADMIN_USERNAME = "abqatnightadmin";
+	protected $VALID_ADMIN_USERNAME = "abqatnightadmin";
 
 	/**
 	 * Updated valid username for the admin
 	 * @var $VALID_ADMIN_USERNAME2
 	 **/
 
-	private $VALID_ADMIN_USERNAME2 = "newabqatnightadmin";
+	protected $VALID_ADMIN_USERNAME2 = "newabqatnightadmin";
 
 	/**
 	 * This method needs work.
 	 **/
 	public final function setUp() : void {
 		parent::setUp();
+		$password = "abc123";
+		$this->VALID_ADMIN_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 	}
 
 	/**
@@ -68,7 +69,7 @@ class AdminTest extends AbqAtNightTest {
 
 		//Create a new Admin and insert it into MySQL.
 		$adminId = generateUuidV4();
-		$admin = new Admin($adminId, $this -> VALID_ADMIN_EMAIL, $this -> password_hash($this->VALID_ADMIN_PASSWORD, PASSWORD_DEFAULT), $this -> VALID_ADMIN_PASSWORD, $this -> VALID_ADMIN_USERNAME);
+		$admin = new Admin($adminId, $this -> VALID_ADMIN_EMAIL, $this -> VALID_ADMIN_HASH, $this -> VALID_ADMIN_USERNAME);
 		$admin->insert($this->getPDO());
 
 		//Grab the data from MySQL and verify the fields meet our expectations.
@@ -76,8 +77,7 @@ class AdminTest extends AbqAtNightTest {
 		$this->assertEquals($rowsTotal + 1, $this -> getConnection() -> getRowCount("admin"));
 		$this->assertEquals($pdoAdmin -> getAdminId(), $adminId);
 		$this->assertEquals($pdoAdmin -> getAdminEmail(), $this -> VALID_ADMIN_EMAIL);
-		$this->assertEquals($pdoAdmin -> getAdminHash(), $this -> password_hash($this ->VALID_ADMIN_PASSWORD, PASSWORD_DEFAULT));
-		$this->assertEquals($pdoAdmin -> getAdminPassword(), $this -> VALID_ADMIN_PASSWORD);
+		$this->assertEquals($pdoAdmin -> getAdminHash(), $this -> VALID_ADMIN_HASH);
 		$this->assertEquals($pdoAdmin -> getAdminUsername(), $this -> VALID_ADMIN_USERNAME);
 	}
 
@@ -91,7 +91,7 @@ class AdminTest extends AbqAtNightTest {
 
 		//Create a new Admin and insert it into MySQL.
 		$adminId = generateUuidV4();
-		$admin = new Admin($adminId, $this -> VALID_ADMIN_EMAIL, $this -> password_hash($this->VALID_ADMIN_PASSWORD, PASSWORD_DEFAULT), $this -> VALID_ADMIN_PASSWORD, $this -> VALID_ADMIN_USERNAME);
+		$admin = new Admin($adminId, $this -> VALID_ADMIN_EMAIL, $this -> VALID_ADMIN_HASH, $this -> VALID_ADMIN_USERNAME);
 		$admin->insert($this->getPDO());
 
 		//Edit the Admin and update it in MySQL.
