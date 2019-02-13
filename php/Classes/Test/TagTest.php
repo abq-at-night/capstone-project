@@ -78,7 +78,7 @@ class TagTest extends AbqAtNightTest {
 
         // create a new Tag and insert to into mySQL
         $tagId = generateUuidV4();
-        $tag = new Tag($tagId, $this->VALID_TAG_ID, $this->VALID_TAG_ADMIN_ID, $this->VALID_TAG_TYPE, $this->VALID__TAG_VALUE);
+        $tag = new Tag(
         $tag->insert($this->getPDO());
 
         // edit the Tag and update it in mySQL
@@ -121,20 +121,19 @@ class TagTest extends AbqAtNightTest {
     /**
      * test inserting a Tag and regrabbing it from mySQL
      **/
-    public function testGetValidTweetByTweetProfileId() {
+    public function testGetValidTagByTagId() {
         // count the number of rows and save it for later
-        $numRows = $this->getConnection()->getRowCount("tweet");
+        $numRows = $this->getConnection()->getRowCount("tag");
 
-        // create a new Tweet and insert to into mySQL
-        $tweetId = generateUuidV4();
-        $tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-        $tweet->insert($this->getPDO());
+        // create a new Tag and insert to into mySQL
+        $tagId = generateUuidV4();
+        $tagId->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $results = Tweet::getTweetByTweetProfileId($this->getPDO(), $tweet->getTweetProfileId());
-        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
+        $results = Tag::getTagByTagId($this->getPDO(), $tweet->getTagId());
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
         $this->assertCount(1, $results);
-        $this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Tweet", $results);
+        $this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Tag", $results);
 
         // grab the result from the array and validate it
         $pdoTweet = $results[0];
@@ -149,30 +148,30 @@ class TagTest extends AbqAtNightTest {
     /**
      * test grabbing a Tweet by tweet content
      **/
-    public function testGetValidTweetByTweetContent() : void {
+    public function testGetValidTagByTagId() : void {
         // count the number of rows and save it for later
-        $numRows = $this->getConnection()->getRowCount("tweet");
+        $numRows = $this->getConnection()->getRowCount("tag");
 
-        // create a new Tweet and insert to into mySQL
-        $tweetId = generateUuidV4();
-        $tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-        $tweet->insert($this->getPDO());
+        // create a new Tag and insert to into mySQL
+        $tagId = generateUuidV4();
+        $tag = new Tag($tagId, $this->VALID_TAG_ID, $this->VALID_TAG_ADMIN_ID, $this->VALID_TAG_TYPE, $this->VALID__TAG_VALUE););
+        $tag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $results = Tweet::getTweetByTweetContent($this->getPDO(), $tweet->getTweetContent());
+        $results = Tag::getTagByTagId($this->getPDO(), $tag->getTagId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
         $this->assertCount(1, $results);
 
         // enforce no other objects are bleeding into the test
-        $this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Tweet", $results);
+        $this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Tag");
 
         // grab the result from the array and validate it
-        $pdoTweet = $results[0];
-        $this->assertEquals($pdoTweet->getTweetId(), $tweetId);
-        $this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
-        $this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
+        $pdoTag = $results[0];
+        $this->assertEquals($pdoTag->getTagId(), $tagId);
+        $this->assertEquals($pdoTag->getTweetProfileId(), $this->profile->getProfileId());
+        $this->assertEquals($pdoTag->getTagType(), $this->VALID_TAG_TYPE);
         //format the date too seconds since the beginning of time to avoid round off error
-        $this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
+        $this->assertEquals($pdoTag->getTagValue(), $this->VALID__TAG_VALUE);
     }
 
     /**
