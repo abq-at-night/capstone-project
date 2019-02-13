@@ -1,12 +1,13 @@
 -- The following statement sets the collation of the database to UTF8.
 
-ALTER DATABASE abq_at_night CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+ALTER DATABASE atnight CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 
 -- Drop statements
-DROP TABLE IF EXISTS admin;
-DROP TABLE IF EXISTS event;
-DROP TABLE IF EXISTS tag;
 DROP TABLE IF EXISTS eventTag;
+DROP TABLE IF EXISTS tag;
+DROP TABLE IF EXISTS event;
+DROP TABLE IF EXISTS admin;
+
 
 -- Creates the admin entity
 CREATE TABLE admin (
