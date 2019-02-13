@@ -52,6 +52,9 @@ class AdminTest extends AbqAtNightTest {
 
 	private $VALID_ADMIN_USERNAME2 = "newabqatnightadmin";
 
+	/**
+	 * This method needs work.
+	 **/
 	public final function setUp() : void {
 		parent::setUp();
 	}
