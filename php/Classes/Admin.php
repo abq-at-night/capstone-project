@@ -384,6 +384,8 @@ class Admin implements JsonSerializable {
 	 **/
 	public function jsonSerialize() : array {
 		$fields = get_object_vars($this);
+		unset($fields["adminHash"]);
+		unset($fields["adminEmail"]);
 		return($fields);
 	}
 
