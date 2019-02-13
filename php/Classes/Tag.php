@@ -1,5 +1,5 @@
 <?php
-namespace DeepDive\AbqAtNight;
+namespace AbqAtNight\CapstoneProject;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
@@ -13,7 +13,7 @@ use Ramsey\Uuid\Uuid;
  * @author Adrian Tsosie <atsosie11@cnm.com>
  *
  **/
-class Tag implements \JsonSerializable {
+class Tag implements \ JsonSerializable {
     use ValidateDate;
     use ValidateUuid;
 

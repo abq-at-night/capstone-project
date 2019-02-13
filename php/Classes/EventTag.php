@@ -1,5 +1,5 @@
 <?php
-namespace DeepDive\AbqAtNight;
+namespace AbqAtNight\CapstoneProject;
 
 require_once("autoload.php");
 require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
@@ -117,6 +117,78 @@ class EventTag implements \JsonSerializable {
         // bind the member variables to the place holders in the template
         $parameters = ["eventTagEventId" => $this->eventTagEventId->getBytes(), "eventTagTagId" => $this->eventTagTagId->getBytes()];
         $statement->execute($parameters);
+    }
+
+    /**
+     * Gets Event Tag by tag Id
+     *
+     * @param \PDO $pdo PDO connection object
+     * @param Uuid|string $eventTagEventId event tag to search for
+     * @return EventTag | null EventTag found or null if not found
+     * @throws \PDOException when mySQL-related errors occur
+     * @throws \TypeError when a variable are not the correct data type
+     **/
+
+    public static function getEventTagByEventId(\PDO $pdo, $eventTagEventId) : ?eventTag {
+        //Sanitize the adminId before searching
+        try {
+            $eventTagEventId = self::validateUuid($eventTagEventId);
+        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
+
+        //Create the query template.
+        $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE  eventTagEventId = :eventTagEventId";
+        $statement = $pdo->prepare($query);
+
+        //Bind the tagId to the place-holder in the template.
+        $parameters = ["eventTagEventId" => $eventTagEventId->getBytes()];
+        $statement->execute($parameters);
+
+        //Grab the eventTag from MySQL
+        try {
+            $eventTag = null;
+            $statement->setFetchMode(\PDO::FETCH_ASSOC);
+            $row = $statement->fetch();
+            if($row !== false) {
+                $eventTag = new Tag($row["eventTagEventId"], $row["EventTagTagId"]); }
+        } catch (\Exception $exception) {
+            //If the row couldn't be converted, re-throw it.
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
+        return($eventTag);
+    }
+
+    /**
+     * Gets all Tags
+     *
+     * @param \PDO $pdo PDO connection object
+     * @return \SplFixedArray SplFixedArray of Tags found or null if not found
+     * @throws \PDOException when MySQL-related errors occur
+     * @throws \TypeError when variables are not the correct data type
+     **/
+
+    public static function getAllTags(\PDO $pdo) : \SplFixedArray {
+        //Create the query template
+
+        $query = "SELECT tagId, tagAdminId, tagType, tagValue FROM tag";
+        $statement = $pdo->prepare($query);
+        $statement->execute();
+
+        // Build an array of admins
+        $tags = new \SplFixedArray($statement->rowCount());
+        $statement->setFetchMode(\PDO::FETCH_ASSOC);
+        while(($row = $statement->fetch()) !== false) {
+            try {
+                $tag = new Tag ($row["tagId"], $row["tagAdminId"], $row["tagType"], $row["tagValue"],);
+                $tags [$tags->key()] = $tag;
+                $tags->next();
+            } catch(\Exception $exception) {
+                // If the row could not be converted, rethrow it.
+                throw(new \PDOException($exception->getMessage(), 0, $exception));
+            }
+        }
+        return ($tags);
     }
 
     /**

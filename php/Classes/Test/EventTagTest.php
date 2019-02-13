@@ -1,6 +1,6 @@
 <?php
-namespace DeepDive\AbqAtNight\Test;
-use DeepDive\AbqAtNight\{Tag};
+namespace AbqAtNight\CapstoneProject;
+use AbqAtNight\CapstoneProject\ {Tag};
 //Grab the Admin class.
 require_once(dirname(__DIR__) . "/autoload.php");
 
@@ -191,18 +191,18 @@ class EventTagTest extends AbqAtNightTest
     /**
      * test grabbing all Tweets
      **/
-    public function testGetAllValidTweets(): void
+    public function testGetAllEventTags(): void
     {
         // count the number of rows and save it for later
-        $numRows = $this->getConnection()->getRowCount("tweet");
+        $numRows = $this->getConnection()->getRowCount("eventTag");
 
         // create a new Tweet and insert to into mySQL
-        $tweetId = generateUuidV4();
-        $tweet = new Tweet($tweetId, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
-        $tweet->insert($this->getPDO());
+        $eventTag = generateUuidV4();
+        $eventTag = new Tweet($eventTag, $this->profile->getProfileId(), $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+        $eventTag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $results = Tweet::getAllTweets($this->getPDO());
+        $results = EventTag::getAllEventTagByEventId($this->getPDO());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tweet"));
         $this->assertCount(1, $results);
         $this->assertContainsOnlyInstancesOf("Edu\\Cnm\\DataDesign\\Tweet", $results);

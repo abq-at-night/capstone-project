@@ -1,6 +1,6 @@
 <?php
-namespace DeepDive\AbqAtNight\Test;
-use DeepDive\AbqAtNight\{Event, Admin};
+namespace AbqAtNight\CapstoneProject;
+use AbqAtNight\CapstoneProject\{Event, Admin};
 // grab the class under scrutiny
 
 require_once(dirname(__DIR__) . "/autoload.php");
