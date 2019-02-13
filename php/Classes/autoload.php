@@ -1,5 +1,5 @@
 <?php
-namespace DeepDive\AbqAtNight;
+namespace AbqAtNight\CapstoneProject;
 /**
  * PSR-4 Compliant Autoloader
  *

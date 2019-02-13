@@ -1,5 +1,5 @@
 <?php
-namespace DeepDive\AbqAtNight;
+namespace AbqAtNight\CapstoneProject;
 /**
  * Trait to Validate a mySQL Date
  *
