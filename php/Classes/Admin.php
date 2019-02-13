@@ -302,7 +302,7 @@ class Admin implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param string $adminEmail  admin e-mail to search for
-	 * @return \SplFixedArray SplFixedArray of Admins found or null if not found
+	 * @return Admin|null Admin found or null if not found
 	 * @throws \PDOException when MySQL-related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
