@@ -15,8 +15,6 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  **/
 class EventTest extends AbqAtNightTest {
 
-	//******************************EVENTID-DO WE NEED? HOW TO FORMAT?***************************************************
-
 	/**
 	 * Profile that created the Event; this is for foreign key relations
 	 * @var Admin profile
@@ -98,7 +96,7 @@ class EventTest extends AbqAtNightTest {
 
 
 	/**
-	 * create dependent objects before running each test ***************THIS FUNCTION NEEDS HELP BADLY SEE COMMENTS******************************
+	 * create dependent objects before running each test
 	 **/
 	public final function setUp()  : void {
 		// run the default setUp() method first
@@ -223,7 +221,7 @@ class EventTest extends AbqAtNightTest {
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\Event", $results);
 
-		//Grab the result from the array and validate it. Why not found in inspection info?***************************************************************************************************************************
+		//Grab the result from the array and validate it. *******************************************************Why not found in inspection info?************************************************
 		$pdoEvent = $results[0];
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
 		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
@@ -242,7 +240,7 @@ class EventTest extends AbqAtNightTest {
 		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
 	}
 
-//**********************************************************************************WYATT START HERE************************************************************************************************************
+
 	/**
 	 * test inserting a Event and regrabbing it from mySQL
 	 **/
