@@ -289,7 +289,7 @@ class Admin implements \JsonSerializable {
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
 			$row = $statement->fetch();
 			if($row !== false) {
-				$admin = new Admin($row["adminId"], $row["adminEmail"], $row["adminHash"], $row["adminPassword"], $row["adminUsername"]); }
+				$admin = new Admin($row["adminId"], $row["adminEmail"], $row["adminHash"], $row["adminUsername"]); }
 			} catch (\Exception $exception) {
 				//If the row couldn't be converted, re-throw it.
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
