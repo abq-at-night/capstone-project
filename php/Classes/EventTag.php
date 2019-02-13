@@ -17,28 +17,28 @@ class EventTag implements \JsonSerializable {
     use ValidateDate;
     use ValidateUuid;
     /**
-     * id for Event Tag Event Id; this is a foreign key
+     * Id for Event Tag Event Id; this is a foreign key
      * @var Uuid $eventTagEventId
      **/
     private $eventTagEventId;
     /**
-     * id of the Admin that created this event; this is a foreign key
-     * @var Uuid $eventAdminId
+     * Id of the Admin that created this event; this is a foreign key
+     * @var Uuid $eventTagTagId
      **/
     private $eventTagTagId;
 
     /**
      * constructor for this Event Tag
      *
-     * @parm string|Uuid $newEventTagEVentId
-     * @parm string|Uuid $newEvent TagId
+     * @parm string \ Uuid $newEventTagEventId foreign key not null
+     * @parm string \ Uuid $newEventTagTagId
      * @throws \InvalidArgumentException if data types are not valid
      * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
      * @throws \TypeError if data types violate type hints
      * @throws \Exception if some other exception occurs
      * @Documentation https://php.net/manual/en/language.oop5.decon.php
      */
-    public function _construct($newEventTagEventId, $newEventTagTagId) {
+    public function __construct($newEventTagEventId, $newEventTagTagId) {
         try {
             $this->setEventTagEventId($newEventTagEventId);
             $this->setEventTagTagId($newEventTagTagId);

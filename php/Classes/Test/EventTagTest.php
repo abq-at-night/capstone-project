@@ -5,28 +5,29 @@ use DeepDive\AbqAtNight\{Tag};
 require_once(dirname(__DIR__) . "/autoload.php");
 
 //Grab the UUID generator.
-require_once(dirname(__DIR__, 1) . "/Classes/ValidateUuid.php");
+require_once(dirname(__DIR__, 1) . "/ValidateUuid.php");
 
 /**
  * Full PHPUnit test for the Admin class
  *
- * This is a complete PHPUnit test of the Tweet class. It is complete because all mySQL/PDO enabled methods
+ * This is a complete PHPUnit test of the Tag class. It is complete because all mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
  * @see Tag
  * @author Adrian Tsosie <atsosie11@cnm.edu>
  *
  **/
-class EventTagTest extends AbqAtNightTest {
+class EventTagTest extends AbqAtNightTest
+{
     /**
      * valid Tag for event; this is the primary key
-     * @var eventTag tag
+     * @var $EventTag tag
      **/
     protected $eventTag;
 
     /**
      * valid id for Tag Id; this is the primary key
-     * @var $Valid_tag
+     * @var $VALID_TAG_EVENT_ID
      **/
     protected $EVENT_TAG_EVENT_ID;
 
@@ -37,7 +38,8 @@ class EventTagTest extends AbqAtNightTest {
     protected $EVENT_TAG_TAG_ID;
 
 
-    public final function setUp()  : void {
+    public final function setUp(): void
+    {
         // run the default setUp() method first
         parent::setUp();
         $password = "abc123";
@@ -45,7 +47,7 @@ class EventTagTest extends AbqAtNightTest {
 
 
         // create and insert a Profile to own the test Tweet
-        $this->profile = new Profile(generateUuidV4(), null,"@handle", "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif", "test@phpunit.de",$this->VALID_PROFILE_HASH, "+12125551212");
+        $this->profile = new Profile(generateUuidV4(), null, "@handle", "https://media.giphy.com/media/3og0INyCmHlNylks9O/giphy.gif", "test@phpunit.de", $this->VALID_PROFILE_HASH, "+12125551212");
         $this->profile->insert($this->getPDO());
 
         // calculate the date (just use the time the unit test was setup...)
@@ -56,7 +58,8 @@ class EventTagTest extends AbqAtNightTest {
     /**
      * test inserting a valid Tweet and verify that the actual mySQL data matches
      **/
-    public function testInsertValidTweet() : void {
+    public function testInsertValidTweet(): void
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tweet");
 
@@ -78,7 +81,8 @@ class EventTagTest extends AbqAtNightTest {
     /**
      * test inserting a Tweet, editing it, and then updating it
      **/
-    public function testUpdateValidTweet() : void {
+    public function testUpdateValidTweet(): void
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tweet");
 
@@ -105,7 +109,8 @@ class EventTagTest extends AbqAtNightTest {
     /**
      * test creating a Tweet and then deleting it
      **/
-    public function testDeleteValidTweet() : void {
+    public function testDeleteValidTweet(): void
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tweet");
 
@@ -127,7 +132,8 @@ class EventTagTest extends AbqAtNightTest {
     /**
      * test inserting a Tweet and regrabbing it from mySQL
      **/
-    public function testGetValidTweetByTweetProfileId() {
+    public function testGetValidTweetByTweetProfileId()
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tweet");
 
@@ -155,7 +161,8 @@ class EventTagTest extends AbqAtNightTest {
     /**
      * test grabbing a Tweet by tweet content
      **/
-    public function testGetValidTweetByTweetContent() : void {
+    public function testGetValidTweetByTweetContent(): void
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tweet");
 
@@ -184,7 +191,8 @@ class EventTagTest extends AbqAtNightTest {
     /**
      * test grabbing all Tweets
      **/
-    public function testGetAllValidTweets() : void {
+    public function testGetAllValidTweets(): void
+    {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tweet");
 
@@ -204,6 +212,5 @@ class EventTagTest extends AbqAtNightTest {
         $this->assertEquals($pdoTweet->getTweetId(), $tweetId);
         $this->assertEquals($pdoTweet->getTweetProfileId(), $this->profile->getProfileId());
         $this->assertEquals($pdoTweet->getTweetContent(), $this->VALID_TWEETCONTENT);
-        //format the date too seconds since the beginning of time to avoid round off error
-        $this->assertEquals($pdoTweet->getTweetDate()->getTimestamp(), $this->VALID_TWEETDATE->getTimestamp());
     }
+}

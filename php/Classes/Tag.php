@@ -7,7 +7,7 @@ require_once(dirname(__DIR__, 2) . "/vendor/autoload.php");
 use Ramsey\Uuid\Uuid;
 
 /**
- *  this is the the section for the event tag class in the ABQ at Night Capstone project
+ *  this is the the section for the tag class in the ABQ at Night Capstone project
  *
  * @see Tag
  * @author Adrian Tsosie <atsosie11@cnm.com>
@@ -42,12 +42,12 @@ class Tag implements \JsonSerializable {
     private $tagValue;
 
     /**
-     * constructor for this Event Tag
+     * constructor for this Tag
      *
-     * @parm string|Uuid $newTagId
-     * @parm string|Uuid $newTagAdminId
-     * @parm string $newTagType
-     * @parm string $newTagValue
+     * @parm string \ Uuid $newTagId Id for the tag created. not null
+     * @parm string \ Uuid $newTagAdminId Id for admin creating the tag
+     * @parm string $newTagType The type of Tag with a string value
+     * @parm string $newTagValue A tag with Value
      * @throws \InvalidArgumentException if data types are not valid
      * @throws \RangeException if data values are out of bounds (e.g., strings too long, negative integers)
      * @throws \TypeError if data types violate type hints
@@ -61,13 +61,14 @@ class Tag implements \JsonSerializable {
             $this->setTagType($newTagType);
             $this->setTagValue($newTagValue);
         }
+            //Determine which exception type was thrown.
         catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
             $exceptionType = get_class($exception);
             throw(new $exceptionType($exception->getMessage(), 0, $exception));
         }
     }
     /**
-     * accessor method for tag id
+     * Accessor method for tag id
      *
      * @return Uuid value of tag id
      **/
@@ -75,9 +76,9 @@ class Tag implements \JsonSerializable {
         return($this->tagId);
     }
     /**
-     * mutator method for tag id
+     * Mutator method for tag id
      *
-     * @param Uuid|string $newTagId new value of tag id
+     * @param Uuid |string $newTagId new value of tag id
      * @throws \RangeException if $newTagId is not positive
      * @throws \TypeError if $newTagId is not a uuid or string
      **/
