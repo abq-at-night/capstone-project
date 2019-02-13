@@ -120,7 +120,7 @@ class EventTag implements \JsonSerializable {
     }
 
     /**
-     * Gets Event Tag by tag Id
+     * Gets Event Tag by Event Id
      *
      * @param \PDO $pdo PDO connection object
      * @param Uuid|string $eventTagEventId event tag to search for
@@ -129,7 +129,7 @@ class EventTag implements \JsonSerializable {
      * @throws \TypeError when a variable are not the correct data type
      **/
 
-    public static function getEventTagByEventId(\PDO $pdo, $eventTagEventId) : ?eventTag {
+    public static function getEventTagByEventId(\PDO $pdo, $eventTagEventId) : ?EventTag {
         //Sanitize the adminId before searching
         try {
             $eventTagEventId = self::validateUuid($eventTagEventId);
@@ -151,7 +151,7 @@ class EventTag implements \JsonSerializable {
             $statement->setFetchMode(\PDO::FETCH_ASSOC);
             $row = $statement->fetch();
             if($row !== false) {
-                $eventTag = new Tag($row["eventTagEventId"], $row["EventTagTagId"]); }
+                $eventTag = new EventTag($row["eventTagEventId"], $row["EventTagTagId"]); }
         } catch (\Exception $exception) {
             //If the row couldn't be converted, re-throw it.
             throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -159,7 +159,7 @@ class EventTag implements \JsonSerializable {
         return($eventTag);
     }
 
-    public static function getEventTagByTagId(\PDO $pdo, $eventTagEventId) : ?eventTag {
+    public static function getEventTagByTagId(\PDO $pdo, $eventTagEventId) : ?EventTag {
         //Sanitize the adminId before searching
         try {
             $eventTagEventId = self::validateUuid($eventTagEventId);
@@ -181,7 +181,37 @@ class EventTag implements \JsonSerializable {
             $statement->setFetchMode(\PDO::FETCH_ASSOC);
             $row = $statement->fetch();
             if($row !== false) {
-                $eventTag = new Tag($row["eventTagEventId"], $row["EventTagTagId"]); }
+                $eventTag = new EventTag($row["eventTagEventId"], $row["EventTagTagId"]); }
+        } catch (\Exception $exception) {
+            //If the row couldn't be converted, re-throw it.
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
+        return($eventTag);
+    }
+
+    public static function getEventTagByPrimaryKey(\PDO $pdo, $eventTagEventId, $eventTagTagId) : ?EventTag {
+        //Sanitize the adminId before searching
+        try {
+            $eventTagEventId = self::validateUuid($eventTagEventId, $eventTagTagId);
+        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        }
+
+        //Create the query template.
+        $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE  eventTagEventId = :eventTagEventId && eventTagTagId = :eventTagTagId";
+        $statement = $pdo->prepare($query);
+
+        //Bind the tagId to the place-holder in the template.
+        $parameters = ["eventTagEventId" => $eventTagEventId->getBytes(), "eventTagTagId" => $eventTagTagId->getBytes() ];
+        $statement->execute($parameters);
+
+        //Grab the eventTag from MySQL
+        try {
+            $eventTag = null;
+            $statement->setFetchMode(\PDO::FETCH_ASSOC);
+            $row = $statement->fetch();
+            if($row !== false) {
+                $eventTag = new EventTag($row["eventTagEventId"], $row["EventTagTagId"]); }
         } catch (\Exception $exception) {
             //If the row couldn't be converted, re-throw it.
             throw(new \PDOException($exception->getMessage(), 0, $exception));

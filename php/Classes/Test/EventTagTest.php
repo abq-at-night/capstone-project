@@ -88,11 +88,11 @@ class EventTagTest extends AbqAtNightTest
 
         // create a new Tweet and insert to into mySQL
         $eventTagEventId = generateUuidV4();
-        $eventTag = new EventTag($eventTagEventId,, $this->VALID_TWEETCONTENT, $this->VALID_TWEETDATE);
+        $eventTag = new EventTag($eventTagEventId, $this->EventTagTagId);
         $eventTag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $results = EventTag::getEventTagByEventId($this->getPDO(), $eventTag->getTweetContent());
+        $results = EventTag::getEventTagByEventId($this->getPDO(), $eventTag->:eventTag());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag"));
         $this->assertCount(1, $results);
 
