@@ -170,7 +170,7 @@ class Event implements \JsonSerializable {
 	 *
 	 * @param Uuid|string $newEventAdminId new value of adminEventid
 	 * @throws \RangeException if $newAdminEvent is not positive
-	 * @throws \TypeError if $newTweetId is not a uuid or string
+	 * @throws \TypeError if $newEventAdminId is not a uuid or string
 	 **/
 	public function setEventAdminId( $newEventAdminId) : void {
 		try {
@@ -586,7 +586,7 @@ class Event implements \JsonSerializable {
 		$parameters = ["eventId" => $eventId->getBytes()];
 		$statement->execute($parameters);
 
-		// grab the tweet from mySQL
+		// grab the event from mySQL
 		try {
 			$event = null;
 			$statement->setFetchMode(\PDO::FETCH_ASSOC);
@@ -606,7 +606,7 @@ class Event implements \JsonSerializable {
 	 *
 	 * @param \PDO $pdo PDO connection object
 	 * @param Uuid|string $eventAdminId admin id to search by
-	 * @return \SplFixedArray SplFixedArray of Tweets found
+	 * @return \SplFixedArray SplFixedArray of Events found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
@@ -641,48 +641,48 @@ class Event implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the event by tag
+	 * gets the event by title
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param string $eventTag event content to search for
+	 * @param string $eventTitle event content to search for
 	 * @return \SplFixedArray SplFixedArray of events found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getEventByEventTag(\PDO $pdo, string $eventTag) : \SplFixedArray {
+	public static function getEventByEventTitle(\PDO $pdo, string $eventTitle) : \SplFixedArray {
 		// sanitize the description before searching
-		$tweetContent = trim($tweetContent);
-		$tweetContent = filter_var($tweetContent, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($tweetContent) === true) {
-			throw(new \PDOException("tweet content is invalid"));
+		$eventTitle = trim($eventTitle);
+		$eventTitle = filter_var($eventTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($eventTitle) === true) {
+			throw(new \PDOException("event title is invalid"));
 		}
 
 		// escape any mySQL wild cards
-		$tweetContent = str_replace("_", "\\_", str_replace("%", "\\%", $tweetContent));
+		$eventTitle = str_replace("_", "\\_", str_replace("%", "\\%", $eventTitle));
 
 		// create query template
-		$query = "SELECT tweetId, tweetProfileId, tweetContent, tweetDate FROM tweet WHERE tweetContent LIKE :tweetContent";
+		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM Event WHERE eventTitle = :eventTitle";
 		$statement = $pdo->prepare($query);
 
-		// bind the tweet content to the place holder in the template
-		$tweetContent = "%$tweetContent%";
-		$parameters = ["tweetContent" => $tweetContent];
+		// bind the event content to the place holder in the template
+		$eventTitle = "%$eventTitle%";
+		$parameters = ["eventTitle" => $eventTitle];
 		$statement->execute($parameters);
 
-		// build an array of tweets
-		$tweets = new \SplFixedArray($statement->rowCount());
+		// build an array of events
+		$events = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$tweet = new Tweet($row["tweetId"], $row["tweetProfileId"], $row["tweetContent"], $row["tweetDate"]);
-				$tweets[$tweets->key()] = $tweet;
-				$tweets->next();
+				$event = new Event($row["eventId"], $row["eventAdminId"], $row["eventAgeRequirement"], $row["eventDescription"], $row["eventEndTime"], $row["eventImage"], $row["eventPrice"], $row["eventPromoterWebsite"], $row["eventStartTime"], $row["eventTitle"], $row["eventVenue"], $row["eventVenueWebsite"]);
+				$events[$events->key()] = $event;
+				$events->next();
 			} catch(\Exception $exception) {
 				// if the row couldn't be converted, rethrow it
 				throw(new \PDOException($exception->getMessage(), 0, $exception));
 			}
 		}
-		return($tweets);
+		return($events);
 	}
 
 	/**
@@ -699,7 +699,7 @@ class Event implements \JsonSerializable {
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
-		// build an array of tweets
+		// build an array of events
 		$events = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
