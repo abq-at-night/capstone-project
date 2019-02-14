@@ -1,6 +1,6 @@
 <?php
 
-namespace AbqAtNight\CapstoneProject;
+namespace AbqAtNight\CapstoneProject\test;
 
 use AbqAtNight\CapstoneProject\{Admin};
 

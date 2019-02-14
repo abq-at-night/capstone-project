@@ -1,5 +1,5 @@
 <?php
-namespace AbqAtNight\CapstoneProject;
+namespace AbqAtNight\CapstoneProject\Test;
 use AbqAtNight\CapstoneProject\{Tag};
 //Grab the Admin class.
 require_once(dirname(__DIR__) . "/autoload.php");
