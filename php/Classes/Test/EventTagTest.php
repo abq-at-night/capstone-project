@@ -94,7 +94,7 @@ class EventTagTest extends AbqAtNightTest {
         $this->assertCount(1, $results);
 
         // enforce no other objects are bleeding into the test
-        $this->assertContainsOnlyInstancesOf("Edu\\Cnm\\AbqAtNight\\CapstoneProject\\EventTag", $results);
+        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Test\\EventTagTest", $results);
 
         // grab the result from the array and validate it
         $pdoEventTag = $results[0];
@@ -121,7 +121,34 @@ class EventTagTest extends AbqAtNightTest {
         $this->assertCount(1, $results);
 
         // enforce no other objects are bleeding into the test
-        $this->assertContainsOnlyInstancesOf("Edu\\Cnm\\AbqAtNigh\\CapstoneProject\\EventTag", $results);
+        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Test\\EventTagTest", $results);
+
+        // grab the result from the array and validate it
+        $pdoEventTag = $results[0];
+        $this->assertEquals($pdoEventTag->getEventTagEventId(), $this->VALID_EVENT_TAG_EVENT_ID);
+        $this->assertEquals($pdoEventTag->getEventTagTagId(), $this->VALID_EVENT_TAG_TAG_ID);
+    }
+
+    /**
+     * tests grabbing event tags by thr primary key
+     */
+    public function testGetEventTagByPrimaryKey(): void
+    {
+        // count the number of rows and save it for later
+        $numRows = $this->getConnection()->getRowCount("eventTag");
+
+        $eventTagEventId = generateUuidV4();
+        $eventTagTagId = generateUuidV4();
+        $eventTag = new EventTag($eventTagEventId, $eventTagTagId);
+        $eventTag->insert($this->getPDO());
+
+        // grab the data from mySQL and enforce the fields match our expectations
+        $results = EventTag::getEventTagByPrimaryKey($this->getPDO(), $eventTagEventId, $eventTagTagId);
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag"));
+        $this->assertCount(1, $results);
+
+        // enforce no other objects are bleeding into the test
+        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Test\\EventTagTest", $results);
 
         // grab the result from the array and validate it
         $pdoEventTag = $results[0];

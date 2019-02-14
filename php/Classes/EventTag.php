@@ -189,34 +189,27 @@ class EventTag implements \JsonSerializable {
         return($eventTag);
     }
 
-    public static function getEventTagByPrimaryKey(\PDO $pdo, $eventTagEventId, $eventTagTagId) : ?EventTag {
-        //Sanitize the adminId before searching
-        try {
-            $eventTagEventId = self::validateUuid($eventTagEventId, $eventTagTagId);
-        } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-            throw(new \PDOException($exception->getMessage(), 0, $exception));
-        }
-
+    public static function getEventTagByPrimaryKey(\PDO $pdo, $eventTagEventId, $eventTagTagId) : ?\SplFixedArray {
         //Create the query template.
         $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE  eventTagEventId = :eventTagEventId && eventTagTagId = :eventTagTagId";
         $statement = $pdo->prepare($query);
 
-        //Bind the tagId to the place-holder in the template.
-        $parameters = ["eventTagEventId" => $eventTagEventId->getBytes(), "eventTagTagId" => $eventTagTagId->getBytes() ];
-        $statement->execute($parameters);
+        $statement->execute();
 
-        //Grab the eventTag from MySQL
-        try {
-            $eventTag = null;
-            $statement->setFetchMode(\PDO::FETCH_ASSOC);
-            $row = $statement->fetch();
-            if($row !== false) {
-                $eventTag = new EventTag($row["eventTagEventId"], $row["EventTagTagId"]); }
-        } catch (\Exception $exception) {
-            //If the row couldn't be converted, re-throw it.
-            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        //build an array of event tags
+        $eventTags = new\SplFixedArray($statement->rowCount());
+        $statement->setFetchMode(\PDO::FETCH_ASSOC);
+        while(($row=$statement->fetch()) !== false) {
+            try {
+                $eventTag= new EventTag($row["eventTagEventId"], $row["eventTagTagId"]);
+                $eventTags[$eventTags->key()] = $eventTag;
+                $eventTags->next();
+            } catch(\Exception $exception) {
+                //if the row couldn't be converted, rethrow it
+                throw(new \PDOException($exception->getMessage(), 0, $exception));
+            }
         }
-        return($eventTag);
+        return ($eventTags);
     }
 
 

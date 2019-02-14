@@ -137,7 +137,7 @@ class TagTest extends AbqAtNightTest
         $this->assertCount(1, $results);
 
         // enforce no other objects are bleeding into the test
-        $this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Tag", $results);
+        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Test\\Tag", $results);
 
         // grab the result from the array and validate it
         $pdoTag = $results[0];
@@ -165,7 +165,7 @@ class TagTest extends AbqAtNightTest
         $results = Tag::getAllTags($this->getPDO());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
         $this->assertCount(1, $results);
-        $this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\php\\Classes\\Tag", $results);
+        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Test\\Tag", $results);
 
         // grab the result from the array and validate it
         $pdoTag = $results[0];
