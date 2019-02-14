@@ -1,6 +1,6 @@
 <?php
-namespace AbqAtNight\CapstoneProject;
-use AbqAtNight\CapstoneProject\{EventTag};
+namespace AbqAtNight\CapstoneProject\Test;
+use AbqAtNight\CapstoneProject\{Admin, Event, Tag, EventTag};
 //Grab the Admin class.
 require_once(dirname(__DIR__) . "/autoload.php");
 
@@ -13,32 +13,21 @@ require_once(dirname(__DIR__, 1) . "/ValidateUuid.php");
  * This is a complete PHPUnit test of the Tag class. It is complete because all mySQL/PDO enabled methods
  * are tested for both invalid and valid inputs.
  *
- * @see Tag
+ * @see Event Tag
  * @author Adrian Tsosie <atsosie11@cnm.edu>
  *
  **/
 class EventTagTest extends AbqAtNightTest {
 
-    /**
-     * valid Tag for event; this is the primary key
-     * @var $EventTag EventTag
-     **/
-    protected
-        $eventTag;
+    protected $admin = null;
 
-    /**
-     * valid id for Tag Id; this is the primary key
-     * @var $VALID_TAG_EVENT_ID
-     **/
-    protected
-        $VALID_EVENT_TAG_EVENT_ID;
+    protected $event = null;
 
-    /**
-     * valid admin id for the tag
-     * @var $VALID_TAG_ADMIN_ID
-     */
-    protected
-        $VALID_EVENT_TAG_TAG_ID;
+    protected $tag = null;
+
+    protected $VALID_HASH;
+
+    protected  $VALID_DATE = null;
 
     /**
      * set up for Event Tag
@@ -46,12 +35,17 @@ class EventTagTest extends AbqAtNightTest {
     public final function setUp(): void {
         // run the default setUp() method first
         parent::setUp();
+        $password = "abc123";
+        $this->VALID_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost"=>384]);
 
+        $this->admin = new Admin(generateUuidV4(), "email@email.com", $this->VALID_HASH, "JoeAdmin");
+        $this->admin->insert($this->getPDO());
 
+        $this->event = new Event(generateUuidV4(), $this->admin->getAdminId() , "21 and over", "Put description here", $this->VALID_DATE, "https://www.mysite.org", "TBA Location", "Price", "https://promoter.xyz", $this->VALID_DATE, "Tile of event", "Your mom's house", "https://www.venue.com");
+        $this->event->insert($this->getPDO());
 
-
-
-
+        $this->tag = new Tag(generateUuidV4(), $this->admin->getAdminId(), "Genre", "House");
+        $this->tag->insert($this->getPDO());
     }
 
     /**
@@ -98,8 +92,8 @@ class EventTagTest extends AbqAtNightTest {
 
         // grab the result from the array and validate it
         $pdoEventTag = $results[0];
-        $this->assertEquals($pdoEventTag->getEventTagEventId(), $this->VALID_EVENT_TAG_EVENT_ID);
-        $this->assertEquals($pdoEventTag->getEventTagTagId(), $this->VALID_EVENT_TAG_TAG_ID);
+        $this->assertEquals($pdoEventTag->getEventTagEventId(), $this->event->getEventId());
+        $this->assertEquals($pdoEventTag->getEventTagTagId(), $this->tag->getTagId());
     }
 
     /**

@@ -1,5 +1,5 @@
 <?php
-namespace AbqAtNight\CapstoneProject;
+namespace AbqAtNight\CapstoneProject\Test;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;
