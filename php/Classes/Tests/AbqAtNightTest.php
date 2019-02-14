@@ -1,5 +1,5 @@
 <?php
-namespace AbqAtNight\CapstoneProject\Test;
+namespace AbqAtNight\CapstoneProject\Tests;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit\DbUnit\TestCaseTrait;
@@ -8,7 +8,7 @@ use PHPUnit\DbUnit\Database\Connection;
 use PHPUnit\DbUnit\Operation\{Composite, Factory, Operation};
 
 // grab the encrypted properties file
-require_once("/etc/apache2/capstone-mysql/Secret.php");
+require_once("/etc/apache2/capstone-mysql/Secrets.php");
 
 require_once(dirname(__DIR__, 3) . "/vendor/autoload.php");
 
@@ -49,8 +49,8 @@ abstract class AbqAtNightTest extends TestCase {
 		// THESE TABLES *MUST* BE LISTED IN THE SAME ORDER THEY WERE CREATED!!!!
 		$dataset->addTable("admin");
 		$dataset->addTable("event");
-		$dataset->addTable("eventTag");
 		$dataset->addTable("tag");
+		$dataset->addTable("eventTag");
 		return($dataset);
 	}
 
@@ -89,7 +89,7 @@ abstract class AbqAtNightTest extends TestCase {
 
 			// connect to mySQL and provide the interface to PHPUnit
 
-			$secrets =  new Secrets("/etc/apache2/capstone-mysql/ddctwitter.ini");
+			$secrets =  new \Secrets("/etc/apache2/capstone-mysql/cohort23/atnight.ini");
 			$pdo = $secrets->getPdoObject();
 			$this->connection = $this->createDefaultDBConnection($pdo, $secrets->getDatabase());
 		}

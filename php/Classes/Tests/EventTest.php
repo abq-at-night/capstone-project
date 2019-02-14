@@ -1,11 +1,11 @@
 <?php
-namespace AbqAtNight\CapstoneProject\Test;
+namespace AbqAtNight\CapstoneProject\Tests;
 use AbqAtNight\CapstoneProject\{Event, Admin};
 // grab the class under scrutiny
 
 require_once(dirname(__DIR__) . "/autoload.php");
 // grab the uuid generator
-require_once(dirname(__DIR__, 2) . "/ValidateUuid.php");
+require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 /**
  * this is the the section for the tag in the ABQ at Night Capstone project

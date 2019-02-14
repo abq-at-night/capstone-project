@@ -1,11 +1,11 @@
 <?php
-namespace AbqAtNight\CapstoneProject\Test;
+namespace AbqAtNight\CapstoneProject\Tests;
 use AbqAtNight\CapstoneProject\{Admin, Event, Tag, EventTag};
 //Grab the Admin class.
 require_once(dirname(__DIR__) . "/autoload.php");
 
 //Grab the UUID generator.
-require_once(dirname(__DIR__, 1) . "/ValidateUuid.php");
+require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 /**
  * Full PHPUnit test for the Admin class
