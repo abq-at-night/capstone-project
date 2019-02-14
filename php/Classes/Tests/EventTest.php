@@ -1,5 +1,5 @@
 <?php
-namespace AbqAtNight\CapstoneProject\test;
+namespace AbqAtNight\CapstoneProject\Test;
 use AbqAtNight\CapstoneProject\{Event, Admin};
 // grab the class under scrutiny
 

@@ -17,8 +17,7 @@ require_once(dirname(__DIR__, 1) . "/ValidateUuid.php");
 * @author Adrian Tsosie <atsosie11@cnm.edu>
 *
 **/
-class TagTest extends AbqAtNightTest
-{
+class TagTest extends AbqAtNightTest {
     /**
      * valid admin id for the tag
      * @var int $VALID_TAG_ADMIN_ID
@@ -137,7 +136,7 @@ class TagTest extends AbqAtNightTest
         $this->assertCount(1, $results);
 
         // enforce no other objects are bleeding into the test
-        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Test\\Tag", $results);
+        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Tests\\Tag", $results);
 
         // grab the result from the array and validate it
         $pdoTag = $results[0];
@@ -165,7 +164,7 @@ class TagTest extends AbqAtNightTest
         $results = Tag::getAllTags($this->getPDO());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
         $this->assertCount(1, $results);
-        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Test\\Tag", $results);
+        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Tests\\Tag", $results);
 
         // grab the result from the array and validate it
         $pdoTag = $results[0];

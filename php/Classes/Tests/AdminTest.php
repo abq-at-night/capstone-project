@@ -61,7 +61,7 @@ class AdminTest extends AbqAtNightTest {
 	}
 
 	/**
-	 * Test inserting a valid Admin and verify the MySQL data matches
+	 * Tests inserting a valid Admin and verify the MySQL data matches
 	 **/
 	public function testInsertValidAdmin() : void {
 		//Count the number of rows and save it for later.
@@ -82,7 +82,7 @@ class AdminTest extends AbqAtNightTest {
 	}
 
 	/**
-	 * Test inserting a valid Admin, editing it, and then updating it.
+	 * Tests inserting a valid Admin, editing it, and then updating it.
 	 **/
 
 	public function testUpdateValidAdmin() : void {
@@ -108,7 +108,7 @@ class AdminTest extends AbqAtNightTest {
 	}
 
 	/**
-	 * Test creating an Admin and then deleting it.
+	 * Tests creating an Admin and then deleting it.
 	 **/
 
 	public function testDeleteValidAdmin() : void {
@@ -131,7 +131,7 @@ class AdminTest extends AbqAtNightTest {
 	}
 
 	/**
-	 * Test grabbing Admin by adminId
+	 * Tests grabbing Admin by adminId
 	 */
 
 	public function testGetValidAdminByAdminId() : void {
@@ -158,7 +158,7 @@ class AdminTest extends AbqAtNightTest {
 	}
 
 	/**
-	 * Test grabbing Admin by adminEmail
+	 * Tests grabbing Admin by adminEmail
 	 **/
 
 	public function testGetAdminByAdminEmail() : void {

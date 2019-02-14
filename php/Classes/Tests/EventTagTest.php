@@ -88,7 +88,7 @@ class EventTagTest extends AbqAtNightTest {
         $this->assertCount(1, $results);
 
         // enforce no other objects are bleeding into the test
-        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Test\\EventTagTest", $results);
+        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Tests\\EventTagTest", $results);
 
         // grab the result from the array and validate it
         $pdoEventTag = $results[0];
@@ -115,7 +115,7 @@ class EventTagTest extends AbqAtNightTest {
         $this->assertCount(1, $results);
 
         // enforce no other objects are bleeding into the test
-        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Test\\EventTagTest", $results);
+        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Tests\\EventTagTest", $results);
 
         // grab the result from the array and validate it
         $pdoEventTag = $results[0];
@@ -142,7 +142,7 @@ class EventTagTest extends AbqAtNightTest {
         $this->assertCount(1, $results);
 
         // enforce no other objects are bleeding into the test
-        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Test\\EventTagTest", $results);
+        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Tests\\EventTagTest", $results);
 
         // grab the result from the array and validate it
         $pdoEventTag = $results[0];
