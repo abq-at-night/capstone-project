@@ -141,13 +141,11 @@ class AdminTest extends AbqAtNightTest {
 		$admin->insert($this->getPDO());
 
 		//Grab the data from MySQL and verify the results match our expectations.
-		$results = Admin::getAdminByAdminId($this->getPDO(), $admin->getAdminId());
+		$pdoAdmin = Admin::getAdminByAdminId($this->getPDO(), $admin->getAdminId());
 		$this->assertEquals($rowsTotal + 1, $this->getConnection()->getRowCount("admin"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\Admin", $results);
 
 		//Grab the result from the array and validate it.
-		$pdoAdmin = $results[0];
+
 		$this->assertEquals($pdoAdmin -> getAdminId(), $adminId);
 		$this->assertEquals($pdoAdmin -> getAdminEmail(), $this -> VALID_ADMIN_EMAIL);
 		$this->assertEquals($pdoAdmin -> getAdminHash(), $this -> VALID_ADMIN_HASH);
@@ -168,13 +166,10 @@ class AdminTest extends AbqAtNightTest {
 		$admin->insert($this->getPDO());
 
 		//Grab the data from MySQL and verify the fields match our expectations.
-		$results = Admin::getAdminByAdminEmail($this->getPDO(), $admin->getAdminHash());
+		$pdoAdmin= Admin::getAdminByAdminEmail($this->getPDO(), $admin->getAdminEmail());
 		$this->assertEquals($rowsTotal + 1, $this->getConnection()->getRowCount("admin"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\Admin", $results);
 
 		//Grab the result from the array and validate it.
-		$pdoAdmin = $results[0];
 		$this->assertEquals($pdoAdmin -> getAdminId(), $adminId);
 		$this->assertEquals($pdoAdmin -> getAdminEmail(), $this -> VALID_ADMIN_EMAIL);
 		$this->assertEquals($pdoAdmin -> getAdminHash(), $this -> VALID_ADMIN_HASH);

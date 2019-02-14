@@ -232,7 +232,7 @@ class Admin implements \JsonSerializable {
 	public function delete(\PDO $pdo) : void {
 
 		// Create query template.
-		$query = "DELETE FROM admin WHERE adminId = : adminId";
+		$query = "DELETE FROM admin WHERE adminId = :adminId";
 		$statement = $pdo->prepare($query);
 
 		// Bind the member variables to the place holder in the template
@@ -309,10 +309,10 @@ class Admin implements \JsonSerializable {
 
 	public static function getAdminByAdminEmail(\PDO $pdo, $adminEmail) : ?Admin {
 		//Sanitize the adminEmail before searching
-		try {
-			$adminEmail = self::validateUuid($adminEmail);
-		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
-			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		$adminEmail = trim($adminEmail);
+		$adminEmail = filter_var($adminEmail, FILTER_SANITIZE_EMAIL, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($adminEmail) === true) {
+			throw(new \PDOException("profile email content is invalid"));
 		}
 
 		//Create the query template.
