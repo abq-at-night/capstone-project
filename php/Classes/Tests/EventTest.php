@@ -1,6 +1,6 @@
 <?php
 namespace AbqAtNight\CapstoneProject\Tests;
-use AbqAtNight\CapstoneProject\{Event, Admin};
+use AbqAtNight\CapstoneProject\{Admin, Event};
 // grab the class under scrutiny
 
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -8,7 +8,9 @@ require_once(dirname(__DIR__) . "/autoload.php");
 require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
 
 /**
- * this is the the section for the tag in the ABQ at Night Capstone project
+ * Full PHPUnit test for the event class
+ *
+ * This is a complete PHPUnit test of the event class. It is complete because all mySQL/PDO enabled methods are tested for both invalid and valid inputs.
  *
  * @see Event
  * @author Wyatt Salmons <wyattsalmons@gmail.com>
@@ -129,7 +131,7 @@ class EventTest extends AbqAtNightTest {
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoEvent = Event::getEventByEventId($this->getPDO(), $event->getEventId());
-		$event->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
 		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
@@ -165,7 +167,7 @@ class EventTest extends AbqAtNightTest {
 
 		// grab the data from mySQL and enforce the fields match our expectations
 		$pdoEvent = Event::getEventByEventId($this->getPDO(), $event->getEventId());
-		$event->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
 		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);

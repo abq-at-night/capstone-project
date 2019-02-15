@@ -116,7 +116,7 @@ class Event implements \JsonSerializable {
 	 * @throws \Exception if some other exception occurs
 	 * @Documentation https://php.net/manual/en/language.oop5.decon.php
 	 **/
-	public function __construct($newEventId, $newEventAdminId, string $newEventAgeRequirement, string $newEventDescription, $newEventEndTime, $newEventImage, string $newEventLocation, string $newEventPrice, string $newEventPromoterWebsite, $newEventStartTime, string $newEventTitle, string $newEventVenue, string $newEventVenueWebsite) {
+	public function __construct($newEventId, $newEventAdminId, string $newEventAgeRequirement, string $newEventDescription, $newEventEndTime, string $newEventImage, string $newEventLocation, string $newEventPrice, string $newEventPromoterWebsite, $newEventStartTime, string $newEventTitle, string $newEventVenue, string $newEventVenueWebsite) {
 		try {
 			$this->setEventId($newEventId);
 			$this->setEventAdminId($newEventAdminId);
@@ -300,13 +300,13 @@ class Event implements \JsonSerializable {
 	public function setEventImage(string $newEventImage) : void {
 		// verify event promoter url is secure
 		$newEventImage = trim($newEventImage);
-		$newEventImage = filter_var($newEventImage, FILTER_SANITIZE_URL, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($newEventPromoterWebsite) === true) {
-			throw(new \InvalidArgumentException("event price content is not secure"));
+		$newEventImage = filter_var($newEventImage, FILTER_SANITIZE_URL);
+		if(empty($newEventImage) === true) {
+			throw(new \InvalidArgumentException("event image url is not secure"));
 		}
 		//verify the content will fit into the database
 		if(strlen($newEventImage) > 256) {
-			throw(new \RangeException("event price content too large"));
+			throw(new \RangeException("event image url too large"));
 		}
 		// convert and store the event promoter website
 		$this->eventImage = $newEventImage;
