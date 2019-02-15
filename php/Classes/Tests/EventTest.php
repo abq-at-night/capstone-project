@@ -107,7 +107,7 @@ class EventTest extends AbqAtNightTest {
 		$hash = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
 
-		// create and insert a Profile to own the test Event
+		// create and insert a Admin to own the test Event
 		$this->admin = new Admin(generateUuidV4(), "email@email.com",$hash, "testuser");
 		$this->admin->insert($this->getPDO());
 
