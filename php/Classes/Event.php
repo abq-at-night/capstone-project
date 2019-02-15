@@ -707,7 +707,7 @@ class Event implements \JsonSerializable {
 		$eventTitle = str_replace("_", "\\_", str_replace("%", "\\%", $eventTitle));
 
 		// create query template
-		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLocation, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE eventTitle = :eventTitle";
+		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLocation, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE eventTitle LIKE :eventTitle";
 		$statement = $pdo->prepare($query);
 
 		// bind the event content to the place holder in the template

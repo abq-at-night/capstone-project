@@ -258,7 +258,7 @@ class EventTest extends AbqAtNightTest {
 		$results = Event::getEventByEventAdminId($this->getPDO(), $event->getEventAdminId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\Event", $results);
+		$this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\Event", $results);
 
 		// grab the result from the array and validate it
 		$pdoEvent = $results[0];
@@ -302,7 +302,6 @@ class EventTest extends AbqAtNightTest {
 
 		// grab the result from the array and validate it
 		$pdoEvent = $results[0];
-
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
 		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
