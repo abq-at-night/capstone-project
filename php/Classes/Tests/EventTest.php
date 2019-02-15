@@ -106,14 +106,14 @@ class EventTest extends AbqAtNightTest {
 		$password = "abc123";
 		$hash = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
-// **************************************************HELP WITH PROFILE PARAMETERS, CONFUSED WITH REQ' PARAMS. ***************************************************
+
 		// create and insert a Profile to own the test Event
 		$this->admin = new Admin(generateUuidV4(), "email@email.com",$hash, "testuser");
 		$this->admin->insert($this->getPDO());
 
 		// calculate the date (just use the time the unit test was setup...)
 		$this->VALID_EVENTENDTIME = new \DateTime();
-		$this->VALID_EVENTSTARTTIME= new \DateTime();
+		$this->VALID_EVENTSTARTTIME = new \DateTime();
 
 	}
 
