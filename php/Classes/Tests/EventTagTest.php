@@ -56,7 +56,7 @@ class EventTagTest extends AbqAtNightTest {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("eventTag");
 
-        // create a new Tweet and insert to into mySQL
+        // create a new event tag and insert to into mySQL
         $EventTagEventId = generateUuidV4();
         $EventTagTagId = generateUuidV4();
         $eventTag = new EventTag($EventTagEventId, $EventTagTagId);
@@ -76,7 +76,7 @@ class EventTagTest extends AbqAtNightTest {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("eventTag");
 
-        // create a new Tweet and insert to into mySQL
+        // create a new Event Tag and insert to into mySQL
         $eventTagEventId = generateUuidV4();
         $eventTagTagId = generateUuidV4();
         $eventTag = new EventTag($eventTagEventId, $eventTagTagId);

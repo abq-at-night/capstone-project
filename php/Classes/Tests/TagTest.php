@@ -97,7 +97,7 @@ class TagTest extends AbqAtNightTest {
     /**
      * test creating a Tag and then deleting it
      **/
-    public function testDeleteValidTweet(): void
+    public function testDeleteValidTag(): void
     {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("tag");
