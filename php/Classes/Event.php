@@ -534,7 +534,7 @@ class Event implements \JsonSerializable {
 	 * @throws \TypeError if $pdo is not a PDO connection object
 	 **/
 	public function insert(\PDO $pdo) : void {
-		// create query template. *********************************************************WARNINGS DUE TO NO TABLES YET AS OF 2/11/19
+		// create query template.
 		$query = "INSERT INTO event(eventId,eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLocation, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite) VALUES(:eventId, :eventAdminId, :eventAgeRequirement, :eventDescription, :eventEndTime, :eventImage, :eventLocation, :eventPrice, :eventPromoterWebsite, :eventStartTime, :eventTitle, :eventVenue, :eventVenueWebsite)";
 		$statement = $pdo->prepare($query);
 		// bind the member variables to the place holders in the template
