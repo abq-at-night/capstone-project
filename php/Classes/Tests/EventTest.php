@@ -159,7 +159,7 @@ class EventTest extends AbqAtNightTest {
 		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_EVENTAGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $this->VALID_EVENTENDTIME, $this->VALID_EVENTIMAGE, $this->VALID_EVENTLOCATION, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $this->VALID_EVENTSTARTTIME, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
 		$event->insert($this->getPDO());
 
-		// edit the Tweet and update it in mySQL
+		// edit the Event and update it in mySQL
 		$event->setEventTitle($this->VALID_EVENTTITLE2);
 		$event->update($this->getPDO());
 
@@ -326,7 +326,7 @@ class EventTest extends AbqAtNightTest {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("event");
 
-		// create a new Tweet and insert to into mySQL
+		// create a new Event and insert to into mySQL
 		$eventId = generateUuidV4();
 		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_EVENTAGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $this->VALID_EVENTENDTIME, $this->VALID_EVENTIMAGE, $this->VALID_EVENTLOCATION, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $this->VALID_EVENTSTARTTIME, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
 		$event->insert($this->getPDO());
