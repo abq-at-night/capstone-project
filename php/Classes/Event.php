@@ -741,7 +741,7 @@ class Event implements \JsonSerializable {
 	 **/
 	public static function getAllEvents(\PDO $pdo) : \SPLFixedArray {
 		// create query template
-		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLocation, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE eventId = :eventId";
+		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLocation, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
 
