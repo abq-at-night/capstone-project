@@ -133,7 +133,7 @@ class EventTest extends AbqAtNightTest {
 		$pdoEvent = Event::getEventByEventId($this->getPDO(), $event->getEventId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
-		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
 		//format the date to seconds since the beginning of time to avoid round off error
@@ -169,7 +169,7 @@ class EventTest extends AbqAtNightTest {
 		$pdoEvent = Event::getEventByEventId($this->getPDO(), $event->getEventId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
-		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
 		//format the date to seconds since the beginning of time to avoid round off error
@@ -218,15 +218,14 @@ class EventTest extends AbqAtNightTest {
 		$event->insert($this->getPDO());
 
 		//Grab the data from MySQL and verify the results match our expectations.
-		$results = Event::getEventByEventId($this->getPDO(), $event->getEventId());
+		$pdoEvent = Event::getEventByEventId($this->getPDO(), $event->getEventId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
-		$this->assertCount(1, $results);
-		$this->assertContainsOnlyInstancesOf("DeepDive\\AbqAtNight\\Event", $results);
 
-		//Grab the result from the array and validate it. *******************************************************Why not found in inspection info?************************************************
-		$pdoEvent = $results[0];
+
+		//Grab the result from the array and validate it.
+
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
-		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
 		//format the date to seconds since the beginning of time to avoid round off error
@@ -265,7 +264,7 @@ class EventTest extends AbqAtNightTest {
 		$pdoEvent = $results[0];
 
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
-		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
 		//format the date to seconds since the beginning of time to avoid round off error
@@ -305,7 +304,7 @@ class EventTest extends AbqAtNightTest {
 		$pdoEvent = $results[0];
 
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
-		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
 		//format the date to seconds since the beginning of time to avoid round off error
@@ -343,7 +342,7 @@ class EventTest extends AbqAtNightTest {
 		$pdoEvent = $results[0];
 
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
-		$this->assertEquals($pdoEvent->getEventAdminId(), $this->Admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
 		//format the date to seconds since the beginning of time to avoid round off error
