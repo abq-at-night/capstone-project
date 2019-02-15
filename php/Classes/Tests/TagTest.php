@@ -19,7 +19,7 @@ require_once(dirname(__DIR__, 2) . "/lib/uuid.php");
  **/
 class TagTest extends AbqAtNightTest {
 	/**
-	 * Profile that created the Event; this is for foreign key relations
+	 * Profile that created the Tag; this is for foreign key relations
 	 * @var Admin profile
 	 **/
 	protected $admin = null;
