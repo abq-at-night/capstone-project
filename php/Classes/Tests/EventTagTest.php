@@ -25,9 +25,9 @@ class EventTagTest extends AbqAtNightTest {
 
     protected $tag = null;
 
-    protected $VALID_HASH;
+    protected $VALID_EVENT_TAG_EVENT_ID;
 
-    protected  $VALID_DATE = null;
+    protected $VALID_EVENT_TAG_TAG_ID;
 
     /**
      * set up for Event Tag
@@ -35,13 +35,16 @@ class EventTagTest extends AbqAtNightTest {
     public final function setUp(): void {
         // run the default setUp() method first
         parent::setUp();
-        $password = "abc123";
-        $this->VALID_HASH = password_hash($password, PASSWORD_ARGON2I, ["time_cost"=>384]);
+		 $password = "abc123";
+		 $hash = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
-        $this->admin = new Admin(generateUuidV4(), "email@email.com", $this->VALID_HASH, "JoeAdmin");
+        $this->admin = new Admin(generateUuidV4(), "email@email.com", $hash, "JoeAdmin");
         $this->admin->insert($this->getPDO());
 
-        $this->event = new Event(generateUuidV4(), $this->admin->getAdminId() , "21 and over", "Put description here", $this->VALID_DATE, "https://www.mysite.org", "TBA Location", "Price", "https://promoter.xyz", $this->VALID_DATE, "Tile of event", "Your mom's house", "https://www.venue.com");
+        $date = new \DateTime("2019-04-19 16:20:00");
+        $date2 = new \DateTime("2019-04-20 4:20:00");
+
+        $this->event = new Event(generateUuidV4(), $this->admin->getAdminId() , "21 and over", "Put description here", $date2, "https://www.mysite.org", "TBA Location", "Price", "https://promoter.xyz", $date, "Tile of event", "Your mom's house", "https://www.venue.com");
         $this->event->insert($this->getPDO());
 
         $this->tag = new Tag(generateUuidV4(), $this->admin->getAdminId(), "Genre", "House");
