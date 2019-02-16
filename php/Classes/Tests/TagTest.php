@@ -25,12 +25,6 @@ class TagTest extends AbqAtNightTest {
 	protected $admin = null;
 
 	/**
-	 * valid admin id for the tag
-	 * @var int $VALID_TAG_ADMIN_ID
-	 */
-	protected $VALID_TAG_ADMIN_ID;
-
-	/**
 	 * valid input type for tag
 	 * @var $VALID_TAG_TYPE
 	 **/
@@ -72,7 +66,7 @@ class TagTest extends AbqAtNightTest {
 		$pdoTag = Tag::getTagByTagId($this->getPDO(), $tag->getTagId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
 		$this->assertEquals($pdoTag->getTagId(), $tagId);
-		$this->assertEquals($pdoTag->getTagAdminId(), $this->VALID_TAG_ADMIN_ID);
+		$this->assertEquals($pdoTag->getTagAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoTag->getTagType(), $this->VALID_TAG_TYPE);
 		$this->assertEquals($pdoTag->getTagValue(), $this->VALID_TAG_VALUE);
 	}
@@ -98,7 +92,7 @@ class TagTest extends AbqAtNightTest {
 		$pdoTag = Tag::getTagByTagId($this->getPDO(), $tag->getTagId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
 		$this->assertEquals($pdoTag->getTagId(), $tagId);
-		$this->assertEquals($pdoTag->getTagAdminId(), $this->VALID_TAG_ADMIN_ID);
+		$this->assertEquals($pdoTag->getTagAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoTag->getTagType(), $this->VALID_TAG_TYPE);
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoTag->getTagValue(), $this->VALID_TAG_VALUE);
@@ -152,7 +146,7 @@ class TagTest extends AbqAtNightTest {
 		// grab the result from the array and validate it
 		$pdoTag = $results[0];
 		$this->assertEquals($pdoTag->getTagId(), $tagId);
-		$this->assertEquals($pdoTag->getTagAdminId(), $this->VALID_TAG_ADMIN_ID);;
+		$this->assertEquals($pdoTag->getTagAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoTag->getTagType(), $this->VALID_TAG_TYPE);
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoTag->getTagValue(), $this->VALID_TAG_VALUE);
@@ -180,7 +174,7 @@ class TagTest extends AbqAtNightTest {
 		// grab the result from the array and validate it
 		$pdoTag = $results[0];
 		$this->assertEquals($pdoTag->getTagId(), $tagId);
-		$this->assertEquals($pdoTag->getTagId(), $this->tag->getTagId());
+		$this->assertEquals($pdoTag->getTagId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoTag->getTagType(), $this->VALID_TAG_TYPE);
 		//format the date too seconds since the beginning of time to avoid round off error
 		$this->assertEquals($pdoTag->getTagValue(), $this->VALID_TAG_VALUE);
