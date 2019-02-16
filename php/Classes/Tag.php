@@ -210,7 +210,7 @@ class Tag implements \ JsonSerializable {
     public function delete(\PDO $pdo) : void {
 
         // Create query template.
-        $query = "DELETE FROM tag WHERE tagId = : tagId";
+        $query = "DELETE FROM tag WHERE tagId = :tagId";
         $statement = $pdo->prepare($query);
 
         // Bind the member variables to the place holder in the template

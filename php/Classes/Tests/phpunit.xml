@@ -4,9 +4,7 @@
 			<file>AdminTest.php</file>
 			<file>EventTest.php</file>
 			<file>TagTest.php</file>
-			<!--
 			<file>EventTagTest.php</file>
-			-->
 
 		</testsuite>
 	</testsuites>
