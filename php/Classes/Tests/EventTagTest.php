@@ -119,21 +119,14 @@ class EventTagTest extends AbqAtNightTest {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("eventTag");
 
-        $eventTagEventId = generateUuidV4();
-        $eventTagTagId = generateUuidV4();
-        $eventTag = new EventTag($eventTagEventId, $eventTagTagId);
+		  $eventTag = new EventTag($this->event->getEventId(), $this->tag->getTagId());
         $eventTag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $results = EventTag::getEventTagByPrimaryKey($this->getPDO(), $eventTagEventId, $eventTagTagId);
+        $pdoEventTag = EventTag::getEventTagByPrimaryKey($this->getPDO(), $eventTag->getEventTagEventId(), $eventTag->getEventTagTagId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag"));
-        $this->assertCount(1, $results);
-
-        // enforce no other objects are bleeding into the test
-        $this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\php\\Classes\\Tests\\EventTagTest", $results);
 
         // grab the result from the array and validate it
-        $pdoEventTag = $results[0];
         $this->assertEquals($pdoEventTag->getEventTagEventId(), $this->VALID_EVENT_TAG_EVENT_ID);
         $this->assertEquals($pdoEventTag->getEventTagTagId(), $this->VALID_EVENT_TAG_TAG_ID);
     }

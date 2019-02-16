@@ -181,7 +181,8 @@ class EventTag implements \JsonSerializable {
             $statement->setFetchMode(\PDO::FETCH_ASSOC);
             $row = $statement->fetch();
             if($row !== false) {
-                $eventTag = new EventTag($row["eventTagEventId"], $row["EventTagTagId"]); }
+                $eventTag = new EventTag($row["eventTagEventId"], $row["eventTagTagId"]);
+            }
         } catch (\Exception $exception) {
             //If the row couldn't be converted, re-throw it.
             throw(new \PDOException($exception->getMessage(), 0, $exception));
@@ -191,7 +192,7 @@ class EventTag implements \JsonSerializable {
 
     public static function getEventTagByPrimaryKey(\PDO $pdo, $eventTagEventId, $eventTagTagId) : ?\SplFixedArray {
         //Create the query template.
-        $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE  eventTagEventId = :eventTagEventId && eventTagTagId = :eventTagTagId";
+        $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE eventTagEventId = :eventTagEventId AND eventTagTagId = :eventTagTagId";
         $statement = $pdo->prepare($query);
 
         $statement->execute();
@@ -220,8 +221,6 @@ class EventTag implements \JsonSerializable {
      **/
     public function jsonSerialize() : array {
         $fields = get_object_vars($this);
-
-        $fields["EventTagEventId"] = $this->eventTagEventId->toString();
 
         return($fields);
     }
