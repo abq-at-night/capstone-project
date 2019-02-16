@@ -151,7 +151,7 @@ class EventTag implements \JsonSerializable {
             $statement->setFetchMode(\PDO::FETCH_ASSOC);
             $row = $statement->fetch();
             if($row !== false) {
-                $eventTag = new EventTag($row["eventTagEventId"], $row["EventTagTagId"]); }
+                $eventTag = new EventTag($row["eventTagEventId"], $row["eventTagTagId"]); }
         } catch (\Exception $exception) {
             //If the row couldn't be converted, re-throw it.
             throw(new \PDOException($exception->getMessage(), 0, $exception));
