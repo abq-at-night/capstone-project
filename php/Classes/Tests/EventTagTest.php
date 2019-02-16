@@ -60,13 +60,11 @@ class EventTagTest extends AbqAtNightTest {
         $numRows = $this->getConnection()->getRowCount("eventTag");
 
         // create a new event tag and insert to into mySQL
-        $EventTagEventId = generateUuidV4();
-        $EventTagTagId = generateUuidV4();
-        $eventTag = new EventTag($EventTagEventId, $EventTagTagId);
+        $eventTag = new EventTag($this->event->getEventId(), $this->tag->getTagId());
         $eventTag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $pdoEventTag = EventTag::getEventTagByEventId($this->getPDO(), $eventTag->getEventTagEventId());
+        $pdoEventTag = EventTag::getEventTagByTagId($this->getPDO(), $eventTag->getEventTagTagId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag"));
         $this->assertEquals($pdoEventTag->getEventTagEventId(), $this->VALID_EVENT_TAG_EVENT_ID);
         $this->assertEquals($pdoEventTag->getEventTagTagId(), $this->VALID_EVENT_TAG_TAG_ID);

@@ -111,7 +111,7 @@ class EventTag implements \JsonSerializable {
     public function insert(\PDO $pdo) : void {
 
         // create query template
-        $query = "INSERT INTO EventTag(eventTagEventId, eventTagTagId) VALUES(:eventTagEventId, :eventTagTagId)";
+        $query = "INSERT INTO eventTag(eventTagEventId, eventTagTagId) VALUES(:eventTagEventId, :eventTagTagId)";
         $statement = $pdo->prepare($query);
 
         // bind the member variables to the place holders in the template
