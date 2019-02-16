@@ -47,9 +47,11 @@ class TagTest extends AbqAtNightTest {
 	{
 		// run the default setUp() method first
 		parent::setUp();
+		$password = "abc123";
+		$hash = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
 		// create and insert a Admin to own the test Tag
-		$this->admin = new Admin(generateUuidV4(), "email@email.com",$hash, "testuser");
+		$this->admin = new Admin(generateUuidV4(), "email@email.com", $hash, "testuser");
 		$this->admin->insert($this->getPDO());
 
 	}
