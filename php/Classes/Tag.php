@@ -54,7 +54,7 @@ class Tag implements \ JsonSerializable {
      * @throws \Exception if some other exception occurs
      * @Documentation https://php.net/manual/en/language.oop5.decon.php
      */
-    public function __construct($newTagId, $newTagAdminId, $newTagType, $newTagValue) {
+    public function __construct($newTagId, $newTagAdminId, string $newTagType, string $newTagValue) {
         try {
             $this->setTagId($newTagId);
             $this->setTagAdminId($newTagAdminId);
@@ -72,7 +72,7 @@ class Tag implements \ JsonSerializable {
      *
      * @return Uuid value of tag id
      **/
-    public function getTagId() {
+    public function getTagId() : Uuid {
         return($this->tagId);
     }
     /**

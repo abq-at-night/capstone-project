@@ -154,7 +154,7 @@ class Event implements \JsonSerializable {
 	 * @throws \RangeException if $newEventId is not positive
 	 * @throws \TypeError if $newEventId is not a uuid or string
 	 **/
-	public function setEventId( $newEventId) : void {
+	public function setEventId($newEventId) : void {
 		try {
 			$uuid = self::validateUuid($newEventId);
 		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {

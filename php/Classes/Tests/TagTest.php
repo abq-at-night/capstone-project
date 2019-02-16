@@ -34,13 +34,13 @@ class TagTest extends AbqAtNightTest {
 	 * valid input type for tag
 	 * @var $VALID_TAG_TYPE
 	 **/
-	protected $VALID_TAG_TYPE;
+	protected $VALID_TAG_TYPE = "Genre";
 
 	/**
 	 * valid input value for tag
 	 * @var string $VALID__TAG_VALUE
 	 **/
-	protected $VALID_TAG_VALUE;
+	protected $VALID_TAG_VALUE = "Bro-step";
 
 
 	public final function setUp(): void
@@ -65,7 +65,7 @@ class TagTest extends AbqAtNightTest {
 
 		// create a new Tag and insert to into mySQL
 		$tagId = generateUuidV4();
-		$tag = new Tag($tagId, $this->VALID_TAG_ADMIN_ID, $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
+		$tag = new Tag($tagId, $this->admin->getAdminId(), $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
 		$tag->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -87,7 +87,7 @@ class TagTest extends AbqAtNightTest {
 
 		// create a new Tag and insert to into mySQL
 		$tagId = generateUuidV4();
-		$tag = new Tag($tagId, $this->VALID_TAG_ADMIN_ID, $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
+		$tag = new Tag($tagId, $this->admin->getAdminId(), $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
 		$tag->insert($this->getPDO());
 
 		// edit the Tag and update it in mySQL
@@ -115,7 +115,7 @@ class TagTest extends AbqAtNightTest {
 
 		// create a new Tag and insert to into mySQL
 		$tagId = generateUuidV4();
-		$tag = new Tag($tagId, $this->VALID_TAG_ADMIN_ID, $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
+		$tag = new Tag($tagId, $this->admin->getAdminId(), $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
 		$tag->insert($this->getPDO());
 
 		// delete the Tag from mySQL
@@ -138,7 +138,7 @@ class TagTest extends AbqAtNightTest {
 
 		// create a new Tag and insert to into mySQL
 		$tagId = generateUuidV4();
-		$tag = new Tag($tagId, $this->VALID_TAG_ADMIN_ID, $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
+		$tag = new Tag($tagId, $this->admin->getAdminId(), $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
 		$tag->insert($this->getPDO());
 
 		// grab the data from mySQL and verify the fields match our expectations
@@ -168,7 +168,7 @@ class TagTest extends AbqAtNightTest {
 
 		// create a new Tag and insert to into mySQL
 		$tagId = generateUuidV4();
-		$tag = new Tag($tagId, $this->VALID_TAG_ADMIN_ID, $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
+		$tag = new Tag($tagId, $this->admin->getAdminId(), $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
 		$tag->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
