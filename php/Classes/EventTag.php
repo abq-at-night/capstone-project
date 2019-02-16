@@ -89,7 +89,7 @@ class EventTag implements \JsonSerializable {
      * @throws \RangeException if $newEventTagTagId is not positive
      * @throws \TypeError if $newEventTagTagId is not a uuid or string
      **/
-    public function setEventTagTagId( $newEventTagTagId) : void {
+    public function setEventTagTagId($newEventTagTagId) : void {
         try {
             $uuid = self::validateUuid($newEventTagTagId);
         } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
@@ -159,20 +159,20 @@ class EventTag implements \JsonSerializable {
         return($eventTag);
     }
 
-    public static function getEventTagByTagId(\PDO $pdo, $eventTagEventId) : ?EventTag {
+    public static function getEventTagByTagId(\PDO $pdo, $eventTagTagId) : ?EventTag {
         //Sanitize the adminId before searching
         try {
-            $eventTagEventId = self::validateUuid($eventTagEventId);
+            $eventTagTagId = self::validateUuid($eventTagTagId);
         } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
             throw(new \PDOException($exception->getMessage(), 0, $exception));
         }
 
         //Create the query template.
-        $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE  eventTagEventId = :eventTagEventId";
+        $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE  eventTagTagId = :eventTagTagId";
         $statement = $pdo->prepare($query);
 
         //Bind the tagId to the place-holder in the template.
-        $parameters = ["eventTagEventId" => $eventTagEventId->getBytes()];
+        $parameters = ["eventTagTagId" => $eventTagTagId->getBytes()];
         $statement->execute($parameters);
 
         //Grab the eventTag from MySQL
