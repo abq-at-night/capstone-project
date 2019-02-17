@@ -129,8 +129,8 @@ class EventTagTest extends AbqAtNightTest {
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag"));
 
         // grab the result from the array and validate it
-        $this->assertEquals($pdoEventTag->getEventTagEventId(), $this->VALID_EVENT_TAG_EVENT_ID);
-        $this->assertEquals($pdoEventTag->getEventTagTagId(), $this->VALID_EVENT_TAG_TAG_ID);
+        $this->assertEquals($pdoEventTag->getEventTagEventId(), $this->event->getEventId());
+        $this->assertEquals($pdoEventTag->getEventTagTagId(), $this->tag->getTagId());
     }
 
 }

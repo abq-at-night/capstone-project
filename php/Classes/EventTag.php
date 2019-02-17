@@ -194,15 +194,15 @@ class EventTag implements \JsonSerializable {
         //Create the query template.
         $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE eventTagEventId = :eventTagEventId AND eventTagTagId = :eventTagTagId";
         $statement = $pdo->prepare($query);
-
-        $statement->execute();
+			$parameters = ["eventTagEventId" => $eventTagEventId->getBytes(), "eventTagTagId" => $eventTagTagId->getBytes()];
+        $statement->execute($parameters);
 
         //build an array of event tags
         $eventTags = new\SplFixedArray($statement->rowCount());
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
-        while(($row=$statement->fetch()) !== false) {
+        while(($row = $statement->fetch()) !== false) {
             try {
-                $eventTag= new EventTag($row["eventTagEventId"], $row["eventTagTagId"]);
+                $eventTag = new EventTag($row["eventTagEventId"], $row["eventTagTagId"]);
                 $eventTags[$eventTags->key()] = $eventTag;
                 $eventTags->next();
             } catch(\Exception $exception) {
