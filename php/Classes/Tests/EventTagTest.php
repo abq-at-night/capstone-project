@@ -25,9 +25,11 @@ class EventTagTest extends AbqAtNightTest {
 
     protected $tag = null;
 
+    /**
     protected $VALID_EVENT_TAG_EVENT_ID;
 
     protected $VALID_EVENT_TAG_TAG_ID;
+	  * */
 
     /**
      * set up for Event Tag
@@ -67,8 +69,8 @@ class EventTagTest extends AbqAtNightTest {
 		  $pdoEventTag = EventTag::getEventTagByEventId($this->getPDO(), $eventTag->getEventTagEventId());
         $pdoEventTag2 = EventTag::getEventTagByTagId($this->getPDO(), $eventTag->getEventTagTagId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag"));
-        $this->assertEquals($pdoEventTag->getEventTagEventId(), $this->VALID_EVENT_TAG_EVENT_ID);
-        $this->assertEquals($pdoEventTag2->getEventTagTagId(), $this->VALID_EVENT_TAG_TAG_ID);
+        $this->assertEquals($pdoEventTag->getEventTagEventId(), $this->event->getEventId());
+        $this->assertEquals($pdoEventTag2->getEventTagTagId(), $this->tag->getTagId());
     }
     /**
      * tests grabbing event tags by event id
