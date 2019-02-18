@@ -125,10 +125,11 @@ class EventTagTest extends AbqAtNightTest {
         $eventTag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $pdoEventTag = EventTag::getEventTagByPrimaryKey($this->getPDO(), $eventTag->getEventTagEventId(), $eventTag->getEventTagTagId());
-        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag"));
+        $pdoEventTags = EventTag::getEventTagByPrimaryKey($this->getPDO(), $eventTag->getEventTagEventId(), $eventTag->getEventTagTagId());
+        $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag")); 
 
         // grab the result from the array and validate it
+		 $pdoEventTag = $pdoEventTags[0];
         $this->assertEquals($pdoEventTag->getEventTagEventId(), $this->event->getEventId());
         $this->assertEquals($pdoEventTag->getEventTagTagId(), $this->tag->getTagId());
     }
