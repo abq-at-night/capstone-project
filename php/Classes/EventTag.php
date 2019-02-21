@@ -120,6 +120,25 @@ class EventTag implements \JsonSerializable {
     }
 
     /**
+     * deletes the Event Tag from mySQL
+     *
+     * @param \PDO $pdo PDO connection object
+     * @throws \PDOException when mySQL related error occur
+     * @throws \TypeError if $pdo is not a PDO connection object
+     */
+    public function delete(\PDO $pdo) : void {
+
+        // create query template
+        $query = "DELETE FROM eventTag WHERE eventTagEventId = :eventTagEventId && eventTagTagId = :eventTagTagId";
+        $statement = $pdo->prepare($query);
+
+        //binds th variables to the place holder in the template
+        $parameters = ["eventTagEventId" => $this->eventTagEventId->getBytes(), "eventTagTagId" => $this->eventTagTagId->getBytes()];
+        $statement->execute($parameters);
+
+    }
+
+    /**
      * Gets Event Tag by Event Id
      *
      * @param \PDO $pdo PDO connection object
@@ -129,7 +148,7 @@ class EventTag implements \JsonSerializable {
      * @throws \TypeError when a variable are not the correct data type
      **/
 
-    public static function getEventTagByEventId(\PDO $pdo, $eventTagEventId) : ?EventTag {
+    public static function getEventTagByEventTagEventId(\PDO $pdo, $eventTagEventId) : ?EventTag {
         //Sanitize the adminId before searching
         try {
             $eventTagEventId = self::validateUuid($eventTagEventId);
@@ -159,7 +178,7 @@ class EventTag implements \JsonSerializable {
         return($eventTag);
     }
 
-    public static function getEventTagByTagId(\PDO $pdo, $eventTagTagId) : ?EventTag {
+    public static function getEventTagByEventTagTagId(\PDO $pdo, $eventTagTagId) : ?EventTag {
         //Sanitize the adminId before searching
         try {
             $eventTagTagId = self::validateUuid($eventTagTagId);
@@ -190,7 +209,7 @@ class EventTag implements \JsonSerializable {
         return($eventTag);
     }
 
-    public static function getEventTagByPrimaryKey(\PDO $pdo, $eventTagEventId, $eventTagTagId) : ?\SplFixedArray {
+    public static function getEventTagByEventTagEventIDEventTagTagId(\PDO $pdo, $eventTagEventId, $eventTagTagId) : \SplFixedArray {
         //Create the query template.
         $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE eventTagEventId = :eventTagEventId AND eventTagTagId = :eventTagTagId";
         $statement = $pdo->prepare($query);

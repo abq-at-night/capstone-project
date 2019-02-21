@@ -145,7 +145,7 @@ class Tag implements \ JsonSerializable {
             throw(new \InvalidArgumentException("tag content is empty or insecure"));
         }
 
-        if(strlen($newTagType) > 140) {
+        if(strlen($newTagType) > 32) {
             throw(new \RangeException("tag type is to long"));
         }
 
@@ -175,7 +175,7 @@ class Tag implements \ JsonSerializable {
             throw(new \InvalidArgumentException("tag content is empty or insecure"));
         }
 
-        if(strlen($newTagValue) > 140) {
+        if(strlen($newTagValue) >32) {
             throw(new \RangeException("tag value is to long"));
         }
 
