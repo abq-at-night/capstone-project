@@ -238,7 +238,7 @@ class Tag implements \ JsonSerializable {
         $statement->execute($parameters);
     }
     /**
-     * Gets Tad by tagId
+     * Gets Tag by tagId
      *
      * @param \PDO $pdo PDO connection object
      * @param Uuid|string $tagId tag id to search for
@@ -248,7 +248,7 @@ class Tag implements \ JsonSerializable {
      **/
 
     public static function getTagByTagId(\PDO $pdo, $tagId) : ?Tag {
-        //Sanitize the adminId before searching
+        //Sanitize the tagId before searching
         try {
             $tagId = self::validateUuid($tagId);
         } catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
