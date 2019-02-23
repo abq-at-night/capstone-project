@@ -77,8 +77,8 @@ class EventTagTest extends AbqAtNightTest {
         $eventTag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-		  $pdoEventTag = EventTag::getEventTagByEventId($this->getPDO(), $eventTag->getEventTagEventId());
-        $pdoEventTag2 = EventTag::getEventTagByTagId($this->getPDO(), $eventTag->getEventTagTagId());
+		  $pdoEventTag = EventTag::getEventTagByEventTagEventId($this->getPDO(), $eventTag->getEventTagEventId());
+        $pdoEventTag2 = EventTag::getEventTagByEventTagTagId($this->getPDO(), $eventTag->getEventTagTagId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag"));
         $this->assertEquals($pdoEventTag->getEventTagEventId(), $this->event->getEventId());
         $this->assertEquals($pdoEventTag2->getEventTagTagId(), $this->tag->getTagId());
@@ -86,7 +86,7 @@ class EventTagTest extends AbqAtNightTest {
     /**
      * tests grabbing event tags by event id
      */
-    public function testGetEventTagByEventId(): void
+    public function testGetEventTagByEventTagEventId(): void
     {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("eventTag");
@@ -96,7 +96,7 @@ class EventTagTest extends AbqAtNightTest {
         $eventTag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $pdoEventTag= EventTag::getEventTagByEventId($this->getPDO(), $eventTag->getEventTagEventId());
+        $pdoEventTag= EventTag::getEventTagByEventTagEventId($this->getPDO(), $eventTag->getEventTagEventId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag"));
 
         // grab the result from the array and validate it
@@ -116,7 +116,7 @@ class EventTagTest extends AbqAtNightTest {
         $eventTag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $pdoEventTag = EventTag::getEventTagByTagId($this->getPDO(), $eventTag->getEventTagTagId());
+        $pdoEventTag = EventTag::getEventTagByEventTagTagId($this->getPDO(), $eventTag->getEventTagTagId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag"));
 
         // grab the result from the array and validate it
@@ -127,7 +127,7 @@ class EventTagTest extends AbqAtNightTest {
     /**
      * tests grabbing event tags by thr primary key
      */
-    public function testGetEventTagByPrimaryKey(): void
+    public function testGetEventTagByEventTagEventIdAndEventTagTagId(): void
     {
         // count the number of rows and save it for later
         $numRows = $this->getConnection()->getRowCount("eventTag");
@@ -136,7 +136,7 @@ class EventTagTest extends AbqAtNightTest {
         $eventTag->insert($this->getPDO());
 
         // grab the data from mySQL and enforce the fields match our expectations
-        $pdoEventTags = EventTag::getEventTagByPrimaryKey($this->getPDO(), $eventTag->getEventTagEventId(), $eventTag->getEventTagTagId());
+        $pdoEventTags = EventTag::getEventTagByEventTagEventIdAndEventTagTagId($this->getPDO(), $eventTag->getEventTagEventId(), $eventTag->getEventTagTagId());
         $this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("eventTag")); 
 
         // grab the result from the array and validate it

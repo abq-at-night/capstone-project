@@ -148,6 +148,34 @@ class TagTest extends AbqAtNightTest {
 	}
 
 	/**
+	 * test grabbing an Tag by Tag type
+	 **/
+	public function testGetTagByTagType() : void {
+		// count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("tag");
+
+		// create a new tag and insert to into mySQL
+		$tagId = generateUuidV4();
+		$tag = new Tag($tagId, $this->admin->getAdminId(), $this->VALID_TAG_TYPE, $this->VALID_TAG_VALUE);
+		$tag->insert($this->getPDO());
+
+		// grab the data from mySQL and enforce the fields match our expectations
+		$results = Tag::getTagByTagType($this->getPDO(), $tag->getTagType());
+		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("tag"));
+		$this->assertCount(1, $results);
+
+		// enforce no other objects are bleeding into the test
+		$this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\Tag", $results);
+
+		// grab the result from the array and validate it
+		$pdoTag = $results[0];
+		$this->assertEquals($pdoTag->getTagId(), $tagId);
+		$this->assertEquals($pdoTag->getTagAdminId(), $this->admin->getAdminId());
+		$this->assertEquals($pdoTag->getTagType(), $this->VALID_TAG_TYPE);
+		$this->assertEquals($pdoTag->getTagValue(), $this->VALID_TAG_VALUE);
+	}
+
+	/**
 	 * test grabbing all Tags
 	 **/
 	public function testGetAllTags(): void

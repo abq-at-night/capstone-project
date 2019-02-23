@@ -313,7 +313,7 @@ class Tag implements \ JsonSerializable {
         $statement->setFetchMode(\PDO::FETCH_ASSOC);
         while (($row = $statement->fetch()) !== false) {
             try {
-                $tag = new Tag($row{"TagId"}, $row{"tagAdmin"}, $row{"tagType"}, $row{"tagValue"});
+                $tag = new Tag($row["tagId"], $row["tagAdminId"], $row["tagType"], $row["tagValue"]);
                 $tags[$tags->key()] = $tag;
                 $tags->next();
             } catch(\Exception $exception) {

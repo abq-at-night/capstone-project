@@ -209,7 +209,7 @@ class EventTag implements \JsonSerializable {
         return($eventTag);
     }
 
-    public static function getEventTagByEventTagEventIDEventTagTagId(\PDO $pdo, $eventTagEventId, $eventTagTagId) : \SplFixedArray {
+    public static function getEventTagByEventTagEventIdAndEventTagTagId(\PDO $pdo, $eventTagEventId, $eventTagTagId) : \SplFixedArray {
         //Create the query template.
         $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE eventTagEventId = :eventTagEventId AND eventTagTagId = :eventTagTagId";
         $statement = $pdo->prepare($query);
