@@ -178,6 +178,15 @@ class EventTag implements \JsonSerializable {
         return($eventTag);
     }
 
+    /**
+     * gets the Event Tag by Event Tag Tag Id foreign key
+     *
+     * @param \PDO $pdo PDO connection object
+     * @param Uuid|string $eventTagTagId tag to search fo
+     * @return EventTag|null EventTag found or null in not found
+     * @throws \PDOException when mySQL related error occur
+     * @throws \TypeError if $pdo is not a PDO connection object
+     */
     public static function getEventTagByEventTagTagId(\PDO $pdo, $eventTagTagId) : ?EventTag {
         //Sanitize the adminId before searching
         try {
@@ -209,6 +218,16 @@ class EventTag implements \JsonSerializable {
         return($eventTag);
     }
 
+    /**
+     * gets the Event Tag by Event Tag Event Id and Event Tag Tag Id
+     *
+     * @param \PDO $pdo PDO connection object
+     * @param Uuid|string $eventTagEventId of EventTags found
+     * @param Uuid|string $eventTagTagId of EventTags found
+     * @return \SplFixedArray SplFixedArray of EventTags found
+     * @throws \PDOException when mySQL related error occur
+     * @throws \TypeError if $pdo is not a PDO connection object
+     */
     public static function getEventTagByEventTagEventIdAndEventTagTagId(\PDO $pdo, $eventTagEventId, $eventTagTagId) : \SplFixedArray {
         //Create the query template.
         $query = "SELECT eventTagEventId, eventTagTagId FROM eventTag WHERE eventTagEventId = :eventTagEventId AND eventTagTagId = :eventTagTagId";
