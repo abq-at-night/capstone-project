@@ -680,6 +680,49 @@ class Event implements \JsonSerializable {
 	}
 
 	/**
+	 * gets the event by eventTagTagId
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param Uuid|string $eventTagTagId tag id to search for
+	 * @return event|null event found or null if not found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when a variable is not the correct data type
+	 **/
+	public static function getEventByEventTagTagId(\PDO $pdo, $eventTagTagId) : ?Event {
+		// sanitize the eventTagTagId before searching
+		try {
+			$eventTagTagId = self::validateUuid($eventTagTagId);
+		} catch(\InvalidArgumentException | \RangeException | \Exception | \TypeError $exception) {
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+
+		// create query template
+		$query = "SELECT event.eventId, event.eventAdminId, event.eventAgeRequirement, event.eventDescription, event.eventEndTime, event.eventImage, event.eventLat, event.eventLng, event.eventPrice, event.eventPromoterWebsite, event.eventStartTime, event.eventTitle, event.eventVenue, event.eventVenueWebsite
+			FROM event 
+			INNER JOIN eventTag 
+			ON eventTag.eventTagEventId = event.eventId WHERE eventTag.eventTagTagId = :eventTagTagId";
+		$statement = $pdo->prepare($query);
+
+		// bind the event id to the place holder in the template
+		$parameters = ["eventTagTagId" => $eventTagTagId->getBytes()];
+		$statement->execute($parameters);
+
+		// grab the event from mySQL
+		try {
+			$event = null;
+			$statement->setFetchMode(\PDO::FETCH_ASSOC);
+			$row = $statement->fetch();
+			if($row !== false) {
+				$event = new Event($row["eventId"], $row["eventAdminId"], $row["eventAgeRequirement"], $row["eventDescription"], $row["eventEndTime"], $row["eventImage"], $row["eventLat"], $row["eventLng"], $row["eventPrice"], $row["eventPromoterWebsite"], $row["eventStartTime"], $row["eventTitle"], $row["eventVenue"], $row["eventVenueWebsite"]);
+			}
+		} catch(\Exception $exception) {
+			// if the row couldn't be converted, rethrow it
+			throw(new \PDOException($exception->getMessage(), 0, $exception));
+		}
+		return($event);
+	}
+
+	/**
 	 * gets the event by admin id
 	 *
 	 * @param \PDO $pdo PDO connection object
@@ -708,6 +751,51 @@ class Event implements \JsonSerializable {
 		while(($row = $statement->fetch()) !== false) {
 			try {
 				$event = new event($row["eventId"], $row["eventAdminId"], $row["eventAgeRequirement"], $row["eventDescription"], $row["eventEndTime"], $row["eventImage"], $row["eventLat"], $row["eventLng"], $row["eventPrice"], $row["eventPromoterWebsite"], $row["eventStartTime"], $row["eventTitle"], $row["eventVenue"], $row["eventVenueWebsite"]);
+				$events[$events->key()] = $event;
+				$events->next();
+			} catch(\Exception $exception) {
+				// if the row couldn't be converted, rethrow it
+				throw(new \PDOException($exception->getMessage(), 0, $exception));
+			}
+		}
+		return($events);
+	}
+
+	/**
+	 * gets the event by title
+	 *
+	 * @param \PDO $pdo PDO connection object
+	 * @param string $eventTitle event content to search for
+	 * @return \SplFixedArray SplFixedArray of events found
+	 * @throws \PDOException when mySQL related errors occur
+	 * @throws \TypeError when variables are not the correct data type
+	 **/
+	public static function getEventByEventTitle(\PDO $pdo, string $eventTitle) : \SplFixedArray {
+		// sanitize the description before searching
+		$eventTitle = trim($eventTitle);
+		$eventTitle = filter_var($eventTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+		if(empty($eventTitle) === true) {
+			throw(new \PDOException("event title is invalid"));
+		}
+
+		// escape any mySQL wild cards
+		$eventTitle = str_replace("_", "\\_", str_replace("%", "\\%", $eventTitle));
+
+		// create query template
+		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE eventTitle LIKE :eventTitle";
+		$statement = $pdo->prepare($query);
+
+		// bind the event content to the place holder in the template
+		$eventTitle = "%$eventTitle%";
+		$parameters = ["eventTitle" => $eventTitle];
+		$statement->execute($parameters);
+
+		// build an array of events
+		$events = new \SplFixedArray($statement->rowCount());
+		$statement->setFetchMode(\PDO::FETCH_ASSOC);
+		while(($row = $statement->fetch()) !== false) {
+			try {
+				$event = new Event($row["eventId"], $row["eventAdminId"], $row["eventAgeRequirement"], $row["eventDescription"], $row["eventEndTime"], $row["eventImage"], $row["eventLat"], $row["eventLng"], $row["eventPrice"], $row["eventPromoterWebsite"], $row["eventStartTime"], $row["eventTitle"], $row["eventVenue"], $row["eventVenueWebsite"]);
 				$events[$events->key()] = $event;
 				$events->next();
 			} catch(\Exception $exception) {
