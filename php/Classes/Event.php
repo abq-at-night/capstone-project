@@ -817,7 +817,7 @@ class Event implements \JsonSerializable {
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getEventByDistance(\PDO $pdo, float $userLong, float $userLat, float $distance) : \SplFixedArray {
+	public static function getEventByEventDistance(\PDO $pdo, float $userLong, float $userLat, float $distance) : \SplFixedArray {
 		// create query template
 		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE haversine(:userLong, :userLat, eventLng, eventLat) < :distance";
 		//haversine(:userLong, :userLat, artLong, artLat) < :distance"
