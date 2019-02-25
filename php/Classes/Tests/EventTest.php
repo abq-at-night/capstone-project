@@ -216,9 +216,9 @@ class EventTest extends AbqAtNightTest {
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("event"));
 	}
 
-	/*
+	/**
 	 * Test to get event by event id
-	 */
+	 **/
 	public function testGetEventByEventId() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("event");
@@ -253,9 +253,9 @@ class EventTest extends AbqAtNightTest {
 		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
 	}
 
-	/*
+	/**
 	 * Test to get event by eventTagTagId
-	 */
+	 **/
 	public function testGetEventByEventTagTagId() : void {
 		//Count the number of rows and save it for later.
 		$numRows = $this->getConnection()->getRowCount("event");
@@ -368,9 +368,9 @@ class EventTest extends AbqAtNightTest {
 		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
 	}
 
-	/*
+	/**
 	 * Test getting events by distance
-	 */
+	 **/
 
 	public function testGetEventByDistance() : void {
 		//Count the number of rows and save it for later
@@ -410,9 +410,10 @@ class EventTest extends AbqAtNightTest {
 	}
 
 	/**
-	 * test grabbing all Events
+	 * Test grabbing events by time
 	 **/
-	public function testGetAllValidEvents() : void {
+
+	public function testGetEventByEventTime() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("event");
 
@@ -422,14 +423,13 @@ class EventTest extends AbqAtNightTest {
 		$event->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
-		$results = Event::getAllEvents($this->getPDO());
+		$results = Event::getEventByEventTime($this->getPDO(), $this->VALID_EVENTENDTIME, $this->VALID_EVENTSTARTTIME);
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 		$this->assertCount(1, $results);
 		$this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\Event", $results);
 
 		// grab the result from the array and validate it
 		$pdoEvent = $results[0];
-
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
 		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
