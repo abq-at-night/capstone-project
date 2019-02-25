@@ -57,7 +57,7 @@ class EventTagTest extends AbqAtNightTest {
 		$date = new \DateTime("2019-04-19 16:20:00");
 		$date2 = new \DateTime("2019-04-20 4:20:00");
 
-		$this->event = new Event(generateUuidV4(), $this->admin->getAdminId() , "21 and over", "Put description here", $date2, "https://www.mysite.org", "TBA Location", "Price", "https://promoter.xyz", $date, "Tile of event", "Your mom's house", "https://www.venue.com");
+		$this->event = new Event(generateUuidV4(), $this->admin->getAdminId() , "21 and over", "Put description here", $date2, "https://www.mysite.org", 35.084658, -106.654841, "Price", "https://promoter.xyz", $date, "Tile of event", "Your mom's house", "https://www.venue.com");
 		$this->event->insert($this->getPDO());
 
 		$this->tag = new Tag(generateUuidV4(), $this->admin->getAdminId(), "Genre", "House");
