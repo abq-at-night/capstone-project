@@ -143,12 +143,12 @@ class EventTag implements \JsonSerializable {
      *
      * @param \PDO $pdo PDO connection object
      * @param Uuid|string $eventTagEventId event tag to search for
-     * @return EventTag | null EventTag found or null if not found
+     * @return \SplFixedArray SplFixedArray of EventTags found
      * @throws \PDOException when mySQL-related errors occur
      * @throws \TypeError when a variable are not the correct data type
      **/
 
-    public static function getEventTagByEventTagEventId(\PDO $pdo, $eventTagEventId) : ?EventTag {
+    public static function getEventTagByEventTagEventId(\PDO $pdo, $eventTagEventId) : \SplFixedArray {
         //Sanitize the adminId before searching
         try {
             $eventTagEventId = self::validateUuid($eventTagEventId);
@@ -164,18 +164,20 @@ class EventTag implements \JsonSerializable {
         $parameters = ["eventTagEventId" => $eventTagEventId->getBytes()];
         $statement->execute($parameters);
 
-        //Grab the eventTag from MySQL
+        //Build an array of eventTags
+		 $eventTags = new \SplFixedArray($statement->rowCount());
+		 $statement->setFetchMode(\PDO::FETCH_ASSOC);
+		 while(($row = $statement->fetch()) !== false) {
         try {
-            $eventTag = null;
-            $statement->setFetchMode(\PDO::FETCH_ASSOC);
-            $row = $statement->fetch();
-            if($row !== false) {
-                $eventTag = new EventTag($row["eventTagEventId"], $row["eventTagTagId"]); }
-        } catch (\Exception $exception) {
-            //If the row couldn't be converted, re-throw it.
-            throw(new \PDOException($exception->getMessage(), 0, $exception));
+        	$eventTag = new EventTag($row["eventTagEventId"], $row["eventTagTagId"]);
+        	$eventTags[$eventTags->key()] = $eventTag;
+        	$eventTags->next();
+        } catch(\Exception $exception) {
+        	//If the row couldn't be converted, rethrow it.
+			  throw(new \PDOException($exception->getMessage(), 0, $exception));
         }
-        return($eventTag);
+		 }
+        return($eventTags);
     }
 
     /**
