@@ -216,6 +216,9 @@ class EventTest extends AbqAtNightTest {
 		$this->assertEquals($numRows, $this->getConnection()->getRowCount("event"));
 	}
 
+	/*
+	 * Test to get event by event id
+	 */
 	public function testGetEventByEventId() : void {
 		// count the number of rows and save it for later
 		$numRows = $this->getConnection()->getRowCount("event");
@@ -250,6 +253,9 @@ class EventTest extends AbqAtNightTest {
 		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
 	}
 
+	/*
+	 * Test to get event by eventTagTagId
+	 */
 	public function testGetEventByEventTagTagId() : void {
 		//Count the number of rows and save it for later.
 		$numRows = $this->getConnection()->getRowCount("event");
@@ -343,6 +349,47 @@ class EventTest extends AbqAtNightTest {
 		$this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\Event", $results);
 
 		// grab the result from the array and validate it
+		$pdoEvent = $results[0];
+		$this->assertEquals($pdoEvent->getEventId(), $eventId);
+		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
+		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
+		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventEndTime()->getTimestamp(), $this->VALID_EVENTENDTIME->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventImage(), $this->VALID_EVENTIMAGE);
+		$this->assertEquals($pdoEvent->getEventLat(), $this->VALID_EVENTLAT);
+		$this->assertEquals($pdoEvent->getEventLng(), $this->VALID_EVENTLNG);
+		$this->assertEquals($pdoEvent->getEventPrice(), $this->VALID_EVENTPRICE);
+		$this->assertEquals($pdoEvent->getEventPromoterWebsite(), $this->VALID_EVENTPROMOTERWEBSITE);
+		//format the date to seconds since the beginning of time to avoid round off error
+		$this->assertEquals($pdoEvent->getEventStartTime()->getTimestamp(), $this->VALID_EVENTSTARTTIME->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventTitle(), $this->VALID_EVENTTITLE);
+		$this->assertEquals($pdoEvent->getEventVenue(), $this->VALID_EVENTVENUE);
+		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
+	}
+
+	/*
+	 * Test getting events by distance
+	 */
+
+	public function testGetEventByDistance() : void {
+		//Count the number of rows and save it for later
+		$numRows = $this->getConnection()->getRowCount("event");
+
+		//Create a new Event object and insert it into mySQL
+		$eventId = generateUuidV4();
+		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_EVENTAGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $this->VALID_EVENTENDTIME, $this->VALID_EVENTIMAGE, $this->VALID_EVENTLAT, $this->VALID_EVENTLNG, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $this->VALID_EVENTSTARTTIME, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
+		$event->insert($this->getPDO());
+
+		//Grab the data from mySQL and enforce the fields match our expectations.
+		$results = Event::getEventByDistance($this->getPDO(), $this->VALID_EVENTLAT, $this->VALID_EVENTLNG, 100);
+		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("event"));
+		$this->assertCount(1, $results);
+
+		//Enforce no other objects are bleeding into the test
+		$this->assertContainsOnlyInstancesOf("AbqAtNight\\CapstoneProject\\Event", $results);
+
+		//Grab the result from the array and validate it.
 		$pdoEvent = $results[0];
 		$this->assertEquals($pdoEvent->getEventId(), $eventId);
 		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
