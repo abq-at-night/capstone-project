@@ -845,25 +845,30 @@ class Event implements \JsonSerializable {
 	}
 
 	/**
-	 * gets all Events
+	 * Gets events by time
 	 *
 	 * @param \PDO $pdo PDO connection object
+	 * @param string $eventEndTime end time for the event
+	 * @param string $eventStartTime start time for the event
 	 * @return \SplFixedArray SplFixedArray of Events found or null if not found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getAllEvents(\PDO $pdo) : \SPLFixedArray {
+	public static function getEventByEventTime(\PDO $pdo, $eventEndTime, $eventStartTime) : \SPLFixedArray {
 		// create query template
-		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event";
+		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE eventEndTime && eventStartTime = :eventEndTime && :eventStartTime";
 		$statement = $pdo->prepare($query);
 		$statement->execute();
+
+		$parameters = ["eventEndTime" => $eventEndTime, "eventStartTime" => $eventStartTime];
+		$statement->execute($parameters);
 
 		// build an array of events
 		$events = new \SplFixedArray($statement->rowCount());
 		$statement->setFetchMode(\PDO::FETCH_ASSOC);
 		while(($row = $statement->fetch()) !== false) {
 			try {
-				$event = new event($row["eventId"], $row["eventAdminId"], $row["eventAgeRequirement"], $row["eventDescription"], $row["eventEndTime"], $row["eventImage"], $row["eventLat"], $row["eventLng"], $row["eventPrice"], $row["eventPromoterWebsite"], $row["eventStartTime"], $row["eventTitle"], $row["eventVenue"], $row["eventVenueWebsite"]);
+				$event = new Event($row["eventId"], $row["eventAdminId"], $row["eventAgeRequirement"], $row["eventDescription"], $row["eventEndTime"], $row["eventImage"], $row["eventLat"], $row["eventLng"], $row["eventPrice"], $row["eventPromoterWebsite"], $row["eventStartTime"], $row["eventTitle"], $row["eventVenue"], $row["eventVenueWebsite"]);
 				$events[$events->key()] = $event;
 				$events->next();
 			} catch(\Exception $exception) {
