@@ -51,13 +51,13 @@ class EventTest extends AbqAtNightTest {
 	 * valid venue lat value
 	 * @var string $VALID_EVENTLAT
 	 */
-	protected $VALID_EVENTLAT = 35.0846588;
+	protected $VALID_EVENTLAT = 35.084658;
 
 	/**
 	 * valid venue lng value
 	 * @var string $VALID_EVENTLNG
 	 */
-	protected $VALID_EVENTLNG = -106.6548413;
+	protected $VALID_EVENTLNG = -106.654841;
 
 	/**
 	 * valid event ticket price
