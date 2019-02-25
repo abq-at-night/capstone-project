@@ -810,19 +810,22 @@ class Event implements \JsonSerializable {
 	 * gets the event by location
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param float $eventLat, $eventLng event location
+	 * @param float $userLat latitude coordinate of where user is
+	 * @param float $userLong longitude coordinate of where user is
+	 * @param float $distance distance in miles that the user is searching by
 	 * @return \SplFixedArray SplFixedArray of events found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getEventByEventLocation(\PDO $pdo, float $eventLat, float $eventLng) : \SplFixedArray {
+	public static function getEventByEventLocation(\PDO $pdo, float $userLong, float $userLat, float $distance) : \SplFixedArray {
 		// create query template
-		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE haversine(:eventLat, :eventLng) LIKE :eventLat&&:eventLng";
-		$statement = $pdo->prepare($query);  //haversine(:userLong, :userLat, artLong, artLat) < :distance"
+		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE haversine(:userLong, :userLat, eventLng, eventLat) < :distance";
+		//haversine(:userLong, :userLat, artLong, artLat) < :distance"
+		$statement = $pdo->prepare($query);
 
 		// bind the event content to the place holder in the template
-		$eventTitle = "%$eventTitle%";
-		$parameters = ["eventTitle" => $eventTitle];
+
+		$parameters = ["distance" => $distance, "userLat" => $userLat, "userLong" => $userLong];
 		$statement->execute($parameters);
 
 		// build an array of events
