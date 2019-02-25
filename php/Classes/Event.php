@@ -807,28 +807,18 @@ class Event implements \JsonSerializable {
 	}
 
 	/**
-	 * gets the event by title
+	 * gets the event by location
 	 *
 	 * @param \PDO $pdo PDO connection object
-	 * @param string $eventTitle event content to search for
+	 * @param float $eventLat, $eventLng event location
 	 * @return \SplFixedArray SplFixedArray of events found
 	 * @throws \PDOException when mySQL related errors occur
 	 * @throws \TypeError when variables are not the correct data type
 	 **/
-	public static function getEventByEventTitle(\PDO $pdo, string $eventTitle) : \SplFixedArray {
-		// sanitize the description before searching
-		$eventTitle = trim($eventTitle);
-		$eventTitle = filter_var($eventTitle, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-		if(empty($eventTitle) === true) {
-			throw(new \PDOException("event title is invalid"));
-		}
-
-		// escape any mySQL wild cards
-		$eventTitle = str_replace("_", "\\_", str_replace("%", "\\%", $eventTitle));
-
+	public static function getEventByEventLocation(\PDO $pdo, float $eventLat, float $eventLng) : \SplFixedArray {
 		// create query template
-		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE eventTitle LIKE :eventTitle";
-		$statement = $pdo->prepare($query);
+		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE haversine(:eventLat, :eventLng) LIKE :eventLat&&:eventLng";
+		$statement = $pdo->prepare($query);  //haversine(:userLong, :userLat, artLong, artLat) < :distance"
 
 		// bind the event content to the place holder in the template
 		$eventTitle = "%$eventTitle%";
