@@ -57,13 +57,13 @@ class EventTest extends AbqAtNightTest {
 	 * valid venue lat value
 	 * @var float $VALID_EVENTLAT
 	 **/
-	protected $VALID_EVENTLAT = 35.084658;
+	protected $VALID_EVENTLAT = 35;
 
 	/**
 	 * valid venue lng value
 	 * @var float $VALID_EVENTLNG
 	 **/
-	protected $VALID_EVENTLNG = -106.654841;
+	protected $VALID_EVENTLNG = -106;
 
 	/**
 	 * valid event ticket price
@@ -392,8 +392,11 @@ class EventTest extends AbqAtNightTest {
 		$event->insert($this->getPDO());
 
 		//Grab the data from mySQL and enforce the fields match our expectations.
-		$results = Event::getEventByEventDistance($this->getPDO(), $this->VALID_EVENTLAT, $this->VALID_EVENTLNG, 100);
+		$eventLat = 35;
+		$eventLng = -106;
+		$results = Event::getEventByEventDistance($this->getPDO(), $eventLng, $eventLat, 100);
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("event"));
+		var_dump($results);
 		$this->assertCount(1, $results);
 
 		//Enforce no other objects are bleeding into the test
