@@ -45,7 +45,7 @@ class EventTest extends AbqAtNightTest {
 	 * valid end time
 	 * @var \DateTime $VALID_EVENTENDTIME
 	 **/
-	protected $VALID_EVENTENDTIME = "2019-02-12 22:00:00";
+	protected $VALID_EVENTENDTIME = "2020-02-12 22:00:00";
 
 	/**
 	 * valid event image url
@@ -82,6 +82,8 @@ class EventTest extends AbqAtNightTest {
 	 * @var \DateTime $VALID_EVENTSTARTTIME
 	 **/
 	protected $VALID_EVENTSTARTTIME = "2019-02-12 19:00:00";
+
+		//DateTime::__construct("2019-02-12 19:00:00");
 
 	/**
 	 * valid event title
@@ -396,7 +398,6 @@ class EventTest extends AbqAtNightTest {
 		$eventLng = -106;
 		$results = Event::getEventByEventDistance($this->getPDO(), $eventLng, $eventLat, 100);
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("event"));
-		var_dump($results);
 		$this->assertCount(1, $results);
 
 		//Enforce no other objects are bleeding into the test

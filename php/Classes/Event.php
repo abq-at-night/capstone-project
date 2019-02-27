@@ -856,11 +856,15 @@ class Event implements \JsonSerializable {
 	 **/
 	public static function getEventByEventTime(\PDO $pdo, $eventEndTime, $eventStartTime) : \SPLFixedArray {
 		// create query template
-		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE eventEndTime && eventStartTime = :eventEndTime && :eventStartTime";
+		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite FROM event WHERE eventStartTime > :eventStartTime AND eventEndTime < :eventEndTime";
 		$statement = $pdo->prepare($query);
+
+		$formattedEndDate = $eventEndTime->format("Y-m-d H:i:s.u");
+		$formattedStartDate = $eventStartTime->format("Y-m-d H:i:s.u");
+
 		$statement->execute();
 
-		$parameters = ["eventEndTime" => $eventEndTime, "eventStartTime" => $eventStartTime];
+		$parameters = ["eventEndTime" => $formattedEndDate, "eventStartTime" => $formattedStartDate];
 		$statement->execute($parameters);
 
 		// build an array of events
