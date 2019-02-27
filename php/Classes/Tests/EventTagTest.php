@@ -82,8 +82,9 @@ class EventTagTest extends AbqAtNightTest {
 		$this->assertEquals($pdoEventTag->getEventTagEventId(), $this->event->getEventId());
 		$this->assertEquals($pdoEventTag->getEventTagTagId(), $this->tag->getTagId());
 	}
-	/**
-	 * tests grabbing event tags by event id
+
+
+	 /* tests grabbing event tags by event id
 	 */
 	public function testGetEventTagByEventTagEventId(): void
 	{

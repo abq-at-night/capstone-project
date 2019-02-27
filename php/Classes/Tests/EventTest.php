@@ -1,6 +1,6 @@
 <?php
 namespace AbqAtNight\CapstoneProject\Tests;
-use AbqAtNight\CapstoneProject\{Admin, Event};
+use AbqAtNight\CapstoneProject\{Admin, Event, Tag};
 // grab the class under scrutiny
 
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -23,10 +23,16 @@ class EventTest extends AbqAtNightTest {
 	 **/
 	protected $admin = null;
 
+    /**
+     * Tag that is related to the Event; this is for the testGetEventByTagId method
+     * @var Tag profile
+     **/
+    protected $tag = null;
+
 	/**
 	 * valid event age requirement
 	 * @var string $VALID_AGEREQUIREMENT
-	 */
+	 **/
 	protected $VALID_EVENTAGEREQUIREMENT = "21 and over";
 
 	/**
@@ -44,19 +50,19 @@ class EventTest extends AbqAtNightTest {
 	/**
 	 * valid event image url
 	 * @var string $VALID_EVENTIMAGE
-	 */
+	 **/
 	protected $VALID_EVENTIMAGE = "https://imagelocation.com";
 
 	/**
 	 * valid venue lat value
 	 * @var float $VALID_EVENTLAT
-	 */
+	 **/
 	protected $VALID_EVENTLAT = 35.084658;
 
 	/**
 	 * valid venue lng value
 	 * @var float $VALID_EVENTLNG
-	 */
+	 **/
 	protected $VALID_EVENTLNG = -106.654841;
 
 	/**
@@ -112,16 +118,20 @@ class EventTest extends AbqAtNightTest {
 		$password = "abc123";
 		$hash = password_hash($password, PASSWORD_ARGON2I, ["time_cost" => 384]);
 
+        // create and insert a Admin to own the test Event
+        $this->admin = new Admin(generateUuidV4(), "email@email.com",$hash, "testuser");
+        $this->admin->insert($this->getPDO());
 
-		// create and insert a Admin to own the test Event
-		$this->admin = new Admin(generateUuidV4(), "email@email.com",$hash, "testuser");
-		$this->admin->insert($this->getPDO());
+		// create and insert a Tag to own the test event
+        $this->tag = new Tag(generateUuidV4(), $this->admin->getAdminId(), "Genre", "UK Garage");
+        $this->tag->insert($this->getPDO());
+
 
 		// calculate the date (just use the time the unit test was setup...)
 		$this->VALID_EVENTENDTIME = new \DateTime();
 		$this->VALID_EVENTSTARTTIME = new \DateTime();
 
-	}
+		}
 
 	/**
 	 * test inserting a valid Event and verify that the actual mySQL data matches
@@ -266,7 +276,7 @@ class EventTest extends AbqAtNightTest {
 		$event->insert($this->getPDO());
 
 		//Grab the data from mySQL and enforce the fields match our expectations
-		$pdoEvent= Event::getEventByEventTagTagId($this->getPDO(), generateUuidV4());
+		$pdoEvent= Event::getEventByEventTagTagId($this->getPDO(), $this->tag->getTagId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 
 		//Grab the result from the object and validate it.
@@ -382,7 +392,7 @@ class EventTest extends AbqAtNightTest {
 		$event->insert($this->getPDO());
 
 		//Grab the data from mySQL and enforce the fields match our expectations.
-		$results = Event::getEventByDistance($this->getPDO(), $this->VALID_EVENTLAT, $this->VALID_EVENTLNG, 100);
+		$results = Event::getEventByEventDistance($this->getPDO(), $this->VALID_EVENTLAT, $this->VALID_EVENTLNG, 100);
 		$this->assertEquals($numRows +1, $this->getConnection()->getRowCount("event"));
 		$this->assertCount(1, $results);
 
