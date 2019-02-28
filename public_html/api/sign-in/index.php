@@ -40,5 +40,31 @@ try {
 	//If the method is POST, handle the sign-in logic.
 	if($method === "POST") {
 
+		//Make sure the XSRF Token is valid.
+		verifyXsrf();
+
+		//Process the request content and decode the json object into a PHP object.
+		$requestContent = file_get_contents("php://input");
+		$requestObject = json_decode($requestContent);
+
+		//Check for the password (required field).
+		if(empty($requestObject->adminPassword) === true) {
+			throw (\new \InvalidArgumentException("A password must be entered.", 401));
+		} else {
+			$adminPassword = $requestObject->adminPassword;
+		}
+
+		//Check for the email (required field).
+		if(empty($requestObject->adminEmail) === true) {
+			throw (new \InvalidArgumentException("An email address must be entered.", 401));
+		} else {
+			$adminEmail = filter_var($requestObject->adminEmail, FILTER_VALIDATE_EMAIL);
+		}
+
+		//Grab the admin from the database by the email address provided.
+		$admin = Admin::getAdminByAdminEmail($pdo, $adminEmail);
+		if(empty($admin) === true) {
+			throw(new \InvalidArgumentException("Invalid Email", 401));
+		}
 	}
 }
