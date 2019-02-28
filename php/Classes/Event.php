@@ -859,12 +859,11 @@ class Event implements \JsonSerializable {
 
 		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, 
         eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite 
-        FROM event WHERE eventStartTime > '2018-02-12 19:00:00.000000' AND eventEndTime < '2099-02-12 22:00:00.000000'";
+        FROM event WHERE eventStartTime > :eventStartTime AND eventStartTime < :eventEndTime";
 		$statement = $pdo->prepare($query);
 
 		$formattedEndDate = $eventEndTime->format("Y-m-d H:i:s.u");
 		$formattedStartDate = $eventStartTime->format("Y-m-d H:i:s.u");
- var_dump($formattedEndDate); var_dump($formattedStartDate);
 		$parameters = ["eventEndTime" => $formattedEndDate, "eventStartTime" => $formattedStartDate];
 		$statement->execute($parameters);
 

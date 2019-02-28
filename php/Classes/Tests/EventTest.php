@@ -1,6 +1,6 @@
 <?php
 namespace AbqAtNight\CapstoneProject\Tests;
-use AbqAtNight\CapstoneProject\{Admin, Event, Tag};
+use AbqAtNight\CapstoneProject\{Admin, Event, EventTag, Tag};
 // grab the class under scrutiny
 
 require_once(dirname(__DIR__) . "/autoload.php");
@@ -45,7 +45,7 @@ class EventTest extends AbqAtNightTest {
 	 * valid end time
 	 * @var \DateTime $VALID_EVENTENDTIME
 	 **/
-	protected $VALID_EVENTENDTIME = "2020-02-12 22:00:00";
+	protected $VALID_EVENTENDTIME = null;
 
 	/**
 	 * valid event image url
@@ -81,7 +81,7 @@ class EventTest extends AbqAtNightTest {
 	 * valid start time
 	 * @var \DateTime $VALID_EVENTSTARTTIME
 	 **/
-	protected $VALID_EVENTSTARTTIME = "2019-02-12 19:00:00";
+	protected $VALID_EVENTSTARTTIME = null;
 
 	/**
 	 * valid event title
@@ -126,10 +126,11 @@ class EventTest extends AbqAtNightTest {
         $this->tag = new Tag(generateUuidV4(), $this->admin->getAdminId(), "Genre", "UK Garage");
         $this->tag->insert($this->getPDO());
 
-
 		// calculate the date (just use the time the unit test was setup...)
-		$this->VALID_EVENTENDTIME = new \DateTime('2020-02-12 22:00:00');
-		$this->VALID_EVENTSTARTTIME = new \DateTime('2019-02-12 19:00:00');
+		$this->VALID_EVENTENDTIME = new \DateTime();
+		$this->VALID_EVENTENDTIME->add(new \DateInterval("P10D"));
+		$this->VALID_EVENTSTARTTIME = new \DateTime();
+		$this->VALID_EVENTSTARTTIME->sub(new \DateInterval("P10D"));
 
 		}
 
@@ -275,12 +276,15 @@ class EventTest extends AbqAtNightTest {
 		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_EVENTAGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $this->VALID_EVENTENDTIME, $this->VALID_EVENTIMAGE, $this->VALID_EVENTLAT, $this->VALID_EVENTLNG, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $this->VALID_EVENTSTARTTIME, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
 		$event->insert($this->getPDO());
 
+		$eventTag = new EventTag($event->getEventId(), $this->tag->getTagId());
+		$eventTag->insert($this->getPDO());
+
 		//Grab the data from mySQL and enforce the fields match our expectations
 		$pdoEvent= Event::getEventByEventTagTagId($this->getPDO(), $this->tag->getTagId());
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 
 		//Grab the result from the object and validate it.
-		$this->assertEquals($pdoEvent->getEventId(), $this->event->$eventId);
+		$this->assertEquals($pdoEvent->getEventId(), $eventId);
 		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
@@ -431,7 +435,9 @@ class EventTest extends AbqAtNightTest {
 
 		// create a new Event and insert to into mySQL
 		$eventId = generateUuidV4();
-		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_EVENTAGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $this->VALID_EVENTENDTIME, $this->VALID_EVENTIMAGE, $this->VALID_EVENTLAT, $this->VALID_EVENTLNG, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $this->VALID_EVENTSTARTTIME, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
+		$eventEndTime = new \DateTime();
+		$eventStartTime = new \DateTime();
+		$event = new Event($eventId, $this->admin->getAdminId(), $this->VALID_EVENTAGEREQUIREMENT, $this->VALID_EVENTDESCRIPTION, $eventEndTime, $this->VALID_EVENTIMAGE, $this->VALID_EVENTLAT, $this->VALID_EVENTLNG, $this->VALID_EVENTPRICE, $this->VALID_EVENTPROMOTERWEBSITE, $eventStartTime, $this->VALID_EVENTTITLE, $this->VALID_EVENTVENUE, $this->VALID_EVENTVENUEWEBSITE);
 		$event->insert($this->getPDO());
 
 		// grab the data from mySQL and enforce the fields match our expectations
@@ -447,14 +453,14 @@ class EventTest extends AbqAtNightTest {
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
 		//format the date to seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoEvent->getEventEndTime()->getTimestamp(), $this->VALID_EVENTENDTIME->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventEndTime()->getTimestamp(), $eventEndTime->getTimestamp());
 		$this->assertEquals($pdoEvent->getEventImage(), $this->VALID_EVENTIMAGE);
 		$this->assertEquals($pdoEvent->getEventLat(), $this->VALID_EVENTLAT);
 		$this->assertEquals($pdoEvent->getEventLng(), $this->VALID_EVENTLNG);
 		$this->assertEquals($pdoEvent->getEventPrice(), $this->VALID_EVENTPRICE);
 		$this->assertEquals($pdoEvent->getEventPromoterWebsite(), $this->VALID_EVENTPROMOTERWEBSITE);
 		//format the date to seconds since the beginning of time to avoid round off error
-		$this->assertEquals($pdoEvent->getEventStartTime()->getTimestamp(), $this->VALID_EVENTSTARTTIME->getTimestamp());
+		$this->assertEquals($pdoEvent->getEventStartTime()->getTimestamp(), $eventStartTime->getTimestamp());
 		$this->assertEquals($pdoEvent->getEventTitle(), $this->VALID_EVENTTITLE);
 		$this->assertEquals($pdoEvent->getEventVenue(), $this->VALID_EVENTVENUE);
 		$this->assertEquals($pdoEvent->getEventVenueWebsite(), $this->VALID_EVENTVENUEWEBSITE);
