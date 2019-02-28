@@ -282,7 +282,7 @@ class EventTest extends AbqAtNightTest {
 		$this->assertEquals($numRows + 1, $this->getConnection()->getRowCount("event"));
 
 		//Grab the result from the object and validate it.
-		$this->assertEquals($pdoEvent->getEventId(), $eventId);
+		$this->assertEquals($pdoEvent->getEventId(), $this->event->$eventId);
 		$this->assertEquals($pdoEvent->getEventAdminId(), $this->admin->getAdminId());
 		$this->assertEquals($pdoEvent->getEventAgeRequirement(), $this->VALID_EVENTAGEREQUIREMENT);
 		$this->assertEquals($pdoEvent->getEventDescription(), $this->VALID_EVENTDESCRIPTION);
