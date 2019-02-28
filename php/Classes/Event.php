@@ -146,7 +146,6 @@ class Event implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
-		var_dump($newEventEndTime);
 	}
 
 	/**
@@ -857,14 +856,15 @@ class Event implements \JsonSerializable {
 	 **/
 	public static function getEventByEventTime(\PDO $pdo, $eventEndTime, $eventStartTime) : \SPLFixedArray {
 		// create query template
+
 		$query = "SELECT eventId, eventAdminId, eventAgeRequirement, eventDescription, eventEndTime, eventImage, eventLat, 
         eventLng, eventPrice, eventPromoterWebsite, eventStartTime, eventTitle, eventVenue, eventVenueWebsite 
-        FROM event WHERE eventStartTime > :eventStartTime AND eventEndTime < :eventEndTime";
+        FROM event WHERE eventStartTime > '2018-02-12 19:00:00.000000' AND eventEndTime < '2099-02-12 22:00:00.000000'";
 		$statement = $pdo->prepare($query);
 
 		$formattedEndDate = $eventEndTime->format("Y-m-d H:i:s.u");
 		$formattedStartDate = $eventStartTime->format("Y-m-d H:i:s.u");
-
+ var_dump($formattedEndDate); var_dump($formattedStartDate);
 		$parameters = ["eventEndTime" => $formattedEndDate, "eventStartTime" => $formattedStartDate];
 		$statement->execute($parameters);
 
