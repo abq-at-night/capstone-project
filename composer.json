@@ -6,7 +6,8 @@
     "ramsey/uuid": "@stable",
     "phpunit/dbunit": "@stable",
     "phpunit/phpunit": "@stable",
-    "lcobucci/jwt": "3.2"
+    "lcobucci/jwt": "3.2",
+    "swiftmailer/swiftmailer": "@stable"
   },
   "scripts": {
     "phpunit": "./vendor/bin/phpunit -c ./php/Classes/Tests/ --coverage-html coverage"
