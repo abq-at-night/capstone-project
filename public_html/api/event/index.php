@@ -221,5 +221,27 @@ try {
 			$reply->message = "Event created OK";
 		}
 
+	} else if($method === "DELETE") {
+
+		//enforce that the end user has a XSRF token.
+		verifyXsrf();
+
+		// retrieve the Tweet to be deleted
+		$event = Event::getEventByEventId($pdo, $id);
+		if($event === null) {
+			throw(new RuntimeException("Event does not exist", 404));
+		}
+//TODO do we need the tostrings?
+		//enforce the user is signed in and only trying to edit their own event
+		if(empty($_SESSION["admin"]) === true || $_SESSION["admin"]->getAdminId()->toString !== $event->getEventAdminId()->toString()) {
+			throw(new \InvalidArgumentException("You are not allowed to delete this event", 403));
+		}
+
+		// delete event
+		$event->delete($pdo);
+		// update reply
+		$reply->message = "Event deleted OK";
+	} else {
+		throw(new \InvalidArgumentException("Invalid HTTP request"));
 	}
 }
