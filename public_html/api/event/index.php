@@ -57,7 +57,7 @@ try {
 		//set XSRF cookie
 		setXsrfCookie();
 
-		//get a specific tweet based on arguments provided or all the tweets and update reply
+		//get a specific event based on arguments provided or all the events and update reply
 		if(empty($id) === false) {
 			$reply->data = Event::getEventByEventId($pdo, $id);
 
@@ -226,7 +226,7 @@ try {
 		//enforce that the end user has a XSRF token.
 		verifyXsrf();
 
-		// retrieve the Tweet to be deleted
+		// retrieve the Event to be deleted
 		$event = Event::getEventByEventId($pdo, $id);
 		if($event === null) {
 			throw(new RuntimeException("Event does not exist", 404));
