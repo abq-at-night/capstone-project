@@ -49,7 +49,7 @@ try {
 
 		//Check for the password (required field).
 		if(empty($requestObject->adminPassword) === true) {
-			throw (\new \InvalidArgumentException("A password must be entered.", 401));
+			throw (new \InvalidArgumentException("A password must be entered.", 401));
 		} else {
 			$adminPassword = $requestObject->adminPassword;
 		}
@@ -66,5 +66,39 @@ try {
 		if(empty($admin) === true) {
 			throw(new \InvalidArgumentException("Invalid Email", 401));
 		}
+
+		//Hash the password provided by the admin.
+		$hash = hash_pbkdf2("sha512", $adminPassword, $admin->getAdminHash(), 262144);
+
+		//Check if the password hash matches what is in mySQL.
+		if($hash !== $admin->getAdminHash()) {
+			throw (new \InvalidArgumentException("Invalid username or password.", 401));
+		}
+
+		//Grab the admin from the database and put it into a session.
+		$admin = Admin::getAdminByAdminId($pdo, $admin->getAdminId());
+		$_SESSION["admin"] = $admin;
+
+		//Create the authorization payload.
+		$authObject = (object)[
+			"adminId" => $admin->getAdminId(),
+			"adminUsername" => $admin->getAdminUsername()
+		];
+
+		//Create and set the JWT.
+		setJwtAndAuthHeader("auth", $authObject);
+
+		$reply->message = "Sign in was successful.";
+	} else {
+		throw (new \InvalidArgumentException("Invalid HTTP request!"));
 	}
+} catch(\Exception | \TypeError $exception) {
+	$reply->status = $exception->getCode();
+	$reply->message = $exception->getMessage();
 }
+
+//Sets up the response header.
+header("Content-type: application/json");
+
+//JSON encode the $reply object and echo it back to the front end.
+echo  json_encode($reply);
