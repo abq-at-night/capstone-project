@@ -83,8 +83,6 @@ class EventTest extends AbqAtNightTest {
 	 **/
 	protected $VALID_EVENTSTARTTIME = "2019-02-12 19:00:00";
 
-		//DateTime::__construct("2019-02-12 19:00:00");
-
 	/**
 	 * valid event title
 	 * @var string $VALID_EVENTTITLE
@@ -130,8 +128,8 @@ class EventTest extends AbqAtNightTest {
 
 
 		// calculate the date (just use the time the unit test was setup...)
-		$this->VALID_EVENTENDTIME = new \DateTime();
-		$this->VALID_EVENTSTARTTIME = new \DateTime();
+		$this->VALID_EVENTENDTIME = new \DateTime('2020-02-12 22:00:00');
+		$this->VALID_EVENTSTARTTIME = new \DateTime('2019-02-12 19:00:00');
 
 		}
 

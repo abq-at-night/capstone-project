@@ -146,6 +146,7 @@ class Event implements \JsonSerializable {
 			$exceptionType = get_class($exception);
 			throw(new $exceptionType($exception->getMessage(), 0, $exception));
 		}
+		var_dump($newEventEndTime);
 	}
 
 	/**
