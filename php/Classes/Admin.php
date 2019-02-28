@@ -312,7 +312,7 @@ class Admin implements \JsonSerializable {
 		$adminEmail = trim($adminEmail);
 		$adminEmail = filter_var($adminEmail, FILTER_SANITIZE_EMAIL, FILTER_FLAG_NO_ENCODE_QUOTES);
 		if(empty($adminEmail) === true) {
-			throw(new \PDOException("profile email content is invalid"));
+			throw(new \PDOException("Admin email content is invalid"));
 		}
 
 		//Create the query template.

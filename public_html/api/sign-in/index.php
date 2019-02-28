@@ -1,15 +1,15 @@
 <?php
 
 require_once  dirname(__DIR__, 3) . "/vendor/autoload.php";
-require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
+require_once dirname(__DIR__, 3) . "/php/Classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
-require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
-require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
+require_once("/etc/apache2/capstone-mysql/Secrets.php");
 
-use AbqAtNight\CapstoneProject\{
-	Admin
-};
+
+
+use AbqAtNight\CapstoneProject\Admin;
 
 /**
  * API for app sign in, Admin class
@@ -31,7 +31,7 @@ $reply->data = null;
 try {
 
 	//Grab the mySQL connection.
-	$secrets = new \Secrets("/etc/apache2/capstone-mysql/atnight.ini");
+	$secrets =  new \Secrets("/etc/apache2/capstone-mysql/cohort23/atnight.ini");
 	$pdo = $secrets->getPdoObject();
 
 	//Determine which HTTP method was used.
@@ -53,7 +53,7 @@ try {
 		} else {
 			$adminPassword = $requestObject->adminPassword;
 		}
-
+var_dump($requestObject);
 		//Check for the email (required field).
 		if(empty($requestObject->adminEmail) === true) {
 			throw (new \InvalidArgumentException("An email address must be entered.", 401));
@@ -72,7 +72,7 @@ try {
 
 		//Check if the password hash matches what is in mySQL.
 		if($hash !== $admin->getAdminHash()) {
-			throw (new \InvalidArgumentException("Invalid username or password.", 401));
+			throw (new \InvalidArgumentException("Invalid password.", 401));
 		}
 
 		//Grab the admin from the database and put it into a session.
