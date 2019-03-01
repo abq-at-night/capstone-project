@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
+require_once dirname(__DIR__, 3) . "/php/Classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once ("/etc/apache2/capstone-mysql/encrypted-config.php");
 
@@ -19,7 +19,7 @@ $reply->status = 200;
 $reply->data = null;
 try {
 	//Grab the mySQL connection.
-	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/atnight.ini");
+	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/cohort23/atnight.ini");
 	//Determine which HTTP method was used.
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 	if($method === "GET") {
@@ -35,7 +35,7 @@ try {
 	$reply->status = $exception->getCode();
 	$reply->message = $exception->getMessage();
 }
-	header("Content type: application/json");
+	header("Content-type: application/json");
 	if($reply->data === null) {
 		unset($reply->data);
 	}
