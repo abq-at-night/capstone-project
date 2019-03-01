@@ -47,18 +47,18 @@ try {
 		$requestContent = file_get_contents("php://input");
 		$requestObject = json_decode($requestContent);
 
+        //Check for the email (required field).
+        if(empty($requestObject->adminEmail) === true) {
+            throw (new \InvalidArgumentException("An email address must be entered.", 401));
+        } else {
+            $adminEmail = filter_var($requestObject->adminEmail, FILTER_VALIDATE_EMAIL);
+        }
+
 		//Check for the password (required field).
 		if(empty($requestObject->adminPassword) === true) {
 			throw (new \InvalidArgumentException("A password must be entered.", 401));
 		} else {
 			$adminPassword = $requestObject->adminPassword;
-		}
-var_dump($requestObject);
-		//Check for the email (required field).
-		if(empty($requestObject->adminEmail) === true) {
-			throw (new \InvalidArgumentException("An email address must be entered.", 401));
-		} else {
-			$adminEmail = filter_var($requestObject->adminEmail, FILTER_VALIDATE_EMAIL);
 		}
 
 		//Grab the admin from the database by the email address provided.
@@ -68,12 +68,17 @@ var_dump($requestObject);
 		}
 
 		//Hash the password provided by the admin.
-		$hash = hash_pbkdf2("sha512", $adminPassword, $admin->getAdminHash(), 262144);
+		//$hash = hash_pbkdf2("sha512", $adminPassword, $admin->getAdminHash(), 262144);
 
 		//Check if the password hash matches what is in mySQL.
-		if($hash !== $admin->getAdminHash()) {
-			throw (new \InvalidArgumentException("Invalid password.", 401));
-		}
+		//if($hash !== $admin->getAdminHash()) {
+		//	throw (new \InvalidArgumentException("Invalid password.", 401));
+		//}
+
+        //verify hash is correct
+        if(password_verify($requestObject->adminPassword, $admin->getAdminHash()) === false) {
+            throw(new \InvalidArgumentException("Invalid password.", 401));
+        }
 
 		//Grab the admin from the database and put it into a session.
 		$admin = Admin::getAdminByAdminId($pdo, $admin->getAdminId());
