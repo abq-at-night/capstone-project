@@ -38,8 +38,6 @@ try {
     //sanitize input
     $tagId = filter_input(INPUT_GET, "tagId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $tagAdminId = filter_input(INPUT_GET, "tagAdminId",FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-    $tagType = filter_input(INPUT_GET, "tagType", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-    $tagValue = filter_input(INPUT_GET, "tagValue", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
     //make sure the id is valid for methods that require it
     if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
@@ -117,8 +115,7 @@ try {
         } else if($method === "POST") {
 
             // enforce the user is signed in
-            // enforce the user is signed in
-            if(empty($_SESSION["profile"]) === true) {
+            if(empty($_SESSION["admin"]) === true) {
                 throw(new \InvalidArgumentException("you must be logged in to post tag", 403));
             }
 
