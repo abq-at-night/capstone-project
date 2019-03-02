@@ -1,10 +1,10 @@
 <?php
 require_once dirname(__DIR__, 3) . "/vendor/autoload.php";
-require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
+require_once dirname(__DIR__, 3) . "/php/Classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
-require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once("/etc/apache2/capstone-mysql/Secrets.php");
 
 use AbqAtNight\CapstoneProject\{
 	Event,
@@ -31,7 +31,8 @@ $reply->data = null;
 
 try {
 	//grab the mySQL connection
-	$pdo = connectToEncryptedMySQL("/etc/apache2/capstone-mysql/at-night.ini");
+	$secrets =  new \Secrets("/etc/apache2/capstone-mysql/cohort23/atnight.ini");
+	$pdo = $secrets->getPdoObject();
 
 	//determine which HTTP method was used
 	$method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
@@ -74,7 +75,7 @@ try {
 			$reply->data = Event::getEventByEventDistance($pdo, $userLong, $userLat, $distance)->toArray();
 //TODO what do we do if we cant end in getAllEvents????
 		} else {
-			$reply->data = Event::getAllEvents($pdo)->toArray();
+			$reply->data = Event::getEventByEventTagTagId($pdo, $eventTagTagId);
 		}
 	} else if($method === "PUT" || $method === "POST") {
 
@@ -88,13 +89,6 @@ try {
 		$requestObject = json_decode($requestContent);
 //TODO comb to see what is required...if not remove throw and return null.
 		//make sure content is available (required field)
-		if(empty($requestObject->eventAgeRequirment) === true) {
-			throw(new \InvalidArgumentException ("No Content Found.", 405));
-		}
-
-		if(empty($requestObject->eventDescription) === true) {
-			throw(new \InvalidArgumentException ("No Content Found.", 405));
-		}
 
 		if(empty($requestObject->eventEndTime) === true) {
 			throw(new \InvalidArgumentException ("No Content Found.", 405));
@@ -112,14 +106,6 @@ try {
 			throw(new \InvalidArgumentException ("No Content Found.", 405));
 		}
 
-		if(empty($requestObject->eventPrice) === true) {
-			throw(new \InvalidArgumentException ("No Content Found.", 405));
-		}
-
-		if(empty($requestObject->eventPromoterWebsite) === true) {
-			throw(new \InvalidArgumentException ("No Content Found.", 405));
-		}
-
 		if(empty($requestObject->eventStartTime) === true) {
 			throw(new \InvalidArgumentException ("No Content Found.", 405));
 		}
@@ -128,13 +114,6 @@ try {
 			throw(new \InvalidArgumentException ("No Content Found.", 405));
 		}
 
-		if(empty($requestObject->eventVenue) === true) {
-			throw(new \InvalidArgumentException ("No Content Found.", 405));
-		}
-
-		if(empty($requestObject->eventVenueWebsite) === true) {
-			throw(new \InvalidArgumentException ("No Content Found.", 405));
-		}
 //TODO not sure if the times are handled right here...
 		// make sure Event end date is accurate
 		if(empty($requestObject->eventEndTime) === true) {
@@ -158,6 +137,26 @@ try {
 				throw(new RuntimeException("invalid event date", 400));
 			}
 			$requestObject->eventStartTime = $eventStartTime;
+		}
+
+		//check optional params, if empty set to null
+		if(empty($requestObject->eventAgeRequirement) === true) {
+			$requestObject->eventAgeRequirement = null;
+		}
+		if(empty($requestObject->eventDescription) === true) {
+			$requestObject->eventDescription = null;
+		}
+		if(empty($requestObject->eventPrice) === true) {
+			$requestObject->eventPrice = null;
+		}
+		if(empty($requestObject->eventPromoterWebsite) === true) {
+			$requestObject->eventPromoterWebsite = null;
+		}
+		if(empty($requestObject->eventVenue) === true) {
+			$requestObject->eventVenue = null;
+		}
+		if(empty($requestObject->eventVenueWebsite) === true) {
+			$requestObject->eventVenueWebsite = null;
 		}
 
 		//perform the actual put or post
