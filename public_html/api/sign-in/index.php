@@ -6,7 +6,7 @@ require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once("/etc/apache2/capstone-mysql/Secrets.php");
-require_once ("/etc/apache2/capstone-mysql/encrypted-config.php");
+
 
 
 
@@ -67,9 +67,6 @@ try {
 		if(empty($admin) === true) {
 			throw(new \InvalidArgumentException("Invalid Email", 401));
 		}
-
-		//Hash the password provided by the admin.
-		//$hash = hash_pbkdf2("sha512", $adminPassword, $admin->getAdminHash(), 262144);
 
 		//Check if the password hash matches what is in mySQL.
 		//if($hash !== $admin->getAdminHash()) {

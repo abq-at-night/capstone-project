@@ -1,14 +1,14 @@
 <?php
 
 require_once  dirname(__DIR__, 3) . "/vendor/autoload.php";
-require_once dirname(__DIR__, 3) . "/php/classes/autoload.php";
+require_once dirname(__DIR__, 3) . "/php/Classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
-require_once("/etc/apache2/capstone-mysql/encrypted-config.php");
+require_once("/etc/apache2/capstone-mysql/Secrets.php");
 
 use AbqAtNight\CapstoneProject\{
-    Tag
+    Admin, Tag
 };
 
 /**
@@ -29,14 +29,13 @@ $reply->data = null;
 
 try {
     //grab the mySql connection
-    $pdo = connectToEncryptedMySQL("etc/apache2/capstone-mysql/at-night.ini");
+    $secrets = new \Secrets("/etc/apache2/capstone-mysql/cohort23/atnight.ini");
+    $pdo = $secrets->getPdoObject();
 
     //determine which HTTP method was used
     $method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
     //sanitize input
-    $id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING,FILTER_FLAG_NO_ENCODE_QUOTES);
-
     $tagId = filter_input(INPUT_GET, "tagId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $tagAdminId = filter_input(INPUT_GET, "tagAdminId",FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $tagType = filter_input(INPUT_GET, "tagType", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
@@ -77,19 +76,19 @@ try {
 
         //make sure tag content is available (required field)
         if (empty($requestObject->tagId) === true) {
-            throw(new \InvalidArgumentException ("No content for Tag.", 405));
+            throw(new \InvalidArgumentException ("No content for TagId.", 405));
         }
 
         if (empty($requestObject->tagAdminId) === true) {
-            throw(new \InvalidArgumentException ("No content for Tag.", 405));
+            throw(new \InvalidArgumentException ("No content for TagAdminId.", 405));
         }
 
         if (empty($requestObject->tagType) === true) {
-            throw(new \InvalidArgumentException ("No content for Tag.", 405));
+            throw(new \InvalidArgumentException ("No content for TagType.", 405));
         }
 
         if (empty($requestObject->tagValue) === true) {
-            throw(new \InvalidArgumentException ("No content for Tag.", 405));
+            throw(new \InvalidArgumentException ("No content for TagValue.", 405));
         }
 
         //perform the actual put or post
@@ -98,7 +97,7 @@ try {
             //retrieve the tag to update
             $tag = Tag::getTagByTagId($pdo, $id);
             if ($tag === null) {
-                throw(new RuntimeException("Tag does not exsist", 404));
+                throw(new RuntimeException("Tag does not exist", 404));
             }
 
             //enforce the user is signed in and only trying to edit their own tag
@@ -114,6 +113,22 @@ try {
 
             // update reply
             $reply->message = "Tag updated OK";
+
+        } else if($method === "POST") {
+
+            // enforce the user is signed in
+            // enforce the user is signed in
+            if(empty($_SESSION["profile"]) === true) {
+                throw(new \InvalidArgumentException("you must be logged in to post tag", 403));
+            }
+
+            // create new tag and insert into database
+            $tag = new Tag(generateUuidV4(), $_SESSION["admin"]->getAdminId, $requestObject->tagType, $requestObject->tagValue);
+            $tag->insert($pdo);
+
+            // update reply
+            $reply->message = "Tag Created OK";
+
         } else if ($method === "DELETE") {
 
             //enforce that the end user has a XSRF token.
