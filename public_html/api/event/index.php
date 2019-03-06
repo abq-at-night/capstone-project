@@ -115,7 +115,7 @@ try {
 		}
 
 //TODO not sure if the times are handled right here...
-		// make sure Event end date is accurate
+		// make sure Event end time is accurate
 		if(empty($requestObject->eventEndTime) === true) {
 			$requestObject->eventEndTime = null;
 		} else {
@@ -201,7 +201,7 @@ try {
 			validateJwtHeader();
 
 			// create new event and insert into the database
-			$event = new Event(generateUuidV4(), $_SESSION["admin"]->getAdminId,
+			$event = new Event(generateUuidV4(), $_SESSION["admin"]->getAdminId(),
 				$requestObject->eventAgeRequirement,
 				$requestObject->eventDescription,
 				$requestObject->eventEndTime,
@@ -232,7 +232,7 @@ try {
 		}
 //TODO do we need the tostrings?
 		//enforce the user is signed in and only trying to edit their own event
-		if(empty($_SESSION["admin"]) === true || $_SESSION["admin"]->getAdminId()->toString !== $event->getEventAdminId()->toString()) {
+		if(empty($_SESSION["admin"]) === true || $_SESSION["admin"]->getAdminId()->toString() !== $event->getEventAdminId()->toString()) {
 			throw(new \InvalidArgumentException("You are not allowed to delete this event", 403));
 		}
 
