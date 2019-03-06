@@ -8,7 +8,7 @@ require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once("/etc/apache2/capstone-mysql/Secrets.php");
 
 use AbqAtNight\CapstoneProject\{
-	Tag, Admin
+	Tag
 };
 
 /**
@@ -37,7 +37,7 @@ try {
 
 	//sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	$tagAdminId = filter_input(INPUT_GET, "tagAdminId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$tagType = filter_input (INPUT_GET, "tagType", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
@@ -52,8 +52,8 @@ try {
 		if(empty($id) === false) {
 			$reply->data = Tag::getTagByTagId($pdo, $id);
 
-		} else if(empty($tagAdminId) === false) {
-			$reply->data = Tag::getTagByTagType($pdo, $tagAdminId)->toArray();
+		} else if(empty($tagType) === false) {
+			$reply->data = Tag::getTagByTagType($pdo, $tagType)->toArray();
 
 		} else {
 			$reply->data = Tag::getAllTags($pdo)->toArray();
@@ -93,7 +93,7 @@ try {
 			//retrieve the tag to update
 			$tag = Tag::getTagByTagId($pdo, $id);
 			if($tag === null) {
-				throw(new RuntimeException("Tag does not exist", 404));
+				throw(new RuntimeException("This tag does not exist", 404));
 			}
 
 			//enforce the user is signed in and only trying to edit their own tag
@@ -106,6 +106,7 @@ try {
 			$tag->setTagAdminId($requestObject->tagAdminId);
 			$tag->setTagType($requestObject->tagType);
 			$tag->setTagValue($requestObject->tagValue);
+			$tag->update($pdo);
 
 			// update reply
 			$reply->message = "Tag updated OK";
