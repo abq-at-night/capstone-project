@@ -43,10 +43,11 @@ try {
 	$eventTagTagId = filter_input(INPUT_GET, "eventTagTagId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$eventAdminId = filter_input(INPUT_GET, "eventAdminId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$eventTitle = filter_input(INPUT_GET, "eventTitle", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
-	//TODO eventEnd and eventStart Time??
+	$eventEndTime = filter_input(INPUT_GET, "eventEndTime", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$distance = filter_input(INPUT_GET, "distance", FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$userLat = filter_input(INPUT_GET, "userLat", FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
 	$userLong = filter_input(INPUT_GET, "userLong", FILTER_VALIDATE_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+	$eventStartTime = filter_input(INPUT_GET, "eventStartTime", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 
 	//make sure the id is valid for methods that require it
@@ -73,7 +74,7 @@ try {
 
 		} else if(empty($userLat) === false && empty($userLong) === false && empty($distance) === false) {
 			$reply->data = Event::getEventByEventDistance($pdo, $userLong, $userLat, $distance)->toArray();
-//TODO what do we do if we cant end in getAllEvents????
+
 		} else {
 			$reply->data = Event::getEventByEventTagTagId($pdo, $eventTagTagId);
 		}
@@ -197,7 +198,7 @@ try {
 			if(empty($_SESSION["admin"]) === true) {
 				throw(new \InvalidArgumentException("you must be logged in to post events", 403));
 			}
-//TODO do we need the validateJwtHeader?
+
 			validateJwtHeader();
 
 			// create new event and insert into the database
