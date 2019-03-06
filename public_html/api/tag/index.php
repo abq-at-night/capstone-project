@@ -8,7 +8,7 @@ require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once("/etc/apache2/capstone-mysql/Secrets.php");
 
 use AbqAtNight\CapstoneProject\{
-    Admin, Tag
+    Tag, Admin
 };
 
 /**
@@ -99,7 +99,7 @@ try {
             }
 
             //enforce the user is signed in and only trying to edit their own tag
-            if (empty($_SESSION["admin"]) === true || $_SESSION["admin"]->getAdminId()->toString !== $tag->getTagAdminId()->toString()) {
+            if (empty($_SESSION["admin"]) === true || $_SESSION["admin"]->getAdminId()->toString() !== $tag->getTagAdminId()->toString()) {
                 throw(new \InvalidArgumentException("You are not allowed to edit this tag", 403));
             }
 
@@ -120,7 +120,7 @@ try {
             }
 
             // create new tag and insert into database
-            $tag = new Tag(generateUuidV4(), $_SESSION["admin"]->getAdminId, $requestObject->tagType, $requestObject->tagValue);
+            $tag = new Tag(generateUuidV4(), $_SESSION["admin"]->getAdminId(), $requestObject->tagType, $requestObject->tagValue);
             $tag->insert($pdo);
 
             // update reply
