@@ -71,13 +71,13 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		//make sure tag content is available (required field)
-		if(empty($requestObject->tagId) === true) {
+		/*if(empty($requestObject->tagId) === true) {
 			throw(new \InvalidArgumentException ("No content for TagId.", 405));
 		}
 
 		if(empty($requestObject->tagAdminId) === true) {
 			throw(new \InvalidArgumentException ("No content for TagAdminId.", 405));
-		}
+		}*/
 
 		if(empty($requestObject->tagType) === true) {
 			throw(new \InvalidArgumentException ("No content for TagType.", 405));
