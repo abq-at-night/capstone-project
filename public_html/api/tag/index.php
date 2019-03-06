@@ -36,7 +36,7 @@ try {
     $method = array_key_exists("HTTP_X_HTTP_METHOD", $_SERVER) ? $_SERVER["HTTP_X_HTTP_METHOD"] : $_SERVER["REQUEST_METHOD"];
 
     //sanitize input
-    $tagId = filter_input(INPUT_GET, "tagId", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+    $id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
     $tagAdminId = filter_input(INPUT_GET, "tagAdminId",FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
     //make sure the id is valid for methods that require it
@@ -138,7 +138,7 @@ try {
             }
 
             //enforce the user is signed in and only trying to edit their own tag
-            if (empty($_SESSION["admin"]) === true || $_SESSION["admin"]->getAdminId()->toString !== $tag->getTagAdminId()->toString()) {
+            if (empty($_SESSION["admin"]) === true || $_SESSION["admin"]->getAdminId()->toString() !== $tag->getTagAdminId()->toString()) {
                 throw(new \InvalidArgumentException("You are not allowed to delete this tag", 403));
             }
 
