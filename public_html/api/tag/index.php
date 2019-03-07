@@ -38,6 +38,7 @@ try {
 	//sanitize input
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 	$tagType = filter_input (INPUT_GET, "tagType", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
+	$tagValue = filter_input (INPUT_GET, "tagValue", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
 	//make sure the id is valid for methods that require it
 	if(($method === "DELETE" || $method === "PUT") && (empty($id) === true)) {
@@ -55,7 +56,11 @@ try {
 		} else if(empty($tagType) === false) {
 			$reply->data = Tag::getTagByTagType($pdo, $tagType)->toArray();
 
-		} else {
+		} else if(empty($tagType) === false) {
+		$reply->data = Tag::getTagByTagType($pdo, $tagType)->toArray();
+		}
+
+		else {
 			$reply->data = Tag::getAllTags($pdo)->toArray();
 		}
 	} else if($method === "PUT" || $method === "POST") {
@@ -71,13 +76,6 @@ try {
 		$requestObject = json_decode($requestContent);
 
 		//make sure tag content is available (required field)
-		/*if(empty($requestObject->tagId) === true) {
-			throw(new \InvalidArgumentException ("No content for TagId.", 405));
-		}
-
-		if(empty($requestObject->tagAdminId) === true) {
-			throw(new \InvalidArgumentException ("No content for TagAdminId.", 405));
-		}*/
 
 		if(empty($requestObject->tagType) === true) {
 			throw(new \InvalidArgumentException ("No content for TagType.", 405));
@@ -102,8 +100,6 @@ try {
 			}
 
 			// update all attributes
-			$tag->setTagId($requestObject->tagId);
-			$tag->setTagAdminId($requestObject->tagAdminId);
 			$tag->setTagType($requestObject->tagType);
 			$tag->setTagValue($requestObject->tagValue);
 			$tag->update($pdo);
@@ -117,7 +113,7 @@ try {
 			if(empty($_SESSION["admin"]) === true) {
 				throw(new \InvalidArgumentException("you must be logged in to post tag", 403));
 			}
-
+			validateJwtHeader();
 			// create new tag and insert into database
 			$tag = new Tag(generateUuidV4(), $_SESSION["admin"]->getAdminId(), $requestObject->tagType, $requestObject->tagValue);
 			$tag->insert($pdo);
