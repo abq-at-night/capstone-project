@@ -54,9 +54,6 @@ try {
 			$reply->data = Tag::getTagByTagId($pdo, $id);
 
 		} else if(empty($tagType) === false) {
-			$reply->data = Tag::getTagByTagType($pdo, $tagType)->toArray();
-
-		} else if(empty($tagType) === false) {
 		$reply->data = Tag::getTagByTagType($pdo, $tagType)->toArray();
 		}
 
