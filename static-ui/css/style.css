@@ -1,3 +1,11 @@
-#logo {
-	max-width: 50%;
+.navbar img {
+	max-width: 25%;
+}
+
+@media (max-width: 740px) {
+	#searchbar
+	{
+		margin-right: auto;
+		margin-left: auto;
+	}
 }
