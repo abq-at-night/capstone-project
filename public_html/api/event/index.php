@@ -115,13 +115,22 @@ try {
 		}
 
 //TODO not sure if the times are handled right here...
-
 		// make sure Event end date is accurate
+		if(empty($requestObject->eventEndTime) === true) {
+			throw (new InvalidArgumentException("Event end time must be inserted.", 405));
+		} $eventEndTime = DateTime::createFromFormat("U.u", $requestObject->eventStartTime / 1000);
+		if($eventEndTime === false) {
+			throw(new RuntimeException("Invalid event date", 400));
+		} else {
+			$requestObject->eventEndTime = $eventEndTime;
+		}
+
+		// make sure Event staert date is accurate
 		if(empty($requestObject->eventStartTime) === true) {
 			throw (new InvalidArgumentException("Event start time must be inserted.", 405));
 		} $eventStartTime = DateTime::createFromFormat("U.u", $requestObject->eventStartTime / 1000);
 		if($eventStartTime === false) {
-			throw(new RuntimeException("invalid event date", 400));
+			throw(new RuntimeException("Invalid event date", 400));
 		} else {
 			$requestObject->eventStartTime = $eventStartTime;
 		}
