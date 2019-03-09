@@ -35,7 +35,7 @@ try {
 	// Sanitize the input.
 	$id = filter_input(INPUT_GET, "id", FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
-	// Set XSRF cookie.
+	//enforce the uer has a XSRF token
 	verifyXsrf();
 
 	// Retrieves the JSON package that the front end sent, and stores it in $requestContent. Here we are using file_get_contents("php://input") to get the request from the front end. file_get_contents() is a PHP function that reads a file into a string. The argument for the function, here, is "php://input". This is a read only stream that allows raw data to be read from the
@@ -86,8 +86,8 @@ try {
 
 		//todo Ask about this one.
 		//Enforce the admin is signed in and only trying to edit their own eventTag.
-		if(empty($_SESSION["admin"]) === true || $_SESSION["admin"]->getAdminId()->toString() !== $tag->getTagAdminId()->toString()) {
-			throw(new \InvalidArgumentException("You are not allowed to delete this eventTag", 403));
+		if(empty($_SESSION["admin"]) === true) {
+			throw(new \InvalidArgumentException("You are not allowed to delete this eventTag.", 403));
 		}
 
 		// Delete the eventTag.
