@@ -75,7 +75,7 @@ try {
 			$reply->data = Event::getEventByEventDistance($pdo, $userLong, $userLat, $distance)->toArray();
 
 		} else {
-			$reply->data = Event::getEventByEventTagTagId($pdo, $eventTagTagId);
+			$reply->data = Event::getEventByEventDistance($pdo,-106.648708, 35.086585, 5);
 		}
 	} else if($method === "PUT" || $method === "POST") {
 
@@ -115,27 +115,14 @@ try {
 		}
 
 //TODO not sure if the times are handled right here...
-		// make sure Event end time is accurate
-		if(empty($requestObject->eventEndTime) === true) {
-			$requestObject->eventEndTime = null;
-		} else {
-			// if the date exists, Angular's milliseconds since the beginning of time MUST be converted
-			$eventEndTime = DateTime::createFromFormat("U.u", $requestObject->eventEndTime / 1000);
-			if($eventEndTime === false) {
-				throw(new RuntimeException("invalid event date", 400));
-			}
-			$requestObject->eventEndDate = $eventEndTime;
-		}
 
 		// make sure Event end date is accurate
 		if(empty($requestObject->eventStartTime) === true) {
-			$requestObject->eventStartTime = null;
+			throw (new InvalidArgumentException("Event start time must be inserted.", 405));
+		} $eventStartTime = DateTime::createFromFormat("U.u", $requestObject->eventStartTime / 1000);
+		if($eventStartTime === false) {
+			throw(new RuntimeException("invalid event date", 400));
 		} else {
-			// if the date exists, Angular's milliseconds since the beginning of time MUST be converted
-			$eventStartTime = DateTime::createFromFormat("U.u", $requestObject->eventStartTime / 1000);
-			if($eventStartTime === false) {
-				throw(new RuntimeException("invalid event date", 400));
-			}
 			$requestObject->eventStartTime = $eventStartTime;
 		}
 
