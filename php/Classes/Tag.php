@@ -202,7 +202,7 @@ class Tag implements \ JsonSerializable {
     }
 
     /**
-    * Deletes this Admin from mySQL
+    * Deletes this Tag from mySQL
     *
     * @param \PDO $pdo PDO connection object
     * @throws \PDOException when mySQL-related errors occur
