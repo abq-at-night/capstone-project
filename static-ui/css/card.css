@@ -1,5 +1,5 @@
 html, body {
-    background-image: url("img/ABQ at Night BG.jpg");
+    background-image: url("../img/ABQ at Night BG.jpg");
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -9,6 +9,16 @@ html, body {
     background-position: center;
 }
 
+.genre {
+    transform: rotate(90deg);
+    left:0;
+    right:0;
+    top: 10px;
+    margin:auto;
+    color: red;
+}
+
 .venue {
     color: red;
 }
++

@@ -6,7 +6,8 @@
     <meta name="theme-color" content="#317EFB"/>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="card.css" type="text/css">
+    <link rel="stylesheet" href="css/card.css" type="text/css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
@@ -22,23 +23,27 @@
 <div id="accordion">
     <div class="card mb-3 mx-auto" style="max-width: 500px;">
         <div class="row justify-content-center">
-            <div class="col-sm-4">
-                <img src="img/bonfire-3.jpg" class="card-img rounded" alt="...">
+            <div class="col-sm-1 genre">
+                <p><strong>EDM</strong></p>
+            </div>
+            <div class="col-sm-3">
+                <img src="img/bonfire-3.jpg" class="card-img-fluid my-3 rounded" alt="...">
             </div>
             <div class="col-sm-8">
                 <div class="card-body">
                     <h5 class="card-title">Bonfire</h5>
                     <p class="card-text my-0">ABQue the Music brings you a night of Music under the stars</p>
-                    <p class="card-text my-0" id="venue"><small class="text-muted">Open Space Abq</small></p>
+                    <p class="card-text venue my-0"><strong>Open Space Abq</strong></p>
                     <p class="card-text my-0">7-29-2019 </p>
                     <p class="card-text my-0">$10 Cover</p>
                 </div>
+            </div>
+            <div class="row">
                 <div>
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        More Info
-                    </button>
+                    <button class="btn my-1 justify-content-center" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fas fa-info"></i>
+                    More Info</button>
                 </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div id="collapseOne" class="collapse justify-content-center" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
                         Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
                         3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
