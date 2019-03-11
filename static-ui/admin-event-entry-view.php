@@ -11,30 +11,58 @@
 	<div id="event-entry-form" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 		<div class="panel panel-info">
 			<div class="panel-heading">
-				<div class="panel-title">Create a new event</div>
+				<div class="panel-title">Create a new event.</div>
 			</div>
 			<div class="panel-body">
 				<form method="post" action=".">
 
 
+					<div id="event-image" class="form-group required">
+						<label for="event-image" class="control-label col-md-4 requiredField">Image<span class="asteriskField">*</span> </label>
+						<div class="controls col-md-8 ">
+							<input class="input-md textinput textInput form-control" id="event-image" maxlength="30" name="event-image" placeholder="www.eventimageurl.com" style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+
 						<div id="event-title" class="form-group required">
-							<label for="event-title" class="control-label col-md-4  requiredField">Event Title<span class="asteriskField">*</span> </label>
+							<label for="event-title" class="control-label col-md-4  requiredField">Title<span class="asteriskField">*</span> </label>
 							<div class="controls col-md-8 ">
-								<input class="input-md textinput textInput form-control" id="event-title" maxlength="30" name="event-title" placeholder="Enter an Event Title." style="margin-bottom: 10px" type="text" />
+								<input class="input-md textinput textInput form-control" id="event-title" maxlength="30" name="event-title" placeholder="Enter a title." style="margin-bottom: 10px" type="text" />
 							</div>
 						</div>
 
 					<div id="event-venue" class="form-group">
-						<label for="event-venue" class="control-label col-md-4  requiredField">Event Venue</label>
+						<label for="event-venue" class="control-label col-md-4">Venue</label>
 						<div class="controls col-md-8 ">
-							<input class="input-md textinput textInput form-control" id="event-venue" name="event-venue" placeholder="Enter an Event Venue. (optional)" style="margin-bottom: 10px" type="text" />
+							<input class="input-md textinput textInput form-control" id="event-venue" name="event-venue" placeholder="Enter a venue. (optional)" style="margin-bottom: 10px" type="text" />
 						</div>
 					</div>
 
 					<div id="event-date-start-time" class="form-group required">
-						<label for="event-date-start-time" class="control-label col-md-4  requiredField">Event Date and Start Time<span class="asteriskField">*</span> </label>
+						<label for="event-date-start-time" class="control-label col-md-4  requiredField">Start Date and Start Time<span class="asteriskField">*</span> </label>
 						<div class="controls col-md-8 ">
 							<input class="input-md textinput textInput form-control" id="event-date-start-time" name="event-date-start-time" placeholder="Y-M-D H:M:S" style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+
+					<div id="event-date-end-time" class="form-group required">
+						<label for="event-date-end-time" class="control-label col-md-4  requiredField">End Date and End Time<span class="asteriskField">*</span> </label>
+						<div class="controls col-md-8 ">
+							<input class="input-md textinput textInput form-control" id="event-date-end-time" name="event-date-end-time" placeholder="Y-M-D H:M:S" style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+
+					<div id="event-price" class="form-group">
+						<label for="event-price" class="control-label col-md-4">Price</label>
+						<div class="controls col-md-8 ">
+							<input class="input-md textinput textInput form-control" id="event-price" name="event-price" placeholder="Enter the price. (optional)" style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+
+					<div id="event-age-requirement" class="form-group">
+						<label for="event-age-requirement" class="control-label col-md-4">Age Requirement</label>
+						<div class="controls col-md-8 ">
+							<input class="input-md textinput textInput form-control" id="event-age-requirement" name="event-age-requirement" placeholder="Enter the age requirement. (optional)" style="margin-bottom: 10px" type="text" />
 						</div>
 					</div>
 
@@ -45,38 +73,20 @@
 							</div>
 						</div>
 
+						<div id="event-venue-website" class="form-group">
+							<label for="event-venue-website" class="control-label col-md-4">Venue Website</label>
+							<div class="controls col-md-8 ">
+								<input class="input-md textinput textInput form-control" id="event-venue-website" name="event-venue-website" placeholder="www.eventvenue.com (optional)" style="margin-bottom: 10px" type="text" />
+							</div>
+						</div>
 
-						<div id="div_id_password2" class="form-group required">
-							<label for="id_password2" class="control-label col-md-4  requiredField"> Re:password<span class="asteriskField">*</span> </label>
-							<div class="controls col-md-8 ">
-								<input class="input-md textinput textInput form-control" id="id_password2" name="password2" placeholder="Confirm your password" style="margin-bottom: 10px" type="password" />
-							</div>
+					<div id="event-promoter-website" class="form-group">
+						<label for="event-promoter-website-website" class="control-label col-md-4">Promoter Website</label>
+						<div class="controls col-md-8 ">
+							<input class="input-md textinput textInput form-control" id="event-promoter-website" name="event-promoter-website" placeholder="www.promoterwebsite.com (optional)" style="margin-bottom: 10px" type="text" />
 						</div>
-						<div id="div_id_name" class="form-group required">
-							<label for="id_name" class="control-label col-md-4  requiredField"> full name<span class="asteriskField">*</span> </label>
-							<div class="controls col-md-8 ">
-								<input class="input-md textinput textInput form-control" id="id_name" name="name" placeholder="Your Frist name and Last name" style="margin-bottom: 10px" type="text" />
-							</div>
-						</div>
-						<div id="div_id_gender" class="form-group required">
-							<label for="id_gender"  class="control-label col-md-4  requiredField"> Gender<span class="asteriskField">*</span> </label>
-							<div class="controls col-md-8 "  style="margin-bottom: 10px">
-								<label class="radio-inline"> <input type="radio" name="gender" id="id_gender_1" value="M"  style="margin-bottom: 10px">Male</label>
-								<label class="radio-inline"> <input type="radio" name="gender" id="id_gender_2" value="F"  style="margin-bottom: 10px">Female </label>
-							</div>
-						</div>
-						<div id="div_id_company" class="form-group required">
-							<label for="id_company" class="control-label col-md-4  requiredField"> company name<span class="asteriskField">*</span> </label>
-							<div class="controls col-md-8 ">
-								<input class="input-md textinput textInput form-control" id="id_company" name="company" placeholder="your company name" style="margin-bottom: 10px" type="text" />
-							</div>
-						</div>
-						<div id="div_id_catagory" class="form-group required">
-							<label for="id_catagory" class="control-label col-md-4  requiredField"> catagory<span class="asteriskField">*</span> </label>
-							<div class="controls col-md-8 ">
-								<input class="input-md textinput textInput form-control" id="id_catagory" name="catagory" placeholder="skills catagory" style="margin-bottom: 10px" type="text" />
-							</div>
-						</div>
+					</div>
+
 						<div id="div_id_number" class="form-group required">
 							<label for="id_number" class="control-label col-md-4  requiredField"> contact number<span class="asteriskField">*</span> </label>
 							<div class="controls col-md-8 ">
