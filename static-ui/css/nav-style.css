@@ -11,7 +11,7 @@
 margin-bottom: 3rem;
 }
 
-@media (max-width: 460px) {
+@media (max-width: 459px) {
 	#searchbar
 	{
 		margin-right: auto;
@@ -20,7 +20,7 @@ margin-bottom: 3rem;
 	}
 }
 
-@media (min-width: 459px) and (max-width: 576px) {
+@media (min-width: 459px) and (max-width: 575.5px) {
 	#searchbar
 	{
 		margin: 1rem auto 1rem auto;
