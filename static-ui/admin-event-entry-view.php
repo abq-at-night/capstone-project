@@ -8,7 +8,7 @@
 
 <div class="container">
 
-	<div id="event-entry-form" style=" margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+	<div id="event-entry-form" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
 		<div class="panel panel-info">
 			<div class="panel-heading">
 				<div class="panel-title">Create a new event</div>
@@ -17,24 +17,35 @@
 				<form method="post" action=".">
 
 
-						<div id="div_id_username" class="form-group required">
-							<label for="id_username" class="control-label col-md-4  requiredField"> Username<span class="asteriskField">*</span> </label>
+						<div id="event-title" class="form-group required">
+							<label for="event-title" class="control-label col-md-4  requiredField">Event Title<span class="asteriskField">*</span> </label>
 							<div class="controls col-md-8 ">
-								<input class="input-md  textinput textInput form-control" id="id_username" maxlength="30" name="username" placeholder="Choose your username" style="margin-bottom: 10px" type="text" />
+								<input class="input-md textinput textInput form-control" id="event-title" maxlength="30" name="event-title" placeholder="Enter an Event Title." style="margin-bottom: 10px" type="text" />
 							</div>
 						</div>
-						<div id="div_id_email" class="form-group required">
-							<label for="id_email" class="control-label col-md-4  requiredField"> E-mail<span class="asteriskField">*</span> </label>
+
+					<div id="event-venue" class="form-group">
+						<label for="event-venue" class="control-label col-md-4  requiredField">Event Venue</label>
+						<div class="controls col-md-8 ">
+							<input class="input-md textinput textInput form-control" id="event-venue" name="event-venue" placeholder="Enter an Event Venue. (optional)" style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+
+					<div id="event-date-start-time" class="form-group required">
+						<label for="event-date-start-time" class="control-label col-md-4  requiredField">Event Date and Start Time<span class="asteriskField">*</span> </label>
+						<div class="controls col-md-8 ">
+							<input class="input-md textinput textInput form-control" id="event-date-start-time" name="event-date-start-time" placeholder="Y-M-D H:M:S" style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+
+						<div id="event-description" class="form-group required">
+							<label for="event-description" class="control-label col-md-4  requiredField">Event Description<span class="asteriskField">*</span> </label>
 							<div class="controls col-md-8 ">
-								<input class="input-md emailinput form-control" id="id_email" name="email" placeholder="Your current email address" style="margin-bottom: 10px" type="email" />
+								<input class="input-md textinput form-control" id="event-description" name="event-description" placeholder="Enter an event description." style="margin-bottom: 10px" type="text" />
 							</div>
 						</div>
-						<div id="div_id_password1" class="form-group required">
-							<label for="id_password1" class="control-label col-md-4  requiredField">Password<span class="asteriskField">*</span> </label>
-							<div class="controls col-md-8 ">
-								<input class="input-md textinput textInput form-control" id="id_password1" name="password1" placeholder="Create a password" style="margin-bottom: 10px" type="password" />
-							</div>
-						</div>
+
+
 						<div id="div_id_password2" class="form-group required">
 							<label for="id_password2" class="control-label col-md-4  requiredField"> Re:password<span class="asteriskField">*</span> </label>
 							<div class="controls col-md-8 ">
