@@ -1,5 +1,9 @@
 .navbar img {
-	max-width: 25%;
+	max-width: 15%;
+}
+
+#searchbar {
+margin-bottom: 6%;
 }
 
 @media (max-width: 740px) {
@@ -7,5 +11,16 @@
 	{
 		margin-right: auto;
 		margin-left: auto;
+		margin-bottom: 1rem;
+	}
+}
+
+@media (max-width: 740px) {
+	.navbar img
+	{
+		margin-right: auto;
+		margin-left: auto;
+		max-width: 40%;
+		margin-bottom: 1rem;
 	}
 }
