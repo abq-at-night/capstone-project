@@ -1,35 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="theme-color" content="#317EFB"/>
+<?php require_once("head-utils.php");?>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/card.css" type="text/css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<?php require_once("navbar.php");?>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/additional-methods.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"></script>
-
-    <title>ABQ at Night</title>
-</head>
 <body>
 <div id="accordion">
-    <div class="card mb-3 mx-auto" style="max-width: 500px;">
+    <div class="card mb-3 mx-auto py-5" style="max-width: 500px;">
         <div class="row justify-content-center">
-            <div class="col-sm-1 genre">
-                <p><strong>EDM</strong></p>
+            <div class="col-sm-2 my-auto genre">
+                <p class="mx-0"><strong>EDM</strong></p>
             </div>
-            <div class="col-sm-3">
-                <img src="img/bonfire-3.jpg" class="card-img-fluid my-3 rounded" alt="...">
+            <div class="col-sm-4">
+                <img src="img/bonfire-3.jpg" class="card-img-fluid rounded my-3 px-0" alt="...">
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-6">
                 <div class="card-body">
                     <h5 class="card-title">Bonfire</h5>
                     <p class="card-text my-0">ABQue the Music brings you a night of Music under the stars</p>

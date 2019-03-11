@@ -10,11 +10,9 @@ html, body {
 }
 
 .genre {
-    transform: rotate(90deg);
-    left:0;
-    right:0;
-    top: 10px;
-    margin:auto;
+    transform: rotate(-90deg);
+    top: 0px;
+    margin: auto;
     color: red;
 }
 
