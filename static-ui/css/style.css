@@ -1,13 +1,5 @@
-.navbar {
-	background-image: linear-gradient(to bottom, #000000, #080002, #0f0002, #140103, #190102, #1e0303, #210404, #250604, #2a0906, #300a08, #370b0a, #3d0b0b);
-}
-
 .navbar img {
-	max-width: 15%;
-}
-
-#searchbar {
-margin-bottom: 6%;
+	max-width: 25%;
 }
 
 @media (max-width: 740px) {
@@ -15,40 +7,5 @@ margin-bottom: 6%;
 	{
 		margin-right: auto;
 		margin-left: auto;
-		margin-bottom: 1rem;
-	}
-}
-
-@media (max-width: 740px) {
-	#searchbar .form-control
-	{
-		margin-right: auto;
-		margin-left: auto;
-		margin-bottom: 1rem;
-	}
-}
-
-@media (max-width: 740px) {
-	.navbar img
-	{
-		max-width: 40%;
-		margin: 1rem auto 1rem auto;
-	}
-}
-
-
-@media (min-width: 767px) and (max-width: 1025px) {
-	.navbar img
-	{
-		max-width: 20%;
-		margin: 1rem 1rem 1rem 0;
-	}
-}
-
-@media (min-width: 767px) and (max-width: 1115px) {
-	#searchbar
-	{
-		margin-bottom: 1%;
-		max-width: 75%;
 	}
 }
