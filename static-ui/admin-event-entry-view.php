@@ -38,6 +38,20 @@
 						</div>
 					</div>
 
+					<div id="event-latitude" class="form-group">
+						<label for="event-latitude" class="control-label col-md-4">Latitude</label>
+						<div class="controls col-md-8 ">
+							<input class="input-md textinput textInput form-control" id="event-latitude" name="event-latitude" placeholder="BE CAREFUL! Only six digits are allowed after the decimal." style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+
+					<div id="event-longitude" class="form-group">
+						<label for="event-longitude" class="control-label col-md-4">Longitude</label>
+						<div class="controls col-md-8 ">
+							<input class="input-md textinput textInput form-control" id="event-longitude" name="event-longitude" placeholder="BE CAREFUL! Only six digits are allowed after the decimal." style="margin-bottom: 10px" type="text" />
+						</div>
+					</div>
+
 					<div id="event-date-start-time" class="form-group required">
 						<label for="event-date-start-time" class="control-label col-md-4  requiredField">Start Date and Start Time<span class="asteriskField">*</span> </label>
 						<div class="controls col-md-8 ">
@@ -87,39 +101,15 @@
 						</div>
 					</div>
 
-						<div id="div_id_number" class="form-group required">
-							<label for="id_number" class="control-label col-md-4  requiredField"> contact number<span class="asteriskField">*</span> </label>
-							<div class="controls col-md-8 ">
-								<input class="input-md textinput textInput form-control" id="id_number" name="number" placeholder="provide your number" style="margin-bottom: 10px" type="text" />
-							</div>
-						</div>
-						<div id="div_id_location" class="form-group required">
-							<label for="id_location" class="control-label col-md-4  requiredField"> Your Location<span class="asteriskField">*</span> </label>
-							<div class="controls col-md-8 ">
-								<input class="input-md textinput textInput form-control" id="id_location" name="location" placeholder="Your Pincode and City" style="margin-bottom: 10px" type="text" />
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="controls col-md-offset-4 col-md-8 ">
-								<div id="div_id_terms" class="checkbox required">
-									<label for="id_terms" class=" requiredField">
-										<input class="input-ms checkboxinput" id="id_terms" name="terms" style="margin-bottom: 10px" type="checkbox" />
-										Agree with the terms and conditions
-									</label>
-								</div>
+			</div>
+		</div>
 
-							</div>
-						</div>
 						<div class="form-group">
 							<div class="aab controls col-md-4 "></div>
 							<div class="controls col-md-8 ">
-								<input type="submit" name="Signup" value="Signup" class="btn btn-primary btn btn-info" id="submit-id-signup" />
-								or <input type="button" name="Signup" value="Sign Up with Facebook" class="btn btn btn-primary" id="button-id-signup" />
+								<input type="submit" name="Submit" value="Submit" class="btn btn-primary btn btn-info" id="submit" />
 							</div>
 						</div>
 
-					</form>
-			</div>
-		</div>
 	</div>
 </div>
