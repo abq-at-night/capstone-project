@@ -1,10 +1,10 @@
-<?php require_once("head-utils.php");?>
+<?php require_once("head-utils.php"); ?>
 
-<?php require_once("navbar.php");?>
+<?php require_once("navbar.php"); ?>
 
 <body>
 <div id="accordion">
-    <div class="card mb-3 mx-auto py-5" style="max-width: 500px;">
+    <div class="card my-5 mx-auto" style="max-width: 500px;">
         <div class="row justify-content-center">
             <div class="col-sm-2 my-auto genre">
                 <p class="mx-0"><strong>EDM</strong></p>
