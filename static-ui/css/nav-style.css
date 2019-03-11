@@ -20,17 +20,14 @@ margin-bottom: 7%;
 	}
 }
 
-@media (min-width: 460px) and (max-width: 570px) {
+@media (min-width: 459px) and (max-width: 577px) {
 	#searchbar
 	{
-		margin-right: auto;
-		margin-left: auto;
-		margin-bottom: 1rem;
-		margin-top: 1rem;
+		margin: 1rem auto 1rem auto;
 	}
 }
 
-@media (max-width: 460px) {
+@media (max-width: 459px) {
 	#searchbar .form-control
 	{
 		margin-right: auto;
@@ -39,7 +36,16 @@ margin-bottom: 7%;
 	}
 }
 
-@media (max-width: 460px) {
+@media (max-width: 459px) {
+	#searchbar button
+	{
+		margin-right: auto;
+		margin-left: auto;
+		margin-bottom: 1rem;
+	}
+}
+
+@media (max-width: 459px) {
 	.navbar img
 	{
 		max-width: 150px;
