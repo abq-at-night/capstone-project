@@ -5,8 +5,6 @@
 .navbar img {
 	max-width: 15%;
 	min-width: 150px;
-	margin-top: 1%;
-	margin-bottom: 1%;
 }
 
 #searchbar {
@@ -22,12 +20,13 @@ margin-bottom: 7%;
 	}
 }
 
-@media (max-width: 570px) {
+@media (min-width: 460px) and (max-width: 570px) {
 	#searchbar
 	{
 		margin-right: auto;
 		margin-left: auto;
 		margin-bottom: 1rem;
+		margin-top: 1rem;
 	}
 }
 
