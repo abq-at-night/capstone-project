@@ -6,11 +6,11 @@
     <div id="accordion">
         <div class="card mx-auto my-4">
             <div class="row justify-content-center">
-                <div class="col-4 my-auto mx-2">
-                    <img src="img/bonfire-3.jpg" class="img-fluid card rounded" alt="Bonfire">
+                <div class="col-4 ml-3 my-auto py-3 pr-0">
+                    <img src="img/bonfire-3.jpg" class="card-img rounded" alt="Bonfire">
                 </div>
                 <div class="col">
-                    <div class="card-body">
+                    <div class="card-body pl-0">
                         <h5 class="card-title">Bonfire</h5>
                         <p class="card-text text-wrap my-0">ABQue the Music brings you a night of Music under the stars</p>
                         <p class="card-text venue my-0"><strong>Open Space Abq</strong></p>
@@ -21,7 +21,7 @@
                     </div>
                 </div>
                 <div class="row-7 justify-content-center">
-                    <div class="col">
+                    <div class="col mt-0">
                         <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                             <div class="card-body">
                                 Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.

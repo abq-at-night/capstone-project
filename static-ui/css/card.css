@@ -23,3 +23,7 @@ html, body {
 .card {
     max-width: 525px;
 }
+
+.card-body {
+    max-width: 500px;
+}
