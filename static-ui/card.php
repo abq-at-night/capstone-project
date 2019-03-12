@@ -4,7 +4,7 @@
 
 <div class="container">
     <div id="accordion">
-        <div class="card mx-auto">
+        <div class="card mx-auto my-4">
             <div class="row justify-content-center">
                 <div class="col-4 my-auto mx-2">
                     <img src="img/bonfire-3.jpg" class="img-fluid card rounded" alt="Bonfire">
