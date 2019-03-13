@@ -1,4 +1,6 @@
 export interface Event {
+	eventId: string;
+	eventAdminId: string;
 	eventAgeRequirement: string,
 	eventDescription: string,
 	eventEndTime: string,
