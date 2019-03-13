@@ -5,7 +5,7 @@ import {Event} from "./interfaces/event";
 import {Status} from "./interfaces/status";
 
 @Injectable()
-export class EventServices {
+export class EventService {
 	private eventUrl = "api/event/";
 
 	constructor(protected http: HttpClient) {}
