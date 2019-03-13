@@ -1,0 +1,6 @@
+{
+  "/api": {
+    "target": "https://bootcamp-coders.cnm.edu/~wsalmons/capstone-project/",
+    "secure": "false"
+  }
+}

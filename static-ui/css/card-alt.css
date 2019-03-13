@@ -1,0 +1,50 @@
+.btn:focus  {
+	background-color: transparent;
+	box-shadow: none;
+}
+
+#toggler {
+	font-size: 150%;
+	align-content: center;
+}
+
+.card-img {
+	margin-right: 0;
+}
+
+.padding-0{
+	padding-right:0;
+	padding-left:0;
+}
+
+@media (max-width: 340px) {
+	p, h5
+	{
+		font-size: 55%;
+	}
+}
+
+
+@media (min-width: 340px) and (max-width: 400px) {
+	p, h5
+	{
+		font-size: 70%;
+	}
+}
+
+@media (min-width: 400px) and (max-width: 770px) {
+	p, h5
+	{
+		font-size: 90%;
+	}
+}
+
+@media (min-width: 990px) {
+	.card-img
+	{
+		max-width: 80%;
+		float: right;
+	}
+}
+
+
