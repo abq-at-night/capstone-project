@@ -2,15 +2,15 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
-import {SignInService} from "../services/sign.in.service";
-import {SessionService} from "../services/session.service";
+import {SignInService} from "../shared/services/sign.in.service";
+import {SessionService} from "../shared/services/session.service";
 
-import {Status} from "../interfaces/status";
-import {SignIn} from "../interfaces/sign.in";
+import {Status} from "../shared/interfaces/status";
+import {SignIn} from "../shared/interfaces/sign.in";
 
 
 @Component({
-	templateUrl: "./sign.in.component.html",
+	templateUrl: "./sign-in.component.html",
 	selector: "sign-in"
 })
 

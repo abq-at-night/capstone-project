@@ -5,7 +5,7 @@ import{AppComponent} from "./app.component"
 
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep-dive.interceptor";
-import {SignInComponent} from "./shared/components/sign-in.component";
+import {SignInComponent} from "./sign-in/sign-in.component";
 
 
 
