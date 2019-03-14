@@ -23,7 +23,7 @@ export class EventService {
 	}
 
 	createEvent(event: Event) : Observable<Status> {
-		return(this.http.post<Event>(this.eventUrl, event));
+		return(this.http.post<Status>(this.eventUrl, event));
 	}
 
 	editEvent(event: Event) : Observable<Status> {

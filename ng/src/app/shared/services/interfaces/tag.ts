@@ -1,5 +1,5 @@
 export interface Tag {
-    misquoteId: string;
+    tagId: string;
     attribution: string;
     misquote: string;
     submitter: string;
