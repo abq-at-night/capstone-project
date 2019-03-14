@@ -1,4 +1,4 @@
 export interface SignIn {
-	adminEmail: string,
+	adminUsername: string,
 	adminPassword: string
 }

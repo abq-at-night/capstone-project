@@ -1,6 +1,5 @@
 import {Component, ViewChild, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
-import {setTimeout} from "timers";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
@@ -18,7 +17,7 @@ declare let $: any;
 
 
 @Component({
-	templateurl: ("./sign-in.component.html"),
+	templateUrl: ("./sign-in.component.html"),
 	selector: "sign-in"
 })
 
@@ -65,10 +64,6 @@ export class SignInComponent implements OnInit {
 					this.sessionService.setSession();
 					this.signInForm.reset();
 					location.reload();
-
-					setTimeout(function() {
-						$("#signInForm").modal('hide');
-					}, 500);
 
 					this.router.navigate(["/signed-in-homeview"]);
 				}
