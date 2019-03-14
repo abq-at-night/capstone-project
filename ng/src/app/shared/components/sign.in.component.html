@@ -1,22 +1,27 @@
 <main>
 
 	<form (submit)="createSignIn();" [formGroup]="signInForm" class="form-control-lg" id="signInForm" method="post" name="signInForm" novalidate>
-		<div class="form-group mx-5 mt-2">
-			<label for="username">Username</label>
-			<input aria-describedby="usernameHelp" class="form-control" id="username" placeholder="Enter your username." type="email">
-		</div>
+		<div class="info">
+			<!-- username -->
+			<input class="form-control" formControlName="adminUsername" id="adminUsername" name="username" placeholder=" Username" type="text" />
 
-		<div class="form-group mx-5">
-			<label for="password">Password</label>
-			<input class="form-control" id="password1" placeholder="Password" type="password">
-		</div>
+			<div *ngIf="signInForm.controls.adminUsername?.invalid && signInForm.controls.adminUsername?.touched" class="alert alert-danger">
+				<p *ngIf="signInForm.controls.adminUsername?.errors.required">The username or password is incorrect.</p>
+			</div>
 
-		<div class="form-group d-flex justify-content-center">
-			<div class="aab controls"></div>
-			<div class="controls">
-				<input class="btn btn-danger btn btn-info" id="submit" name="Submit" type="submit" value="Submit" />
+			<!-- password -->
+			<input class="form-control" formControlName="adminPassword" id="adminPassword" name="password" placeholder=" Password" type="text" />
+
+			<div *ngIf="signInForm.controls.adminPassword?.invalid && signInForm.controls.adminPassword?.touched" class="alert alert-danger">
+				<p *ngIf="signInForm.controls.adminPassword?.errors.required">The username or password is incorrect.</p>
 			</div>
 		</div>
+
+
+			<div class="controls">
+				<input class="btn" type="submit" value="Submit" />
+			</div>
+
 	</form>
 
 </main>
