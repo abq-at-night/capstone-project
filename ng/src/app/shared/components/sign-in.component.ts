@@ -1,23 +1,18 @@
-import {Component, ViewChild, OnInit} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-
-
-
 
 import {SignInService} from "../services/sign.in.service";
 import {SessionService} from "../services/session.service";
 
-
 import {Status} from "../interfaces/status";
 import {SignIn} from "../interfaces/sign.in";
-
 
 declare let $: any;
 
 
 @Component({
-	templateUrl: ("./sign-in.component.html"),
+	templateUrl: "./sign-in.component.html",
 	selector: "sign-in"
 })
 
@@ -43,8 +38,6 @@ export class SignInComponent implements OnInit {
 		);
 
 	}
-
-
 
 	createSignIn(): void {
 
