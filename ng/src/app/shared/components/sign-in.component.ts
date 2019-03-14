@@ -3,41 +3,43 @@ import {Router} from "@angular/router";
 import {setTimeout} from "timers";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
-import {Status} from "../classes/status";
-import {SignIn} from "../classes/sign.in";
 
-import {CookieService} from "ngx-cookie-service";
+
+
 import {SignInService} from "../services/sign.in.service";
 import {SessionService} from "../services/session.service";
+
+
+import {Status} from "../interfaces/status";
+import {SignIn} from "../interfaces/sign.in";
 
 
 declare let $: any;
 
 
 @Component({
-	template: require("./sign-in-modal.component.html"),
+	templateurl: ("./sign-in.component.html"),
 	selector: "sign-in"
 })
 
-export class SignInModalComponent implements OnInit {
+export class SignInComponent implements OnInit {
 
 	signInForm: FormGroup;
 
-	signIn: SignIn = new SignIn(null, null);
+	signIn: SignIn = {adminUsername:null, adminPassword:null};
 	status: Status = null;
 
 	constructor(
 		private formBuilder: FormBuilder,
 		private router: Router,
 		private signInService: SignInService,
-		private cookieService: CookieService,
 		private sessionService: SessionService
 	){}
 
 	ngOnInit(): void {
 		this.signInForm = this.formBuilder.group({
-				profileEmail: ["", [Validators.maxLength(128), Validators.required]],
-				profilePassword: ["", [Validators.maxLength(48), Validators.required]],
+				adminUsername: ["", [Validators.maxLength(128), Validators.required]],
+				adminPassword: ["", [Validators.maxLength(48), Validators.required]],
 			}
 		);
 		this.applyFormChanges();
@@ -53,7 +55,7 @@ export class SignInModalComponent implements OnInit {
 
 	createSignIn(): void {
 
-		//let signIn = new SignIn(this.signInForm.value.profileEmail, this.signInForm.value.profilePassword);
+		//let signIn = new SignIn(this.signInForm.value.adminUsername, this.signInForm.value.adminPassword);
 
 		this.signInService.postSignIn(this.signIn)
 			.subscribe(status => {

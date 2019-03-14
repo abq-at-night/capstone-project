@@ -1,8 +1,8 @@
 import {HttpClient} from "@angular/common/http";
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {Event} from "./interfaces/event";
-import {Status} from "./interfaces/status";
+import {Event} from "../interfaces/event";
+import {Status} from "../interfaces/status";
 
 @Injectable()
 export class EventService {
