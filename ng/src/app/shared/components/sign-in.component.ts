@@ -8,11 +8,9 @@ import {SessionService} from "../services/session.service";
 import {Status} from "../interfaces/status";
 import {SignIn} from "../interfaces/sign.in";
 
-declare let $: any;
-
 
 @Component({
-	templateUrl: "./sign-in.component.html",
+	templateUrl: "./sign.in.component.html",
 	selector: "sign-in"
 })
 
