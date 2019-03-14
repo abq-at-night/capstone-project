@@ -41,16 +41,10 @@ export class SignInComponent implements OnInit {
 				adminPassword: ["", [Validators.maxLength(48), Validators.required]],
 			}
 		);
-		this.applyFormChanges();
+
 	}
 
-	applyFormChanges() :void {
-		this.signInForm.valueChanges.subscribe(values => {
-			for(let field in values) {
-				this.signIn[field] = values[field];
-			}
-		});
-	}
+
 
 	createSignIn(): void {
 

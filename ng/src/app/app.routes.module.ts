@@ -5,15 +5,16 @@ import{AppComponent} from "./app.component"
 
 import {HTTP_INTERCEPTORS} from "@angular/common/http";
 import {DeepDiveInterceptor} from "./shared/interceptors/deep-dive.interceptor";
+import {SignInComponent} from "./shared/components/sign-in.component";
 
 
-import {APP_BASE_HREF} from "@angular/common";
+
 
 export const routes: Routes = [
 	{path: "", component: SplashComponent}
 ];
 
-export const allAppComponents = [AppComponent, SplashComponent];
+export const allAppComponents = [AppComponent, SplashComponent, SignInComponent];
 
 
 export const providers: any[] =[
