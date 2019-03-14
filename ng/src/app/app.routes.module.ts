@@ -11,7 +11,8 @@ import {SignInComponent} from "./sign-in/sign-in.component";
 
 
 export const routes: Routes = [
-	{path: "", component: SplashComponent}
+	{path: "", component: SplashComponent},
+	{path: "sign-in", component: SignInComponent}
 ];
 
 export const allAppComponents = [AppComponent, SplashComponent, SignInComponent];
