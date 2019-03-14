@@ -3,7 +3,7 @@ import {HttpClientModule} from "@angular/common/http";
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from "@angular/forms";
-import {allAppComponents, providers, routing} from "./app.routes.module"
+import {allAppComponents, appRoutingProviders, providers, routing} from "./app.routes.module"
 import { AppComponent } from './app.component';
 
 
@@ -11,6 +11,6 @@ import { AppComponent } from './app.component';
   imports:      [ BrowserModule, FormsModule, HttpClientModule, routing, ReactiveFormsModule],
   declarations: [ ...allAppComponents, AppComponent],
   bootstrap:    [ AppComponent ],
-  providers:    [providers]
+  providers:    [providers, appRoutingProviders]
 })
 export class AppModule { }
