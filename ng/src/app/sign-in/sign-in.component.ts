@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
-import {SignInService} from "../shared/services/sign.in.service";
+import {SignInService} from "../shared/services/sign-in.service";
 import {SessionService} from "../shared/services/session.service";
 
 import {Status} from "../shared/interfaces/status";
