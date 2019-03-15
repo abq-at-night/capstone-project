@@ -30,7 +30,7 @@ export class SignInComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.signInForm = this.formBuilder.group({
-				adminUsername: ["", [Validators.maxLength(128), Validators.required]],
+				adminEmail: ["", [Validators.maxLength(128), Validators.required]],
 				adminPassword: ["", [Validators.maxLength(48), Validators.required]],
 			}
 		);
@@ -39,7 +39,7 @@ export class SignInComponent implements OnInit {
 
 	createSignIn(): void {
 
-		 let signIn: SignIn = {adminUsername: this.signInForm.value.adminUsername, adminPassword: this.signInForm.value.adminPassword};
+		 let signIn: SignIn = {adminEmail: this.signInForm.value.adminEmail, adminPassword: this.signInForm.value.adminPassword};
 
 		this.signInService.postSignIn(signIn)
 			.subscribe(status => {
