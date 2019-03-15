@@ -1,7 +1,7 @@
 {
   "/api": {
     "target": "https://bootcamp-coders.cnm.edu/~jcallaway3/capstone-project/public_html/",
-    "secure": "true",
+    "secure": "false",
     "changeOrigin": "true"
   }
 }

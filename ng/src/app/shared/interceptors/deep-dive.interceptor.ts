@@ -49,6 +49,7 @@ export class DeepDiveInterceptor implements HttpInterceptor {
 					let body = event.body;
 					if(body.status === 200) {
 						if(body.data) {
+							console.log("wtf");
 							// extract data returned from a GET request
 							dataEvent = event.clone({body: body.data});
 						} else if(body.message) {
@@ -56,6 +57,7 @@ export class DeepDiveInterceptor implements HttpInterceptor {
 							dataEvent = event.clone({body: {message: body.message, status: 200, type: "alert-success"}});
 						}
 					} else {
+						console.log("hello");
 						// extract a failing message when the API fails
 						dataEvent = event.clone({body: {message: body.message, status: body.status, type: "alert-danger"}});
 					}

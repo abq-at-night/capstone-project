@@ -14,8 +14,8 @@ export class EventService {
 		return(this.http.delete<Status>(this.eventUrl +eventId));
 	}
 
-	getAllEvents() : Observable<Event[]> {
-		return(this.http.get<Event[]>(this.eventUrl));
+	getAllEvents() : Observable<any[]> {
+		return(this.http.get<any[]>(this.eventUrl));
 	}
 
 	getEvent(eventId: string) : Observable<Event> {
@@ -29,4 +29,9 @@ export class EventService {
 	editEvent(event: Event) : Observable<Status> {
 		return(this.http.put<Status>(this.eventUrl + event.eventId, event));
 	}
+
+	// getEventsByEventDistance(lat: number, lng: number, distance: number) {
+	// 	return this.http.getEvent()
+	// }
+
 }

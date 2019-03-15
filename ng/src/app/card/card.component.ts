@@ -12,7 +12,7 @@ import {EventService} from "../shared/services/event.service";
 
 export class CardComponent implements OnInit {
 
-	events: Event[] = [];
+	events: any[] = [];
 	status: Status = null;
 
 	constructor(

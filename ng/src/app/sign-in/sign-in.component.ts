@@ -18,7 +18,7 @@ export class SignInComponent implements OnInit {
 
 	signInForm: FormGroup;
 
-	signIn: SignIn = {adminUsername:null, adminPassword:null};
+
 	status: Status = null;
 
 	constructor(
@@ -39,9 +39,9 @@ export class SignInComponent implements OnInit {
 
 	createSignIn(): void {
 
-		//let signIn = new SignIn(this.signInForm.value.adminUsername, this.signInForm.value.adminPassword);
+		 let signIn: SignIn = {adminUsername: this.signInForm.value.adminUsername, adminPassword: this.signInForm.value.adminPassword};
 
-		this.signInService.postSignIn(this.signIn)
+		this.signInService.postSignIn(signIn)
 			.subscribe(status => {
 				this.status = status;
 
