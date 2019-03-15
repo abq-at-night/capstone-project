@@ -6,11 +6,11 @@ import {Event} from "../shared/interfaces/event";
 import {EventService} from "../shared/services/event.service";
 
 @Component({
-	templateUrl: "./event.component.html",
+	templateUrl: "card.component.html",
 	selector: "event"
 })
 
-export class EventComponent implements OnInit {
+export class CardComponent implements OnInit {
 
 	events: Event[] = [];
 	status: Status = null;
