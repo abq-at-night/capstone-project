@@ -11,7 +11,7 @@
                 </div>
                 <div class="col">
                     <div class="card-body pl-0">
-                        <h5 class="card-title">Bonfire</h5>
+                        <h5 class="card-title m-0">Bonfire</h5>
                         <p class="card-text venue my-0"><strong>Open Space Abq</strong></p>
                         <p class="card-text my-0">5-20-2016 </p>
                         <p class="card-text my-0">9:00pm - 2:00am </p>
@@ -34,4 +34,3 @@
         </div>
     </div>
 </div>
-</body>
