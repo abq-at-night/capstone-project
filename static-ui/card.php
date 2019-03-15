@@ -12,7 +12,6 @@
                 <div class="col">
                     <div class="card-body pl-0">
                         <h5 class="card-title">Bonfire</h5>
-                        <p class="card-text text-wrap my-0">ABQue the Music brings you a night of Music under the stars</p>
                         <p class="card-text venue my-0"><strong>Open Space Abq</strong></p>
                         <p class="card-text my-0">5-20-2016 </p>
                         <p class="card-text my-0">9:00pm - 2:00am </p>
