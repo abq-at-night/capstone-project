@@ -75,7 +75,7 @@ try {
 			$reply->data = Event::getEventByEventDistance($pdo, $userLong, $userLat, $distance)->toArray();
 
 		} else {
-			$reply->data = Event::getEventByEventDistance($pdo,-106.648708, 35.086585, 5);
+			$reply->data = Event::getEventByEventDistance($pdo,-106.648708, 35.086585, 5)->toArray();
 		}
 	} else if($method === "PUT" || $method === "POST") {
 
