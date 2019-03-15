@@ -1,9 +1,9 @@
 <div class="container">
 	<div id="accordion">
-		<div class="card mx-auto my-4 shadow">
+		<div class="card mx-auto my-4 shadow" *ngFor="let event of events">
 			<div class="row justify-content-center">
 				<div class="col-4 ml-3 my-auto py-3 pr-0">
-					<img src={{event.eventImage}} class="card-img rounded" alt="Bonfire">
+					<img src=event.eventImage class="card-img rounded" alt="Bonfire">
 				</div>
 				<div class="col">
 					<div class="card-body pl-0">

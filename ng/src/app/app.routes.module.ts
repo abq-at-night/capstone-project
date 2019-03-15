@@ -10,16 +10,20 @@ import {SignInService} from "./shared/services/sign-in.service";
 import {AuthService} from "./shared/services/auth.service";
 import {SessionService} from "./shared/services/session.service";
 import {APP_BASE_HREF} from "@angular/common";
+import {CardComponent} from "./card/card.component";
+import {EventService} from "./shared/services/event.service";
 
 
 
 
 export const routes: Routes = [
 	{path: "", component: SplashComponent},
-	{path: "sign-in", component: SignInComponent}
+	{path: "sign-in", component: SignInComponent},
+	{path: "event", component: CardComponent}
+
 ];
 
-export const allAppComponents = [AppComponent, SplashComponent, SignInComponent];
+export const allAppComponents = [AppComponent, SplashComponent, SignInComponent, CardComponent];
 
 
 export const providers: any[] =[
@@ -28,7 +32,7 @@ export const providers: any[] =[
 
 ];
 
-const services: any[] = [AuthService, SignInService, SessionService];
+const services: any[] = [AuthService, SignInService, SessionService, EventService];
 
 export const appRoutingProviders: any[] = [providers, services];
 
