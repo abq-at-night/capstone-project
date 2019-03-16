@@ -135,7 +135,6 @@
 			</div>
 
 			</div>
-		</div>
 
 						<div class="form-group d-flex justify-content-center">
 							<div class="aab controls"></div>

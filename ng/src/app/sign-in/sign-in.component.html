@@ -1,25 +1,20 @@
 <div class="container">
-	<form (submit)="createSignIn();" [formGroup]="signInForm" class="form-control-lg" id="signInForm" method="post"
-			name="signInForm" novalidate>
+	<form (submit)="createSignIn();" [formGroup]="signInForm" class="form-control-lg" id="signInForm" method="post" name="signInForm" novalidate>
 		<div class="col-4 mx-auto border rounded py-4 px-4" id="SignInBox">
 			<h4 class="mb-3">Sign In, My Dude  🤜🤛</h4>
 			<div class="info">
 				<!-- email -->
-				<input class="form-control my-2" formControlName="adminEmail" id="adminEmail" name="email"
-						 placeholder=" Email" type="text"/>
-
+				<input class="form-control my-2" formControlName="adminEmail" id="adminEmail" name="email" placeholder=" Email" type="text"/>
 				<!-- password -->
-				<input class="form-control my-2" formControlName="adminPassword" id="adminPassword" name="password"
-						 placeholder=" Password" type="text"/>
+				<input class="form-control my-2" formControlName="adminPassword" id="adminPassword" name="password" placeholder=" Password" type="text"/>
 			</div>
-
+			<!-- controls -->
 			<div class="controls">
 				<input class="btn btn-danger mt-1" type="submit" value="Submit"/>
 			</div>
 		</div>
-
 	</form>
-
+	<!-- end form, start error alerts -->
 	<div class="col-4 mt-3 mx-auto">
 		<div *ngIf="status !== null" class="alert alert-dismissible" [ngClass]="status.type" role="alert">
 			<button type="button" class="close" aria-label="Close" (click)="status = null;"><span
