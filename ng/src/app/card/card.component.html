@@ -10,14 +10,15 @@
 						<h5 class="card-title">{{event.eventTitle}}</h5>
 						<p class="card-text venue my-0"><strong>{{event.eventVenue}}</strong></p>
 						<p class="card-text my-0">{{event.eventStartTime | date :'longDate'}}</p>
-						<p class="card-text my-0">{{event.eventStartTime | date : 'shortTime'}} - {{event.eventEndTime | date : 'shortTime'}}</p>
+						<p class="card-text my-0">{{event.eventStartTime | date : 'shortTime'}}
+							- {{event.eventEndTime | date : 'shortTime'}}</p>
 						<p class="card-text my-0">{{event.eventPrice}}</p>
+					</div>
 				</div>
-
 			</div>
-		</div>
-			<ngb-accordion #acc = "ngbAccordion">
-				<ngb-panel style="border: none"><span><button class="btn px-0" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fas fa-info-circle"></i></button></span>
+			<ngb-accordion #acc="ngbAccordion">
+				<ngb-panel style="border: none"><span><button class="btn px-0" data-toggle="collapse"
+					data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fas fa-info-circle"></i></button></span>
 					<ng-template>
 						<div class="row-7 justify-content-center" style="border: none">
 							<div class="col mt-0" style="border: none">
@@ -35,5 +36,5 @@
 					</ng-template>
 				</ngb-panel>
 			</ngb-accordion>
+		</div>
 	</div>
-</div>
