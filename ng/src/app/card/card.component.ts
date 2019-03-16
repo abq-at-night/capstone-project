@@ -8,6 +8,8 @@ import {EventService} from "../shared/services/event.service";
 @Component({
 	templateUrl: "card.component.html",
 
+	styles: [`
+	`]
 })
 
 export class CardComponent implements OnInit {
