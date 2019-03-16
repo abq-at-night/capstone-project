@@ -7,12 +7,7 @@ import {EventService} from "../shared/services/event.service";
 
 @Component({
 	templateUrl: "create.event.component.html",
-	selector: "create-event-form",
-	styles: [`
-		h3 {
-			color: #c12e3c;
-		}
-	`]
+	selector: "create-event-form"
 })
 
 export class CreateEventComponent implements OnInit {
@@ -31,22 +26,22 @@ export class CreateEventComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.createEventForm = this. formBuilder.group({
-			eventAgeRequirement: ["", [Validators.maxLength(128)]],
-			eventAddress: ["", [Validators.maxLength(255), Validators.required]],
-			eventDescription: ["", [Validators.maxLength(500)]],
-			eventEndTime: ["", [Validators.maxLength(6), Validators.required]],
-			eventImage: ["", [Validators.maxLength(256), Validators.required]],
-			eventPrice: ["", [Validators.maxLength(32)]],
-			eventPromoterWebsite: ["", [Validators.maxLength(256)]],
-			eventStartTime: ["", [Validators.maxLength(6), Validators.required]],
-			eventTitle: ["", [Validators.maxLength(128), Validators.required]],
-			eventVenue: ["", [Validators.maxLength(128), Validators.required]],
-			eventVenueWebsite: ["", [Validators.maxLength(256)]]
+			ageRequirement: ["", [Validators.maxLength(128)]],
+			address: ["", [Validators.maxLength(255), Validators.required]],
+			description: ["", [Validators.maxLength(500)]],
+			endTime: ["", [Validators.maxLength(6), Validators.required]],
+			image: ["", [Validators.maxLength(256), Validators.required]],
+			price: ["", [Validators.maxLength(32)]],
+			promoterWebsite: ["", [Validators.maxLength(256)]],
+			startTime: ["", [Validators.maxLength(6), Validators.required]],
+			title: ["", [Validators.maxLength(128), Validators.required]],
+			venue: ["", [Validators.maxLength(128), Validators.required]],
+			venueWebsite: ["", [Validators.maxLength(256)]]
 		});
 	}
 
 	eventEntry() : void {
-		let newEvent : Event = {eventId:null, eventAdminId:null, eventAgeRequirement: this.createEventForm.value.eventAgeRequirement, eventDescription: this.createEventForm.value.eventDescription, eventEndTime: this.createEventForm.value.eventEndTime, eventImage: this.createEventForm.value.eventImage, eventLat: this.createEventForm.value.eventAddress, eventLng: this.createEventForm.value.eventAddress, eventPrice: this.createEventForm.value.eventPrice, eventPromoterWebsite: this.createEventForm.value.eventPromoterWebsite, eventStartTime: this.createEventForm.value.eventStartTime, eventTitle: this.createEventForm.value.eventTitle, eventVenue: this.createEventForm.value.eventVenue, eventVenueWebsite: this.createEventForm.value.eventVenueWebsite};
+		let newEvent : Event = {eventId:null, eventAdminId:null, eventAgeRequirement: this.createEventForm.value.ageRequirement, eventDescription: this.createEventForm.value.description, eventEndTime: this.createEventForm.value.endTime, eventImage: this.createEventForm.value.image, eventLat: this.createEventForm.value.address, eventLng: this.createEventForm.value.address, eventPrice: this.createEventForm.value.price, eventPromoterWebsite: this.createEventForm.value.promoterWebsite, eventStartTime: this.createEventForm.value.startTime, eventTitle: this.createEventForm.value.title, eventVenue: this.createEventForm.value.venue, eventVenueWebsite: this.createEventForm.value.venueWebsite}
 		this.eventService.createEvent(newEvent)
 			.subscribe(status => {
 				this.status = status;

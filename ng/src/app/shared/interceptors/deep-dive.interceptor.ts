@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse} from "@angular/common/http";
+
 import {map} from 'rxjs/operators';
 import {Observable} from "rxjs";
 
@@ -26,7 +27,6 @@ export class DeepDiveInterceptor implements HttpInterceptor {
 	 **/
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		// hand off to the next interceptor
-		console.log("1");
 		return(next.handle(request).pipe(map((event: HttpEvent<any>) => {
 			// if this is an HTTP Response, from Angular...
 			if(event instanceof HttpResponse && event.body !== null) {
@@ -37,7 +37,7 @@ export class DeepDiveInterceptor implements HttpInterceptor {
 				if(event.status === 200) {
 					// extract the JWT Header and put it in local storage
 					if(localStorage.getItem("jwt-token") === null) {
-						let jwtToken = event.headers.getAll("X-JWT-TOKEN");
+						let jwtToken = event.headers.getAll("x-jwt-token");
 
 						if(jwtToken !== null) {
 							let token : string = jwtToken[0];
@@ -50,7 +50,6 @@ export class DeepDiveInterceptor implements HttpInterceptor {
 					let body = event.body;
 					if(body.status === 200) {
 						if(body.data) {
-							console.log("wtf");
 							// extract data returned from a GET request
 							dataEvent = event.clone({body: body.data});
 						} else if(body.message) {
@@ -58,7 +57,6 @@ export class DeepDiveInterceptor implements HttpInterceptor {
 							dataEvent = event.clone({body: {message: body.message, status: 200, type: "alert-success"}});
 						}
 					} else {
-						console.log("hello");
 						// extract a failing message when the API fails
 						dataEvent = event.clone({body: {message: body.message, status: body.status, type: "alert-danger"}});
 					}
