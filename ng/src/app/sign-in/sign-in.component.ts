@@ -11,7 +11,18 @@ import {SignIn} from "../shared/interfaces/sign.in";
 
 @Component({
 	templateUrl: "./sign-in.component.html",
-	selector: "sign-in"
+	selector: "sign-in",
+	styles: [`
+		#SignInBox {
+			background: #fff;
+			border-radius: 2px;
+			margin: 1rem;
+			box-shadow: 6px 6px 20px rgba(0,0,0,0.1), 6px 6px 20px rgba(0,0,0,0.1);
+		}
+		.btn:hover {
+			box-shadow: 0 3px 15px rgba(193,46,60,0.6), 0 3px 15px rgba(193,46,60,0.6);
+		}
+	`]
 })
 
 export class SignInComponent implements OnInit {
