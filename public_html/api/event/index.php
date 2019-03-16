@@ -114,7 +114,7 @@ try {
 			throw(new \InvalidArgumentException ("No Content Found.", 405));
 		}
 
-//TODO not sure if the times are handled right here...
+
 		// make sure Event end date is accurate
 		if(empty($requestObject->eventEndTime) === true) {
 			throw (new InvalidArgumentException("Event end time must be inserted.", 405));
@@ -125,7 +125,7 @@ try {
 			$requestObject->eventEndTime = $eventEndTime;
 		}
 
-		// make sure Event staert date is accurate
+		// make sure Event start date is accurate
 		if(empty($requestObject->eventStartTime) === true) {
 			throw (new InvalidArgumentException("Event start time must be inserted.", 405));
 		} $eventStartTime = DateTime::createFromFormat("U.u", $requestObject->eventStartTime / 1000);
@@ -226,7 +226,7 @@ try {
 		if($event === null) {
 			throw(new RuntimeException("Event does not exist", 404));
 		}
-//TODO do we need the tostrings?
+
 		//enforce the user is signed in and only trying to edit their own event
 		if(empty($_SESSION["admin"]) === true || $_SESSION["admin"]->getAdminId()->toString() !== $event->getEventAdminId()->toString()) {
 			throw(new \InvalidArgumentException("You are not allowed to delete this event", 403));

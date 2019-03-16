@@ -3,14 +3,15 @@ import {HttpClientModule} from "@angular/common/http";
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import {ReactiveFormsModule} from "@angular/forms";
-import {allAppComponents, appRoutingProviders, providers, routing} from "./app.routes.module"
+import {allAppComponents, appRoutingProviders, routing} from "./app.routes.module"
 import { AppComponent } from './app.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
-  imports:      [ BrowserModule, FormsModule, HttpClientModule, routing, ReactiveFormsModule],
+  imports:      [ BrowserModule, FormsModule, HttpClientModule, routing, ReactiveFormsModule, NgbModule],
   declarations: [ ...allAppComponents, AppComponent],
   bootstrap:    [ AppComponent ],
-  providers:    [providers, appRoutingProviders]
+  providers:    [ appRoutingProviders]
 })
 export class AppModule { }

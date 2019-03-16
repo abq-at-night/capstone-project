@@ -9,7 +9,6 @@ import {SignInComponent} from "./sign-in/sign-in.component";
 import {SignInService} from "./shared/services/sign-in.service";
 import {AuthService} from "./shared/services/auth.service";
 import {SessionService} from "./shared/services/session.service";
-import {APP_BASE_HREF} from "@angular/common";
 import {CardComponent} from "./card/card.component";
 import {EventService} from "./shared/services/event.service";
 
@@ -26,14 +25,6 @@ export const routes: Routes = [
 export const allAppComponents = [AppComponent, SplashComponent, SignInComponent, CardComponent];
 
 
-export const providers: any[] =[
-	{provide: APP_BASE_HREF, useValue: window["_base_href"]},
-	{provide: HTTP_INTERCEPTORS, useClass: DeepDiveInterceptor, multi: true}
-
-];
-
-const services: any[] = [AuthService, SignInService, SessionService, EventService];
-
-export const appRoutingProviders: any[] = [providers, services];
+export const appRoutingProviders: any[] = [AuthService, SignInService, SessionService, EventService, {provide: HTTP_INTERCEPTORS, useClass: DeepDiveInterceptor, multi: true}];
 
 export const routing = RouterModule.forRoot(routes);

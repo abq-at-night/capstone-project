@@ -26,12 +26,13 @@ export class DeepDiveInterceptor implements HttpInterceptor {
 	 **/
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		// hand off to the next interceptor
+		console.log("1");
 		return(next.handle(request).pipe(map((event: HttpEvent<any>) => {
 			// if this is an HTTP Response, from Angular...
 			if(event instanceof HttpResponse && event.body !== null) {
 				// create an event to return (by default, return the same event)
 				let dataEvent = event;
-
+console.log(event);
 				// if the API is successful...
 				if(event.status === 200) {
 					// extract the JWT Header and put it in local storage
