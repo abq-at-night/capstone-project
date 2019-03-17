@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Status} from "../shared/interfaces/status";
 import {Event} from "../shared/interfaces/event";
 import {EventService} from "../shared/services/event.service";
+import {faAngleDoubleDown} from "@fortawesome/free-solid-svg-icons/faAngleDoubleDown";
 
 
 @Component({
@@ -48,7 +49,7 @@ export class CardComponent implements OnInit {
 	events: any[] = [];
 	status: Status = null;
 	public isCollapsed = true;
-	arrowdown = a;
+	faangledoubledown = faAngleDoubleDown;
 
 	constructor(
 		private router: Router,
