@@ -5,6 +5,7 @@ import {Status} from "../shared/interfaces/status";
 import {Event} from "../shared/interfaces/event";
 import {EventService} from "../shared/services/event.service";
 
+
 @Component({
 	templateUrl: "card.component.html",
 	selector: "card",
@@ -25,7 +26,16 @@ import {EventService} from "../shared/services/event.service";
 			color: red;
 		}
 
-		#Buttons  {
+		.btn {
+			 font-weight: 700;
+			 color: red;
+			 background-color: transparent;
+			 box-shadow: none;
+		 }
+
+		.btn:hover {
+			text-shadow: 0px 0px 1px rgba(255, 158, 158, .9);
+			color: red;
 			background-color: transparent;
 			box-shadow: none;
 		}
@@ -38,6 +48,7 @@ export class CardComponent implements OnInit {
 	events: any[] = [];
 	status: Status = null;
 	public isCollapsed = true;
+	arrowdown = a;
 
 	constructor(
 		private router: Router,
