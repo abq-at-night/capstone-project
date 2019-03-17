@@ -7,6 +7,7 @@ require_once ("/etc/apache2/capstone-mysql/Secrets.php");
  *
  * @param string $address venue address
  * @throws \InvalidArgumentException if $address is not a string or is insecure
+ * @return stdClass $reply
  **/
 
 function getLatLongByAddress ($address) : \stdClass {
