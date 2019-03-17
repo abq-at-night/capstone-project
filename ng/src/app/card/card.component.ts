@@ -28,10 +28,12 @@ import {faAngleDoubleDown} from "@fortawesome/free-solid-svg-icons/faAngleDouble
 		}
 
 		.btn {
-			 font-weight: 700;
-			 color: red;
-			 background-color: transparent;
-			 box-shadow: none;
+			font-weight: 700;
+			display: flex;
+			justify-content: center;
+			color: red;
+			background-color: transparent;
+			box-shadow: none;
 		 }
 
 		.btn:hover {
@@ -39,6 +41,14 @@ import {faAngleDoubleDown} from "@fortawesome/free-solid-svg-icons/faAngleDouble
 			color: red;
 			background-color: transparent;
 			box-shadow: none;
+		}
+		
+		#Link {
+			color: red;
+		}
+		
+		#Link2 {
+			color: red;
 		}
 		
 	`]

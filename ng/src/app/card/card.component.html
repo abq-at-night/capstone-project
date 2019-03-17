@@ -1,46 +1,3 @@
-<!--
-<div class="container">
-	<div id="accordion">
-		<div class="card mx-auto my-4 shadow" *ngFor="let event of events">
-			<div class="row justify-content-center">
-				<div class="col-4 ml-3 my-auto py-3 pr-0">
-					<img [src]=event.eventImage class="card-img rounded" alt="Bonfire">
-				</div>
-				<div class="col">
-					<div class="card-body pl-0">
-						<h5 class="card-title">{{event.eventTitle}}</h5>
-						<p class="card-text venue my-0"><strong>{{event.eventVenue}}</strong></p>
-						<p class="card-text my-0">{{event.eventStartTime | date :'longDate'}}</p>
-						<p class="card-text my-0">{{event.eventStartTime | date : 'shortTime'}}
-							- {{event.eventEndTime | date : 'shortTime'}}</p>
-						<p class="card-text my-0">{{event.eventPrice}}</p>
-					</div>
-				</div>
-			</div>
-			<ngb-accordion #acc="ngbAccordion">
-				<ngb-panel style="border: none"><span><button class="btn px-0" data-toggle="collapse"
-					data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fas fa-info-circle"></i></button></span>
-					<ng-template>
-						<div class="row-7 justify-content-center" style="border: none">
-							<div class="col mt-0" style="border: none">
-								<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-									<div class="card-body pt-0" *ngFor="let event of events" style="border: none">
-										<hr class="pb-2">
-										<p>{{event.eventDescription}}</p>
-										<a [href]="event.eventVenueWebsite">{{event.eventVenueWebsite}}</a> <br>
-										<a [href]="event.eventPromoterWebsite">{{event.eventPromoterWebsite}}</a> <br>
-										&lt;!&ndash;<span class="badge badge-pill badge-danger mt-2">{{eventTag.eventTagTagId}}</span>&ndash;&gt;
-									</div>
-								</div>
-							</div>
-						</div>
-					</ng-template>
-				</ngb-panel>
-			</ngb-accordion>
-		</div>
-	</div>
-</div>-->
-
 <div class="container" >
 	<div class="jumbotron hoverable border-rounded shadow my-4 p-2" id="Jumbotron" *ngFor="let event of events">
 		<div class="row">
@@ -58,38 +15,26 @@
 				<p class="card-text my-0">{{event.eventPrice}}</p>
 			</div>
 		</div>
-		<!--<div>
-			<ngb-panel style="border: none"><span><button class="btn px-0" data-toggle="collapse"
-				data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fas fa-info-circle"></i></button></span>
-				<ng-template>
-					<div class="row-7 justify-content-center" style="border: none">
-						<div class="col mt-0" style="border: none">
-							<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-								<div class="card-body pt-0" *ngFor="let event of events" style="border: none">
-									<hr class="pb-2">
-									<p>{{event.eventDescription}}</p>
-									<a [href]="event.eventVenueWebsite">{{event.eventVenueWebsite}}</a> <br>
-									<a [href]="event.eventPromoterWebsite">{{event.eventPromoterWebsite}}</a> <br>
-									&lt;!&ndash;<span class="badge badge-pill badge-danger mt-2">{{eventTag.eventTagTagId}}</span>&ndash;&gt;
-								</div>
-							</div>
+		<div>
+			<div class="row">
+				<div class="col mx- auto">
+					<button type="button" class="btn btn-primary-outline py-0 mx-auto" (click)="isCollapsed = !isCollapsed"
+							[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" style="border: none">
+						<fa-icon [icon]="faangledoubledown"></fa-icon>
+					</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<div id="collapseExample" [ngbCollapse]="isCollapsed">
+						<div class="card-body pt-0" style="border: none">
+							<hr class="pb-2">
+							<p>{{event.eventDescription}}</p>
+							<a id="Link" [href]="event.eventVenueWebsite">{{event.eventVenueWebsite}}</a> <br>
+							<a id="Link2" [href]="event.eventPromoterWebsite">{{event.eventPromoterWebsite}}</a> <br>
+							<!--<span class="badge badge-pill badge-danger mt-2">{{eventTag.eventTagTagId}}</span>-->
 						</div>
 					</div>
-				</ng-template>
-			</ngb-panel>
-		</div>-->
-		<div>
-			<button type="button" class="btn btn-primary-outline pt-0 ml-1" (click)="isCollapsed = !isCollapsed"
-					[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" style="border: none" id="Button">
-				<fa-icon [icon]="faangledoubledown"></fa-icon>
-			</button>
-			<div id="collapseExample" [ngbCollapse]="isCollapsed">
-				<div class="card-body pt-0" style="border: none">
-					<hr class="pb-2">
-					<p>{{event.eventDescription}}</p>
-					<a [href]="event.eventVenueWebsite">{{event.eventVenueWebsite}}</a> <br>
-					<a [href]="event.eventPromoterWebsite">{{event.eventPromoterWebsite}}</a> <br>
-					<!--<span class="badge badge-pill badge-danger mt-2">{{eventTag.eventTagTagId}}</span>-->
 				</div>
 			</div>
 		</div>
