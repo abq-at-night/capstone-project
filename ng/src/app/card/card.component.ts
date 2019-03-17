@@ -24,6 +24,11 @@ import {EventService} from "../shared/services/event.service";
 		#Venue {
 			color: red;
 		}
+
+		#Buttons  {
+			background-color: transparent;
+			box-shadow: none;
+		}
 		
 	`]
 })
