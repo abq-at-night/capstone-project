@@ -10,7 +10,7 @@ require_once ("/etc/apache2/capstone-mysql/Secrets.php");
  * @return stdClass $reply
  **/
 
-function getLatLongByAddress ($address) : \stdClass {
+function getLatLngByAddress ($address) : \stdClass {
 	if (empty($address) === true)  {
 		throw(new \InvalidArgumentException("The address field is empty or insecure"));
 	}
@@ -27,6 +27,32 @@ function getLatLongByAddress ($address) : \stdClass {
 	$reply = new stdClass();
 	$reply->lat = $lat;
 	$reply->long = $long;
+
+	return $reply;
+}
+
+/**
+ * Function to get the address by the latitude and longitude
+ *
+ * @param float $lat event address
+ * @param float $lng event address
+ * @throws \InvalidArgumentException if $lat or $lng is not a float or insecure
+ * @return stdClass $reply
+ */
+function getAddressByLatLng($lat, $lng) : \stdClass {
+	if(empty($lat)or empty($lng) === true) {
+		throw(new \InvalidArgumentException("The address content is empty."));
+	}
+
+	$url = "https://maps.googleapis.com/maps/api/geocode/json";
+	$secrets =  new \Secrets("/etc/apache2/capstone-mysql/cohort23/atnight.ini");
+	$api = $secrets->getSecret("google");
+
+	$json = file_get_contents($url . "?latlng=" . $lat . "," . $lng  . "&key=" . $api);
+	$jsonObject = json_decode($json);
+	$address = $jsonObject->results[0]->formatted_address;
+	$reply = new \stdClass();
+	$reply->formatted_address = $address;
 
 	return $reply;
 }

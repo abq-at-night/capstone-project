@@ -160,7 +160,7 @@ try {
 			$requestObject->eventVenueWebsite = null;
 		}
 
-		$point = getLatLongByAddress($requestObject->eventAddress);
+		$point = getLatLngByAddress($requestObject->eventAddress);
 
 		//perform the actual put or post
 		if($method === "PUT") {
