@@ -79,9 +79,9 @@
 			</ngb-panel>
 		</div>-->
 		<div>
-			<button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
-					[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
-				Toggle
+			<button type="button" class="btn btn-outline-danger ml-3" (click)="isCollapsed = !isCollapsed"
+					[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" style="border: none">
+				More info
 			</button>
 			<div id="collapseExample" [ngbCollapse]="isCollapsed">
 				<div class="card-body pt-0" style="border: none">
@@ -89,7 +89,7 @@
 					<p>{{event.eventDescription}}</p>
 					<a [href]="event.eventVenueWebsite">{{event.eventVenueWebsite}}</a> <br>
 					<a [href]="event.eventPromoterWebsite">{{event.eventPromoterWebsite}}</a> <br>
-					<span class="badge badge-pill badge-danger mt-2">{{eventTag.eventTagTagId}}</span>
+					<!--<span class="badge badge-pill badge-danger mt-2">{{eventTag.eventTagTagId}}</span>-->
 				</div>
 			</div>
 		</div>
