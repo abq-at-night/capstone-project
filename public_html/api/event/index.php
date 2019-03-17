@@ -7,9 +7,7 @@ require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once("/etc/apache2/capstone-mysql/Secrets.php");
 
 use AbqAtNight\CapstoneProject\{
-	Event,
-	// we only use the Admin class for testing purposes
-	Admin
+	Event, Tag
 };
 
 
@@ -63,11 +61,17 @@ try {
 			$reply->data = Event::getEventByEventId($pdo, $id);
 
 		} else if(empty($eventAdminId) === false) {
-			$reply->data = Event::getEventByEventAdminId($pdo, $eventAdminId)->toArray();
+			$events = Event::getEventByEventAdminId($pdo, $eventAdminId);
+			$storage = new AbqAtNight\CapstoneProject\JsonObjectStorage();
+			foreach($events as $event){
+				$tags = Tag::getTagByTagType($pdo, $event->event->getEventId())->toArray();
+				$storage->attach($event, $tags);
+			}
+			$reply->data = $storage;
 
 		} else if(empty($eventTitle) === false) {
 			$reply->data = Event::getEventByEventTitle($pdo, $eventTitle)->toArray();
-//TODO is this right??
+
 		} else if(empty($eventEndTime) === false && empty($eventStartTime) === false) {
 			$reply->data = Event::getEventByEventTime($pdo, $eventEndTime, $eventStartTime)->toArray();
 

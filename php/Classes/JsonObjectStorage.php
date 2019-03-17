@@ -1,5 +1,5 @@
 <?php
-namespace FamConn\FamilyConnect;
+namespace AbqAtNight\CapstoneProject;
 require_once("autoload.php");
 
 /**
