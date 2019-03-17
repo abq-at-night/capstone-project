@@ -4,6 +4,7 @@ require_once dirname(__DIR__, 3) . "/php/Classes/autoload.php";
 require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
+require_once dirname(__DIR__, 3) . "/php/lib/geocode.php";
 require_once("/etc/apache2/capstone-mysql/Secrets.php");
 
 use AbqAtNight\CapstoneProject\{
@@ -159,6 +160,8 @@ try {
 			$requestObject->eventVenueWebsite = null;
 		}
 
+		$point = getLatLongByAddress($requestObject->eventAddress);
+
 		//perform the actual put or post
 		if($method === "PUT") {
 
@@ -178,8 +181,8 @@ try {
 			$event->setEventDescription($requestObject->eventDescription);
 			$event->setEventEndTime($requestObject->eventEndTime);
 			$event->setEventImage($requestObject->eventImage);
-			$event->setEventLat($requestObject->eventLat);
-			$event->setEventLng($requestObject->eventLng);
+			$event->setEventLat($point->lat);
+			$event->setEventLng($point->lng);
 			$event->setEventPrice($requestObject->eventPrice);
 			$event->setEventPromoterWebsite($requestObject->eventPromoterWebsite);
 			$event->setEventStartTime($requestObject->eventStartTime);
@@ -206,8 +209,8 @@ try {
 				$requestObject->eventDescription,
 				$requestObject->eventEndTime,
 				$requestObject->eventImage,
-				$requestObject->eventLat,
-				$requestObject->eventLng,
+				$point->lat,
+				$point->lng,
 				$requestObject->eventPrice,
 				$requestObject->eventPromoterWebsite,
 				$requestObject->eventStartTime,
