@@ -41,55 +41,57 @@
 	</div>
 </div>-->
 
-<div class="container border-rounded shadow" style="background: #fff;
-  border-radius: 2px;
-  display: inline-block;
-  margin: 1rem;
-  position: relative;
-box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
-<!-- News jumbotron -->
-<div class="jumbotron text-center hoverable p-4">
-
-	<!-- Grid row -->
-	<div class="row">
-
-		<!-- Grid column -->
-		<div class="col-md-4 offset-md-1 mx-3 my-3">
-
-			<!-- Featured image -->
-			<div class="view overlay waves-light" mdbWavesEffect>
-				<img src="https://mdbootstrap.com/img/Photos/Others/laptop-sm.jpg" class="img-fluid" alt="Sample image for first version of blog listing">
-				<a>
-					<div class="mask rgba-white-slight"></div>
-				</a>
+<div class="container" >
+	<div class="jumbotron hoverable border-rounded shadow my-4 p-2" id="Jumbotron" *ngFor="let event of events">
+		<div class="row">
+			<div class="col-3 my-auto">
+				<div class="view overlay waves-light" mdbWavesEffect>
+					<img [src]=event.eventImage class="card-img rounded m-3" id="Img" alt="Bonfire">
+				</div>
 			</div>
-
+			<div class="col text-md-left ml-0 mt-3">
+				<h5 class="card-title my-1">{{event.eventTitle}}</h5>
+				<p class="card-text venue my-0" id="Venue"><strong>{{event.eventVenue}}</strong></p>
+				<p class="card-text my-0">{{event.eventStartTime | date :'longDate'}}</p>
+				<p class="card-text my-0">{{event.eventStartTime | date : 'shortTime'}}
+					- {{event.eventEndTime | date : 'shortTime'}}</p>
+				<p class="card-text my-0">{{event.eventPrice}}</p>
+			</div>
 		</div>
-		<!-- Grid column -->
-
-		<!-- Grid column -->
-		<div class="col-md-7 text-md-left ml-3 mt-3">
-
-			<!-- Excerpt -->
-			<a href="#!" class="green-text">
-				<h6 class="h6 pb-1"><i class="fas fa-desktop pr-1"></i> Work</h6>
-			</a>
-
-			<h4 class="h4 mb-4">This is title of the news</h4>
-
-			<p class="font-weight-normal">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque, totam
-				rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae
-				dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur.</p>
-			<p class="font-weight-normal">by <a><strong>Carine Fox</strong></a>, 19/08/2016</p>
-
-			<a mdbBtn color="success" mdbWavesEffect>Read more</a>
-
+		<!--<div>
+			<ngb-panel style="border: none"><span><button class="btn px-0" data-toggle="collapse"
+				data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne"><i class="fas fa-info-circle"></i></button></span>
+				<ng-template>
+					<div class="row-7 justify-content-center" style="border: none">
+						<div class="col mt-0" style="border: none">
+							<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+								<div class="card-body pt-0" *ngFor="let event of events" style="border: none">
+									<hr class="pb-2">
+									<p>{{event.eventDescription}}</p>
+									<a [href]="event.eventVenueWebsite">{{event.eventVenueWebsite}}</a> <br>
+									<a [href]="event.eventPromoterWebsite">{{event.eventPromoterWebsite}}</a> <br>
+									&lt;!&ndash;<span class="badge badge-pill badge-danger mt-2">{{eventTag.eventTagTagId}}</span>&ndash;&gt;
+								</div>
+							</div>
+						</div>
+					</div>
+				</ng-template>
+			</ngb-panel>
+		</div>-->
+		<div>
+			<button type="button" class="btn btn-outline-primary" (click)="isCollapsed = !isCollapsed"
+					[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample">
+				Toggle
+			</button>
+			<div id="collapseExample" [ngbCollapse]="isCollapsed">
+				<div class="card-body pt-0" style="border: none">
+					<hr class="pb-2">
+					<p>{{event.eventDescription}}</p>
+					<a [href]="event.eventVenueWebsite">{{event.eventVenueWebsite}}</a> <br>
+					<a [href]="event.eventPromoterWebsite">{{event.eventPromoterWebsite}}</a> <br>
+					<span class="badge badge-pill badge-danger mt-2">{{eventTag.eventTagTagId}}</span>
+				</div>
+			</div>
 		</div>
-		<!-- Grid column -->
-
 	</div>
-	<!-- Grid row -->
-
-</div>
-<!-- News jumbotron -->
 </div>
