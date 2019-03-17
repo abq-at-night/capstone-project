@@ -123,7 +123,7 @@ try {
 		// make sure Event end date is accurate
 		if(empty($requestObject->eventEndTime) === true) {
 			throw (new InvalidArgumentException("Event end time must be inserted.", 405));
-		} $eventEndTime = DateTime::createFromFormat("U.u", $requestObject->eventStartTime / 1000);
+		} $eventEndTime = DateTime::createFromFormat("U.u", $requestObject->eventEndTime / 1000);
 		if($eventEndTime === false) {
 			throw(new RuntimeException("Invalid event date", 400));
 		} else {
