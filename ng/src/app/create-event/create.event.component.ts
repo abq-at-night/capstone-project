@@ -56,3 +56,36 @@ export class CreateEventComponent implements OnInit {
 		});
 	}
 }
+
+const app = angular.module("test", []);
+
+const EditTagDialogModal = function() {
+	this.visible = false;
+};
+EditTagDialogModal.prototype.open = function(tag) {
+	this.tag = tag;
+	this. visible = true;
+};
+EditTagDialogModal.prototype.close = function() {
+	this.visible = true;
+}
+
+app.controller("ctrl", ["scope", function($scope) {
+	$scope.editTag = new EditTagDialogModal();
+	$scope.add = function() {
+		$scope.tags.push({tag: "New Tag"});
+	};
+}]);
+
+app.directive("editTagDialog", [function() {
+	return {
+		restrict: "E",
+		scope: {
+			model: "=",
+		},
+		link: function(scope, element, attributes) {
+			scope.$watc("model.visible", fun)
+		}
+	}
+}])
+
