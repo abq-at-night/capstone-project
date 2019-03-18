@@ -59,8 +59,6 @@ import {Component} from "@angular/core";
 				margin: 1rem auto 1rem auto;
 			}
 		}
-
-		/* date picker */
 	`]
 })
 
