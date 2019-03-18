@@ -47,7 +47,14 @@ export class CreateEventComponent implements OnInit {
 	}
 
 	eventEntry() : void {
-		let newEvent : Event = {eventId:null, eventAdminId:null, eventAgeRequirement: this.createEventForm.value.eventAgeRequirement, eventDescription: this.createEventForm.value.eventDescription, eventEndTime: this.createEventForm.value.eventEndTime, eventImage: this.createEventForm.value.eventImage, eventLat: null, eventLng: null, eventPrice: this.createEventForm.value.eventPrice, eventPromoterWebsite: this.createEventForm.value.eventPromoterWebsite, eventStartTime: this.createEventForm.value.eventStartTime, eventTitle: this.createEventForm.value.eventTitle, eventVenue: this.createEventForm.value.eventVenue, eventVenueWebsite: this.createEventForm.value.eventVenueWebsite, eventAddress: this.createEventForm.value.eventAddress};
+
+		let eventEndTime = new Date(this.createEventForm.value.eventEndTime);
+		let eventEndTimeStamp = eventEndTime.getTime();
+		console.log(eventEndTimeStamp);
+		let eventStartTime = new Date(this.createEventForm.value.eventStartTime);
+		let eventStartTimeStamp = eventStartTime.getTime();
+		console.log(eventStartTimeStamp);
+		let newEvent : Event = {eventId:null, eventAdminId:null, eventAgeRequirement: this.createEventForm.value.eventAgeRequirement, eventDescription: this.createEventForm.value.eventDescription, eventEndTime: eventEndTimeStamp, eventImage: this.createEventForm.value.eventImage, eventLat: null, eventLng: null, eventPrice: this.createEventForm.value.eventPrice, eventPromoterWebsite: this.createEventForm.value.eventPromoterWebsite, eventStartTime: eventStartTimeStamp, eventTitle: this.createEventForm.value.eventTitle, eventVenue: this.createEventForm.value.eventVenue, eventVenueWebsite: this.createEventForm.value.eventVenueWebsite, eventAddress: this.createEventForm.value.eventAddress};
 		this.eventService.createEvent(newEvent)
 			.subscribe(status => {
 				this.status = status;
@@ -56,6 +63,7 @@ export class CreateEventComponent implements OnInit {
 				}
 		});
 	}
+
 }
 
 
