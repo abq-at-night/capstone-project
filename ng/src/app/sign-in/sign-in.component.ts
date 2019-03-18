@@ -57,9 +57,8 @@ export class SignInComponent implements OnInit {
 				this.status = status;
 
 				if (this.status.status === 200) {
-					this.sessionService.setSession();
+					window.localStorage.removeItem("jwt-token");
 					this.signInForm.reset();
-					location.reload();
 
 					this.router.navigate(["/signed-in-homeview"]);
 				}

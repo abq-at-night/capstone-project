@@ -31,7 +31,7 @@ export class CreateEventComponent implements OnInit {
 	){}
 
 	ngOnInit(): void {
-		this.createEventForm = this. formBuilder.group({
+		this.createEventForm = this.formBuilder.group({
 			eventAgeRequirement: ["", [Validators.maxLength(128)]],
 			eventAddress: ["", [Validators.maxLength(255), Validators.required]],
 			eventDescription: ["", [Validators.maxLength(500)]],
@@ -47,16 +47,18 @@ export class CreateEventComponent implements OnInit {
 	}
 
 	eventEntry() : void {
-		let newEvent : Event = {eventId:null, eventAdminId:null, eventAgeRequirement: this.createEventForm.value.eventAgeRequirement, eventDescription: this.createEventForm.value.eventDescription, eventEndTime: this.createEventForm.value.eventEndTime, eventImage: this.createEventForm.value.eventImage, eventLat: this.createEventForm.value.eventAddress, eventLng: this.createEventForm.value.eventAddress, eventPrice: this.createEventForm.value.eventPrice, eventPromoterWebsite: this.createEventForm.value.eventPromoterWebsite, eventStartTime: this.createEventForm.value.eventStartTime, eventTitle: this.createEventForm.value.eventTitle, eventVenue: this.createEventForm.value.eventVenue, eventVenueWebsite: this.createEventForm.value.eventVenueWebsite};
+		let newEvent : Event = {eventId:null, eventAdminId:null, eventAgeRequirement: this.createEventForm.value.eventAgeRequirement, eventDescription: this.createEventForm.value.eventDescription, eventEndTime: this.createEventForm.value.eventEndTime, eventImage: this.createEventForm.value.eventImage, eventLat: null, eventLng: null, eventPrice: this.createEventForm.value.eventPrice, eventPromoterWebsite: this.createEventForm.value.eventPromoterWebsite, eventStartTime: this.createEventForm.value.eventStartTime, eventTitle: this.createEventForm.value.eventTitle, eventVenue: this.createEventForm.value.eventVenue, eventVenueWebsite: this.createEventForm.value.eventVenueWebsite, eventAddress: this.createEventForm.value.eventAddress};
 		this.eventService.createEvent(newEvent)
 			.subscribe(status => {
 				this.status = status;
-				if(status.status === 200) {
-					alert("Your event was created successfully!");
+				if(this.status.status === 200) {
+					this.createEventForm.reset();
 				}
 		});
 	}
 }
+
+
 
 
 

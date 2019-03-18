@@ -12,5 +12,6 @@ export interface Event {
 	eventTitle: string,
 	eventPromoterWebsite: string,
 	eventVenue: string,
-	eventVenueWebsite: string
+	eventVenueWebsite: string,
+	eventAddress: string
 }
