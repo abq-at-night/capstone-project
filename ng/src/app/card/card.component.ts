@@ -12,11 +12,21 @@ import {faAngleDoubleDown} from "@fortawesome/free-solid-svg-icons/faAngleDouble
 	selector: "card",
 
 	styles: [`
-		#Jumbotron {
+		
+		#Jumbotron:hover {
 			background: #fff;
 			max-width: 600px;
 			border-radius: 2px;
-			box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+			box-shadow: 0 4px 9px rgba(0, 0, 0, 0.16), 0 4px 8px rgba(0, 0, 0, 0.23);
+		}
+		
+		#Jumbotron {
+			margin-left: auto;
+			margin-right: auto;
+			background: #fff;
+			max-width: 600px;
+			border-radius: 2px;
+			box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.23);
 		}
 			
 		#Img {
@@ -28,6 +38,7 @@ import {faAngleDoubleDown} from "@fortawesome/free-solid-svg-icons/faAngleDouble
 		}
 
 		.btn {
+			font-size: 160%;
 			font-weight: 700;
 			display: flex;
 			justify-content: center;
