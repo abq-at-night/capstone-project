@@ -103,14 +103,6 @@ try {
 			throw(new \InvalidArgumentException ("No Content Found.", 405));
 		}
 
-		if(empty($requestObject->eventLat) === true) {
-			throw(new \InvalidArgumentException ("No Content Found.", 405));
-		}
-
-		if(empty($requestObject->eventLng) === true) {
-			throw(new \InvalidArgumentException ("No Content Found.", 405));
-		}
-
 		if(empty($requestObject->eventStartTime) === true) {
 			throw(new \InvalidArgumentException ("No Content Found.", 405));
 		}
