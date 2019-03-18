@@ -30,19 +30,19 @@ margin-bottom: 3rem;
 @media (max-width: 459px) {
 	#searchbar .form-control
 	{
-		margin-right: auto;
-		margin-left: auto;
+		margin-top: 1rem;
 		margin-bottom: 1rem;
 	}
 }
 
-@media (max-width: 459px) {
+/*@media (max-width: 459px) {
 	#searchbar button
 	{
-		margin-right: auto;
+		display: block;
 		margin-left: auto;
+
 	}
-}
+}*/
 
 @media (max-width: 459px) {
 	.navbar img
@@ -51,3 +51,5 @@ margin-bottom: 3rem;
 		margin: 1rem auto 1rem auto;
 	}
 }
+
+/* date picker */
