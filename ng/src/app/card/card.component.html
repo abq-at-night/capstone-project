@@ -1,5 +1,6 @@
 <div class="container" >
 	<div class="jumbotron hoverable border-rounded shadow my-4 p-2" id="Jumbotron" *ngFor="let event of events">
+		<ng-container *ngIf="true; let isCollapsed" >
 		<div class="row">
 			<div class="col-3 my-auto">
 				<div class="view overlay waves-light" mdbWavesEffect>
@@ -17,9 +18,9 @@
 		</div>
 		<div>
 			<div class="row">
-				<div class="col mx- auto">
-					<button type="button" class="btn btn-primary-outline py-0 mx-auto" (click)="isCollapsed = !isCollapsed"
-							[attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" style="border: none">
+				<div class="col">
+					<button type="button" class="btn btn-primary-outline my-0 mx-auto" (click)="isCollapsed = !isCollapsed"
+							[attr.aria-expanded]="!isCollapsed" aria-controls="#collapseExample" style="border: none">
 						<fa-icon [icon]="faangledoubledown"></fa-icon>
 					</button>
 				</div>
@@ -27,16 +28,18 @@
 			<div class="row">
 				<div class="col">
 					<div id="collapseExample" [ngbCollapse]="isCollapsed">
-						<div class="card-body pt-0" style="border: none">
-							<hr class="pb-2">
-							<p>{{event.eventDescription}}</p>
+						<div class="card-body pb-2 pt-1" style="border: none">
+							<hr class="my-2">
+							<p class="mt-0 mb-1">{{event.eventDescription}}</p>
 							<a id="Link" [href]="event.eventVenueWebsite">{{event.eventVenueWebsite}}</a> <br>
 							<a id="Link2" [href]="event.eventPromoterWebsite">{{event.eventPromoterWebsite}}</a> <br>
+							<span class="badge badge-pill badge-danger">Live Music</span>
 							<!--<span class="badge badge-pill badge-danger mt-2">{{eventTag.eventTagTagId}}</span>-->
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		</ng-container>
 	</div>
 </div>

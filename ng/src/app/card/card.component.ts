@@ -58,7 +58,6 @@ export class CardComponent implements OnInit {
 
 	events: any[] = [];
 	status: Status = null;
-	public isCollapsed = true;
 	faangledoubledown = faAngleDoubleDown;
 
 	constructor(
