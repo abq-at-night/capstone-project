@@ -174,7 +174,7 @@ try {
 			$event->setEventEndTime($requestObject->eventEndTime);
 			$event->setEventImage($requestObject->eventImage);
 			$event->setEventLat($point->lat);
-			$event->setEventLng($point->lng);
+			$event->setEventLng($point->long);
 			$event->setEventPrice($requestObject->eventPrice);
 			$event->setEventPromoterWebsite($requestObject->eventPromoterWebsite);
 			$event->setEventStartTime($requestObject->eventStartTime);
@@ -202,7 +202,7 @@ try {
 				$requestObject->eventEndTime,
 				$requestObject->eventImage,
 				$point->lat,
-				$point->lng,
+				$point->long,
 				$requestObject->eventPrice,
 				$requestObject->eventPromoterWebsite,
 				$requestObject->eventStartTime,

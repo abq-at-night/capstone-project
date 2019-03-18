@@ -16,11 +16,12 @@ function getLatLngByAddress ($address) : \stdClass {
 	}
 	$address = filter_var($address, FILTER_SANITIZE_STRING, FILTER_FLAG_NO_ENCODE_QUOTES);
 
+
 	$url = "https://maps.googleapis.com/maps/api/geocode/json";
 	$secrets =  new \Secrets("/etc/apache2/capstone-mysql/cohort23/atnight.ini");
 	$api = $secrets->getSecret("google");
 
-	$json = file_get_contents($url . "?address=" . urlencode($address) . "&key=" . $api);
+	$json = file_get_contents($url . "?address=" . urlencode($address) . "&key=" . $api->apiKey);
 	$jsonObject = json_decode($json);
 	$lat = $jsonObject->results[0]->geometry->location->lat;
 	$long = $jsonObject->results[0]->geometry->location->lng;
@@ -48,7 +49,7 @@ function getAddressByLatLng($lat, $lng) : \stdClass {
 	$secrets =  new \Secrets("/etc/apache2/capstone-mysql/cohort23/atnight.ini");
 	$api = $secrets->getSecret("google");
 
-	$json = file_get_contents($url . "?latlng=" . $lat . "," . $lng  . "&key=" . $api);
+	$json = file_get_contents($url . "?latlng=" . $lat . "," . $lng  . "&key=" . $api->apiKey);
 	$jsonObject = json_decode($json);
 	$address = $jsonObject->results[0]->formatted_address;
 	$reply = new \stdClass();
