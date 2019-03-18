@@ -12,6 +12,7 @@ import {SessionService} from "./shared/services/session.service";
 import {CardComponent} from "./card/card.component";
 import {EventService} from "./shared/services/event.service";
 import {CreateEventComponent} from "./create-event/create.event.component";
+import {NavbarComponent} from "./shared/components/nav-bar/navbar.component";
 
 
 
@@ -20,11 +21,12 @@ export const routes: Routes = [
 	{path: "", component: SplashComponent},
 	{path: "sign-in", component: SignInComponent},
 	{path: "event", component: CardComponent},
-	{path: "create-event-form", component: CreateEventComponent}
+	{path: "create-event-form", component: CreateEventComponent},
+	{path: "navbar", component: NavbarComponent}
 
 ];
 
-export const allAppComponents = [AppComponent, SplashComponent, SignInComponent, CardComponent, CreateEventComponent];
+export const allAppComponents = [AppComponent, SplashComponent, SignInComponent, CardComponent, CreateEventComponent, NavbarComponent];
 
 
 export const appRoutingProviders: any[] = [AuthService, SignInService, SessionService, EventService, {provide: HTTP_INTERCEPTORS, useClass: DeepDiveInterceptor, multi: true}];

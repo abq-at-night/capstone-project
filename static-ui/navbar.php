@@ -15,7 +15,7 @@
 			</div>
 			<!--input-->
 			<div class="col">
-				<input class="form-control d-inline-block" type="date" placeholder="Search" aria-label="Search">
+				<input class="form-control d-inline-block" type="date" aria-label="Search">
 			</div>
 			<!--button-->
 			<div class="col-sm-2">
