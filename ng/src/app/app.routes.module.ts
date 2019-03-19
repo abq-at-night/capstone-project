@@ -13,6 +13,7 @@ import {CardComponent} from "./card/card.component";
 import {EventService} from "./shared/services/event.service";
 import {CreateEventComponent} from "./create-event/create.event.component";
 import {NavbarComponent} from "./shared/components/nav-bar/navbar.component";
+import {DatetimePickerComponent} from "./datetime-picker/datetime-picker.component";
 
 
 
@@ -26,7 +27,7 @@ export const routes: Routes = [
 
 ];
 
-export const allAppComponents = [AppComponent, SplashComponent, SignInComponent, CardComponent, CreateEventComponent, NavbarComponent];
+export const allAppComponents = [AppComponent, SplashComponent, SignInComponent, CardComponent, CreateEventComponent, NavbarComponent, DatetimePickerComponent];
 
 
 export const appRoutingProviders: any[] = [AuthService, SignInService, SessionService, EventService, {provide: HTTP_INTERCEPTORS, useClass: DeepDiveInterceptor, multi: true}];

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import {FontAwesomeModule} from "@fortawesome/angular-fontawesome";
 import {JwtModule} from "@auth0/angular-jwt";
+//import {DatetimePickerComponent} from "./datetime-picker/datetime-picker.component";
 
 const JwtHelper = JwtModule.forRoot({
   config: {

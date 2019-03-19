@@ -4,7 +4,8 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Status} from "../shared/interfaces/status";
 import {Event} from "../shared/interfaces/event";
 import {EventService} from "../shared/services/event.service";
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+//import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+//import {DatetimePickerComponent} from "../datetime-picker/datetime-picker.component";
 
 @Component({
 	templateUrl: "create.event.component.html",
