@@ -1,0 +1,31 @@
+<main>
+
+	<div class="container">
+		<h1>Datetime-Picker</h1>
+		<div class="row">
+			<div class="col-9">
+				<form (submit)="submit()" [formGroup]="dateTimePickerForm"
+						class="form-horizontal well"
+						name="createUserForm"
+						novalidate>
+					<div class="form-group">
+						<div class="input-group">
+							<input #ngbDatepicker="ngbDatepicker" formControlName="date" ngbDatepicker type="text"/>
+							<div class="input-group-append">
+								<button (click)="ngbDatepicker.toggle()" class="btn btn-outline-secondary calendar"
+										  type="button"></button>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="input-group">
+							<ngb-timepicker formControlName="time" meridian="true" size="small"></ngb-timepicker>
+						</div>
+					</div>
+					<button class="btn btn-primary" type="submit">click-me</button>
+
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
