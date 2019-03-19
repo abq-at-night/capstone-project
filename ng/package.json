@@ -36,13 +36,15 @@
     "@angular/cli": "~7.3.5",
     "@angular/compiler-cli": "~7.2.0",
     "@angular/language-service": "~7.2.0",
-    "@types/node": "~8.9.4",
-    "ts-node": "~7.0.0",
-    "tslint": "~5.11.0",
-    "typescript": "~3.2.2",
     "@fortawesome/fontawesome": "^1.1.7",
     "@fortawesome/fontawesome-free-brands": "^5.0.12",
     "@fortawesome/fontawesome-free-regular": "^5.0.12",
-    "@fortawesome/fontawesome-free-solid": "^5.0.12"
+    "@fortawesome/fontawesome-free-solid": "^5.0.12",
+    "@types/node": "~8.9.4",
+    "bootstrap": "^4.3.1",
+    "jquery": "^3.3.1",
+    "ts-node": "~7.0.0",
+    "tslint": "~5.11.0",
+    "typescript": "~3.2.2"
   }
 }
