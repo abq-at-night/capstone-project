@@ -26,7 +26,6 @@ export class DeepDiveInterceptor implements HttpInterceptor {
 	 **/
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		// hand off to the next interceptor
-		console.log("1");
 		return(next.handle(request).pipe(map((event: HttpEvent<any>) => {
 			// if this is an HTTP Response, from Angular...
 			if(event instanceof HttpResponse && event.body !== null) {
@@ -42,7 +41,7 @@ export class DeepDiveInterceptor implements HttpInterceptor {
 						if(jwtToken !== null) {
 							let token : string = jwtToken[0];
 							console.log(token);
-							localStorage.setItem("jwt-token", token.toString());
+							localStorage.setItem("jwt-token", token);
 						}
 					}
 

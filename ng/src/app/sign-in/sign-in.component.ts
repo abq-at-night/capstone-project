@@ -50,6 +50,7 @@ export class SignInComponent implements OnInit {
 
 	createSignIn(): void {
 
+		window.localStorage.removeItem("jwt-token");
 		 let signIn: SignIn = {adminEmail: this.signInForm.value.adminEmail, adminPassword: this.signInForm.value.adminPassword};
 
 		this.signInService.postSignIn(signIn)
@@ -57,10 +58,8 @@ export class SignInComponent implements OnInit {
 				this.status = status;
 
 				if (this.status.status === 200) {
-					window.localStorage.removeItem("jwt-token");
-					this.signInForm.reset();
 
-					this.router.navigate(["/signed-in-homeview"]);
+					this.signInForm.reset();
 				}
 			});
 
