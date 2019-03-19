@@ -24,6 +24,8 @@ export class DatetimePickerComponent implements OnInit {
 		let date = this.dateTimePickerForm.value.date;
 		let time = this.dateTimePickerForm.value.time;
 		let startTime = new Date(date.year, date.month, date.day, time.hour, time.minute);
+		let endTime = new Date(date.year, date.month, date.day, time.hour, time.minute);
 		console.log(startTime.getTime());
+		console.log(endTime.getTime());
 	}
 }
