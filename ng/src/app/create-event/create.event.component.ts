@@ -50,7 +50,7 @@ export class CreateEventComponent implements OnInit {
 
 		let eventEndTime = new Date(this.createEventForm.value.eventEndTime);
 		let eventEndTimeStamp = eventEndTime.getTime();
-		console.log(eventEndTimeStamp);
+		console.log(eventEndTime);
 		let eventStartTime = new Date(this.createEventForm.value.eventStartTime);
 		let eventStartTimeStamp = eventStartTime.getTime();
 		console.log(eventStartTimeStamp);
