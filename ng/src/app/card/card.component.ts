@@ -71,19 +71,13 @@ export class CardComponent implements OnInit {
 	status: Status = null;
 	faangledoubledown = faAngleDoubleDown;
 
-	constructor(
-		private router: Router,
-		private eventService: EventService,
-	){}
+	constructor(private router: Router, private eventService: EventService){}
 
 	ngOnInit(): void {
 		this.loadCards();
 	}
 
 	loadCards() {
-
-		this.eventService.getAllEvents()
-			.subscribe(reply =>
-				this.events = reply)
-			}
+		this.eventService.getAllEvents().subscribe(reply => this.events = reply);
+	}
 }
