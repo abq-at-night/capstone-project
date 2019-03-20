@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="col-8 mx-auto">
 
-	<form (submit)="eventEntry();" [formGroup]="createEventForm" class="form-control-lg" id="createEventForm" method="post" name="createEventForm" novalidate>
+	<form (submit)="eventEntry();" [formGroup]="createEventForm" class="form-control-lg" id="createEventForm" name="createEventForm" novalidate>
 
 		<h3 class="d-flex justify-content-center panel-title mb-2 mt-2">Create a New Event! 🎶</h3> <hr>
 
@@ -21,47 +21,33 @@
 						 placeholder="Enter an event description." type="text"/>
 			</div>
 		</div>
-
-		<div class="form-group required" id="event-date-start-time">
-			<label class="control-label requiredField" for="event-date-start-time">Start Date and Start Time<span
-				class="asteriskField">*</span> </label>
-			<form (submit)="submit()" [formGroup]="dateTimePickerForm"
-					class="form-horizontal well"
-					name="createUserForm"
-					novalidate>
-				<div class="controls">
-					<div class="form-group">
-						<div class="input-group">
-							<input #ngbDatepicker="ngbDatepicker" formControlName="date" ngbDatepicker type="text"/>
-							<div class="input-group-append">
-								<button (click)="ngbDatepicker.toggle()" class="btn btn-outline-secondary calendar"
-										  type="button"></button>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="input-group">
-							<ngb-timepicker formControlName="time" size="small"></ngb-timepicker>
-						</div>
-					</div>
+		<div class="controls">
+			<div class="input-group">
+				<input #ngbDatepicker="ngbDatepicker" formControlName="eventDate" ngbDatepicker type="text"/>
+				<div class="input-group-append">
+					<button (click)="ngbDatepicker.toggle()" class="btn btn-outline-secondary calendar"
+							  type="button"></button>
 				</div>
-			</form>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="input-group">
+				<ngb-timepicker formControlName="eventStartTime" size="small"></ngb-timepicker>
+			</div>
 		</div>
 
 		<div id="event-date-end-time" class="form-group required">
 			<label for="event-date-end-time" class="control-label requiredField">End Date and End Time<span
 				class="asteriskField">*</span> </label>
-			<form (submit)="submit()" [formGroup]="dateTimePickerForm"
+			<form (submit)="eventEntry()" [formGroup]="createEventForm"
 					class="form-horizontal well"
 					name="createUserForm"
 					novalidate>
 			<div class="controls">
-				<div class="form-group">
 					<div class="input-group">
-						<ngb-timepicker formControlName="time" size="small"></ngb-timepicker>
+						<ngb-timepicker formControlName="eventEndTime" size="small"></ngb-timepicker>
 					</div>
 				</div>
-			</div>
 			</form>
 		</div>
 
