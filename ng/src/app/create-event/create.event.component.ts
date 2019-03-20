@@ -56,19 +56,18 @@ export class CreateEventComponent implements OnInit {
 
 	eventEntry() : void {
 
-/*		let eventEndTime = new Date(this.createEventForm.value.eventEndTime);
-		let eventEndTimeStamp = eventEndTime.getTime();
-		console.log(eventEndTime);
-		let eventStartTime = new Date(this.createEventForm.value.eventStartTime);
-		let eventStartTimeStamp = eventStartTime.getTime();
-		console.log(eventStartTimeStamp);*/
 		let startTime = new Date(this.createEventForm.value.eventDate.year, this.createEventForm.value.eventDate.month -1, this.createEventForm.value.eventDate.day, this.createEventForm.value.eventStartTime.hour, this.createEventForm.value.eventStartTime.minute);
+
 		let endTime = new Date(this.createEventForm.value.eventDate.year, this.createEventForm.value.eventDate.month -1, this.createEventForm.value.eventDate.day, this.createEventForm.value.eventEndTime.hour, this.createEventForm.value.eventEndTime.minute);
+
 		console.log(startTime.getTime());
 		console.log(endTime.getTime());
+
 		//let endTime = new Date(this.createEventForm.value.eventEndTime.hour, this.createEventForm.value.eventEndTime.minute);
 		console.log(this.createEventForm.value.eventDate);
-		let newEvent : Event = {eventId:null, eventAdminId:null, eventAgeRequirement: this.createEventForm.value.eventAgeRequirement, eventDescription: this.createEventForm.value.eventDescription, eventEndTime: startTime.getTime(), eventImage: this.createEventForm.value.eventImage, eventLat: null, eventLng: null, eventPrice: this.createEventForm.value.eventPrice, eventPromoterWebsite: this.createEventForm.value.eventPromoterWebsite, eventStartTime: startTime.getTime(), eventTitle: this.createEventForm.value.eventTitle, eventVenue: this.createEventForm.value.eventVenue, eventVenueWebsite: this.createEventForm.value.eventVenueWebsite, eventAddress: this.createEventForm.value.eventAddress};
+
+		let newEvent : Event = {eventId:null, eventAdminId:null, eventAgeRequirement: this.createEventForm.value.eventAgeRequirement, eventDescription: this.createEventForm.value.eventDescription, eventEndTime: endTime.getTime(), eventImage: this.createEventForm.value.eventImage, eventLat: null, eventLng: null, eventPrice: this.createEventForm.value.eventPrice, eventPromoterWebsite: this.createEventForm.value.eventPromoterWebsite, eventStartTime: startTime.getTime(), eventTitle: this.createEventForm.value.eventTitle, eventVenue: this.createEventForm.value.eventVenue, eventVenueWebsite: this.createEventForm.value.eventVenueWebsite, eventAddress: this.createEventForm.value.eventAddress};
+
 		this.eventService.createEvent(newEvent)
 			.subscribe(status => {
 				this.status = status;
