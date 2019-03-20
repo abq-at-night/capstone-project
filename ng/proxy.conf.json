@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://bootcamp-coders.cnm.edu/~wsalmons/capstone-project/public_html/",
+    "target": "https://bootcamp-coders.cnm.edu/~jcallaway3/capstone-project/public_html/",
     "secure": "false",
     "changeOrigin": "true"
   }
