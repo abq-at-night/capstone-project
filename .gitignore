@@ -22,3 +22,5 @@ testem.log
 /e2e/*.map
 Thumbs.db
 */proxy.conf.json
+**/ng-templating.php
+**/Secrets.php
