@@ -23,5 +23,5 @@ testem.log
 Thumbs.db
 */proxy.conf.json
 **/ng-templating.php
-**/Secrets.php
+/php/Secrets.php
 docker-compose.env
