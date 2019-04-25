@@ -7,7 +7,8 @@
     "phpunit/dbunit": "@stable",
     "phpunit/phpunit": "@stable",
     "lcobucci/jwt": "3.2",
-    "swiftmailer/swiftmailer": "@stable"
+    "swiftmailer/swiftmailer": "@stable",
+    "phpseclib/phpseclib": "2.0.11"
   },
   "scripts": {
     "phpunit": "./vendor/bin/phpunit -c ./php/Classes/Tests/ --coverage-html coverage"

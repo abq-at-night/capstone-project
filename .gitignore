@@ -22,6 +22,6 @@ testem.log
 /e2e/*.map
 Thumbs.db
 */proxy.conf.json
-**/ng-templating.php
-/php/Secrets.php
+**/atnight.php
+/php/secrets/Secrets.php
 docker-compose.env

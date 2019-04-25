@@ -5,7 +5,7 @@ require_once dirname(__DIR__, 3) . "/php/lib/xsrf.php";
 require_once dirname(__DIR__, 3) . "/php/lib/jwt.php";
 require_once dirname(__DIR__, 3) . "/php/lib/uuid.php";
 require_once dirname(__DIR__, 3) . "/php/lib/geocode.php";
-require_once("/etc/apache2/capstone-mysql/Secrets.php");
+require_once("/var/www/secrets/Secrets.php");
 
 use AbqAtNight\CapstoneProject\{
 	Event, Tag
@@ -30,7 +30,7 @@ $reply->data = null;
 
 try {
 	//grab the mySQL connection
-	$secrets =  new \Secrets("/etc/apache2/capstone-mysql/cohort23/atnight.ini");
+	$secrets =  new \Secrets("/var/www/secrets/atnight.ini");
 	$pdo = $secrets->getPdoObject();
 
 	//determine which HTTP method was used

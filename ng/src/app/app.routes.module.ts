@@ -20,9 +20,9 @@ import {DatetimePickerComponent} from "./datetime-picker/datetime-picker.compone
 
 export const routes: Routes = [
 	{path: "", component: SplashComponent},
-	{path: "sign-in", component: SignInComponent},
+	{path: "sign-in", component: SignInComponent, canActivate: [AuthGuard]},
 	{path: "event", component: CardComponent},
-	{path: "create-event-form", component: CreateEventComponent},
+	{path: "create-event-form", component: CreateEventComponent, canActivate: [AuthGuard]},
 	{path: "navbar", component: NavbarComponent}
 
 ];
