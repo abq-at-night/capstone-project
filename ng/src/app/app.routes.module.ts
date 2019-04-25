@@ -14,8 +14,7 @@ import {EventService} from "./shared/services/event.service";
 import {CreateEventComponent} from "./create-event/create.event.component";
 import {NavbarComponent} from "./shared/components/nav-bar/navbar.component";
 import {DatetimePickerComponent} from "./datetime-picker/datetime-picker.component";
-
-
+import{AuthGuardService as AuthGuard} from "./shared/services/auth-guard-service";
 
 
 export const routes: Routes = [
