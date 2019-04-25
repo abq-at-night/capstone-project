@@ -5,7 +5,7 @@ services:
    php:
       build: ./php
       depends_on:
-         - sql
+         - mysql
       env_file:
          - ./docker-compose-lesson.env
       environment:
@@ -16,7 +16,7 @@ services:
          - php
       ports:
          - 80:80
-   sql:
+   mysql:
       build: ./mysql
       env_file:
          - ./docker-compose-lesson.env
