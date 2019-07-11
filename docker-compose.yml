@@ -20,5 +20,3 @@ services:
       build: ./mysql
       env_file:
          - ./docker-compose-lesson.env
-      ports:
-         - 33006:3306
